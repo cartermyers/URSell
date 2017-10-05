@@ -1,0 +1,17 @@
+Here is where the proposal will go.
+
+After we are done editing, we should probably use Word or
+another processor to make it look pretty, and save it here as
+a .pdf.
+
+TODO:
+
+TITLE
+
+DESCRIPTION
+
+
+FUNCTIONAL REQUIREMENTS
+
+
+SOFTWARE QUALITIES
