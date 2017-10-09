@@ -6,10 +6,11 @@ a .pdf.
 
 TODO:
 
-TITLE
+URSell
 
-DESCRIPTION
-
+A place for students to buy, sell, or even barter with other students and university members.
+They can sell their old textbooks, buy a new couch, even earn some money for tutoring.
+URSell is the place to advertise and search for all of these.
 
 FUNCTIONAL REQUIREMENTS
 
