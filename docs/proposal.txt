@@ -4,8 +4,6 @@ After we are done editing, we should probably use Word or
 another processor to make it look pretty, and save it here as
 a .pdf.
 
-TODO:
-
 URSell
 
 A place for students to buy, sell, or even barter with other students and university members.
@@ -67,3 +65,15 @@ In-site Email
 
 
 SOFTWARE QUALITIES
+==========================
+
+The most important quality for our website is user-friendliness. We want users
+to easily find any content they are looking for, so we will offer a quick,
+easy-to-navigate website with many categories and a simple search.
+
+Because we want a user-friendly website, we will also consider a lot of interface
+design and aesthetics when building the website. Any site that is visually
+appealing also becomes easier to use.
+
+Lastly, we aim to practice general security precautions, such as input cleansing
+and password hashing. 
