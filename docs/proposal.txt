@@ -13,6 +13,57 @@ They can sell their old textbooks, buy a new couch, even earn some money for tut
 URSell is the place to advertise and search for all of these.
 
 FUNCTIONAL REQUIREMENTS
+==========================
+Each requirement here is roughly divided by each website page, detailing what
+is needed from the user and what is provided.
+
+Home Page
+-------------------------
+  - Basic information about the site and its goals will be stated here, while
+  showcasing some of the content available on the site. It will also give users
+  an option to sign-up or login.
+
+User Sign-up
+--------------------------
+  - Users must provide the following information to sign up to the site:
+    - Unique username
+    - Password (at least 8 characters, with one alpha character and one numeric character)
+    - Email ending in @uregina.ca (with an option to be validated later)
+    - Optional photo
+
+User Login
+--------------------------
+  - Users must provide their:
+    - Username
+    - Password
+  to properly log in to use the website.
+
+User Profile
+--------------------------
+  - The following information about specific users will be shown here:
+    - Username
+    - Email (optional)
+    - Previous posts
+    - User photo
+    - About user
+
+Post Page
+--------------------------
+  Here will contain all current posts made by users. They will be separated by
+  categories, and each post will contain:
+    - Title
+    - User
+    - General Description (with optional hashtags)
+    - Photo
+    - Comments
+    - Contact info
+
+In-site Email
+--------------------------
+  Since it is crucial for users to communicate privately with each other, we
+  will provide a in-site email (similar to that in UR Courses) for users to communicate.
+  Since users will also have their @uregina.ca emails, we will offer email notifications
+  for this feature as well.
 
 
 SOFTWARE QUALITIES
