@@ -4,14 +4,76 @@ After we are done editing, we should probably use Word or
 another processor to make it look pretty, and save it here as
 a .pdf.
 
-TODO:
+URSell
 
-TITLE
-
-DESCRIPTION
-
+A place for students to buy, sell, or even barter with other students and university members.
+They can sell their old textbooks, buy a new couch, even earn some money for tutoring.
+URSell is the place to advertise and search for all of these.
 
 FUNCTIONAL REQUIREMENTS
+==========================
+Each requirement here is roughly divided by each website page, detailing what
+is needed from the user and what is provided.
+
+Home Page
+-------------------------
+  - Basic information about the site and its goals will be stated here, while
+  showcasing some of the content available on the site. It will also give users
+  an option to sign-up or login.
+
+User Sign-up
+--------------------------
+  - Users must provide the following information to sign up to the site:
+    - Unique username
+    - Password (at least 8 characters, with one alpha character and one numeric character)
+    - Email ending in @uregina.ca (with an option to be validated later)
+    - Optional photo
+
+User Login
+--------------------------
+  - Users must provide their:
+    - Username
+    - Password
+  to properly log in to use the website.
+
+User Profile
+--------------------------
+  - The following information about specific users will be shown here:
+    - Username
+    - Email (optional)
+    - Previous posts
+    - User photo
+    - About user
+
+Post Page
+--------------------------
+  Here will contain all current posts made by users. They will be separated by
+  categories, and each post will contain:
+    - Title
+    - User
+    - General Description (with optional hashtags)
+    - Photo
+    - Comments
+    - Contact info
+
+In-site Email
+--------------------------
+  Since it is crucial for users to communicate privately with each other, we
+  will provide a in-site email (similar to that in UR Courses) for users to communicate.
+  Since users will also have their @uregina.ca emails, we will offer email notifications
+  for this feature as well.
 
 
 SOFTWARE QUALITIES
+==========================
+
+The most important quality for our website is user-friendliness. We want users
+to easily find any content they are looking for, so we will offer a quick,
+easy-to-navigate website with many categories and a simple search.
+
+Because we want a user-friendly website, we will also consider a lot of interface
+design and aesthetics when building the website. Any site that is visually
+appealing also becomes easier to use.
+
+Lastly, we aim to practice general security precautions, such as input cleansing
+and password hashing. 
