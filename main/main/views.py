@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
@@ -11,5 +10,3 @@ def index(request):
     #context = dict()
 
     return render(request, 'index.html')
-
-    #return HttpResponse("This works?")
