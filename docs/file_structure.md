@@ -4,11 +4,11 @@ Here are some general notes on the structure of this repository and where files 
 
 ### HTML Files
 
-All .html files should be placed in the appropriate /templates/ directory. For example, all general purpose pages (such as index.html) live in [main/templates/](/main/templates/), whereas any pages belonging specifically to users (such as a profile page) should be stored in [main/template/user] where /user/ is the directory for an app named user. Don't worry if you don't fully understand this right now. It'll be easy to understand as we go along and create apps.
+All .html files should be placed in the appropriate /templates/ directory. For example, all general purpose pages (such as index.html) live in [main/templates/](/main/templates/), whereas any pages belonging specifically to users (such as a profile page) should be stored in [main/template/user]() where /user/ is the directory for an app named user. Don't worry if you don't fully understand this right now. It'll be easy to understand as we go along and create apps.
 
 ### JS, CSS and Image Files
 
-Any file that is referenced in a .html file (such as a .js, .css, etc.) should be stored in a static folder within the same directory as the corresponding template folder. For example, index.css (style for index.html) lives in [/main/static/](/main/static/), and profile.css (style for the user profile page) is stored in [main/static/user]. 
+Any file that is referenced in a .html file (such as a .js, .css, etc.) should be stored in a static folder within the same directory as the corresponding template folder. For example, index.css (style for index.html) lives in [/main/static/](/main/static/), and profile.css (style for the user profile page) is stored in [main/static/user](). 
 
 Now, when referencing a static file within a .html file, you could use just the absolute path like normal, but it makes it much easier to maintain and modify to use a relative reference provided by Django. First, this line must be included once in the file before any static files are referenced.
  
