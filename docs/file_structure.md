@@ -12,11 +12,11 @@ Any file that is referenced in a .html file (such as a .js, .css, etc.) should b
 
 Now, when referencing a static file within a .html file, you could use just the absolute path like normal, but it makes it much easier to maintain and modify to use a relative reference provided by Django. First, this line must be included once in the file before any static files are referenced.
  
-<center>```{% load static %}```</center>
+```{% load static %}```
 
 Then, any static file can be referenced with the following syntax:
 
-<center>```<img src="{% static "app/image.jpg" %}"/>```</center>
+```<img src="{% static "app/image.jpg" %}"/>```
 
 If the static file is not in a directory in /static/ (i.e. its path is /static/image.jpg), then the app/ directory does not need to be included.
 
