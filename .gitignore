@@ -1,0 +1,2 @@
+# ignore any compiled python files
+*.pyc
