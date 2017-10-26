@@ -19,6 +19,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^account/', include('account.urls')), #user profile page and other account actions
+    url(r'^$', views.index, name='index'),  #main page
     url(r'^admin/', admin.site.urls),
 ]
