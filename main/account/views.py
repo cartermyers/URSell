@@ -25,7 +25,6 @@ def signup(request):
     - Uname
     - Sid (maybe remove later)
     - pic
-    - remember_user
     """
 
     # local variables with the post data:
@@ -77,11 +76,12 @@ def signup(request):
     #       log in user if successful
     #       send user error if unsuccessful
 
-    from django.contrib import messages
+    # if there are any errors, display them to the user:
+    if signup_errors:
+        return render(request, 'index.html', {'signup_errors': signup_errors})
 
-    # only create a user if there are no errors
-    if not signup_errors:
-        new_user = User.objects.create_user(username=username, email=email, password=password)
+    #else, create the user and log them in
+    new_user = User.objects.create_user(username=username, email=email, password=password)
 
-    #return to the last page
+    #return to the index
     return HttpResponseRedirect(reverse('index'))
