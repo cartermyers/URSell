@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>UR-SALE</title>
+	<!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% load static %}
-
-    <title>UR-SALE</title>
     <!-- load stylesheets -->
-
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="{% static "font-awesome-4.5.0/css/font-awesome.min.css" %}">                <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">                                      <!-- Bootstrap style -->
-    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">                                     <!-- Magnific pop up style -->
-    <link rel="stylesheet" href="{% static "css/templatemo-style.css" %}">                                   <!-- Templatemo style -->
-    <link rel="stylesheet" href="{% static "css/login.css" %}">                                     <!-- login style -->
-    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                     <!-- other style -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->	
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                		<!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      		<!-- Bootstrap style -->
+    <link rel="stylesheet" href="css/magnific-popup.css">                                     		<!-- Magnific pop up style -->
+    <link rel="stylesheet" href="css/templatemo-style.css">                                   		<!-- Templatemo style -->
+    <link rel="stylesheet" href="css/login.css">                                     				<!-- login style -->
+    <link rel="stylesheet" href="css/mystyle.css">                                     				<!-- other style -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,12 +26,27 @@
 </head>
 
     <body id="top" class="home">
-    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button> 
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="img/user-sidebar.png" alt="Avatar"><hr color="grey"/>
+  				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Log out</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">What ever</a>
+				<a href="test/test.html" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+				<a href="categoriestest.html" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
+
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+<!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 							<div id="id01" class="modal">
  							 <form class="modal-content animate" action="/action_page.php">
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
- 							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
+ 							     <img src="img/unknownuser.png" alt="Avatar" class="avatar">
  							   </div>
 
  							   <div class="container">
@@ -42,7 +55,7 @@
 
    							   <label><b>Password</b></label>
   							    <input type="password" placeholder="Password" name="psw" required>
-
+        
   							    <button type="submit">Login</button>
   							    <input type="checkbox" checked="checked"> Remember me
   							  </div>
@@ -57,37 +70,29 @@
 						</script>
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
-
-                    {% if signup_errors %}
-                    <h1> HERE ARE THE SIGNUP ERRORS </h1>
-                      {% for key, value in signup_errors.items %}
-                        {{value}}<br/>
-                      {% endfor %}
-                    {% endif  %}
-
-								  <form class="modal-content animate" method="POST" action="{% url 'account:signup' %}">
-                    {% csrf_token %}
-                    <div class="container">
+								  
+								  <form class="modal-content animate" action="/action_page.php">
+								    <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 								     <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
 								      <label><b>Email</b></label>
 								      <input type="text" placeholder="Enter Email" name="email" required>
-
+								
 								      <label><b>Password</b></label>
 								      <input type="password" placeholder="Enter Password" name="psw" required>
 
 								      <label><b>Repeat Password</b></label>
 								      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
+								      
 								      <label><b>Username</b></label>
 								      <input type="text" placeholder="Enter Username" name="Uname" required>
-
+								      
 								      <label><b>Student ID</b></label>
 								      <input type="text" placeholder="Enter Student ID" name="Sid" required>
-
+								      
 								      <label><b>Photo: </b></label>
 								      <input class="tm-intro-link2" type="file" name="pic" accept="image/*"><br>
-								      <input type="checkbox" checked="checked" name="remember_user"> Remember me
+								      <input type="checkbox" checked="checked"> Remember me
  								     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
 								      <div class="clearfix">
@@ -99,6 +104,16 @@
 								</div>
 
 								<script>
+								function sidebar_open() {
+								    document.getElementById("mySidebar").style.display = "block";
+								    document.getElementById("myOverlay").style.display = "block";
+								    document.getElementById("sidebaricon").style.display = "none";
+								}
+								function sidebar_close() {
+								    document.getElementById("mySidebar").style.display = "none";
+								    document.getElementById("myOverlay").style.display = "none";
+								    document.getElementById("sidebaricon").style.display = "block";
+								}
 								// Get the modal
 								var modal = document.getElementById('id02');
 								// When the user clicks anywhere outside of the modal, close it
@@ -114,20 +129,15 @@
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
             <div class="row">
-
+              
                 <div class="tm-navbar-container">
-
                 <!-- navbar   -->
                 <nav class="navbar navbar-full navbar-fixed-top">
-
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
-                        &#9776;
-                    </button>
-
-                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
+                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">                     
                         <ul class="nav navbar-nav">
                             <li class="nav-item"><a class="nav-link" href="#top">Intro</a> </li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Saling</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
                             <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
@@ -136,21 +146,19 @@
                         </ul>
                     </div>
                 </nav>
-
-              </div>
-
+              </div>  
            </div>
 
            <div class="row">
                 <div class="tm-intro">
 
-                    <section id="tm-section-1">
+                    <section id="tm-section-1">                        
                         <div class="tm-container text-xs-center tm-section-1-inner">
-                            <img src="{% static "img/URegina-Logo-500x5001.png" %}" alt="Logo" class="tm-logo">
+                            <img src="img/URegina-Logo-500x5001.png" alt="Logo" class="tm-logo">
                             <h1 class="tm-site-name">UR-SALE</h1>
                             <p class="tm-intro-text">Online classified advertising service</p>
-                            <a href="#tm-section-2" class="tm-intro-link">Begin</a>
-                        </div>
+                            <a href="#tm-section-2" class="tm-intro-link">Begin</a>    
+                        </div>                                               
                    </section>
 
                 </div>
@@ -161,113 +169,98 @@
 
                 <section id="tm-section-2" class="tm-section">
                     <div class="tm-container text-xs-center">
-
-                        <h2 class="blue-text tm-title">Lorem ipsum dolor sit amet</h2>
-                        <p class="margin-b-5">Etiam at rhoncus nisl. Nunc rutrum ac ante euismod cursus.</p>
-                        <p>Suspendisse imperdiet feugiat massa nex iaculis.</p>
-
-                        <div class="tm-img-grid">
+                        
+                        <h2 class="blue-text tm-title">HomePage Gallery</h2>
+                        <p class="margin-b-5"></p>
+                        <p></p>
+                       
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-01.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-01.jpg" %}" alt="Image" class="img-fluid tm-gallery-img"> <!-- 300x200 -->
+                                <a href="img/tm-450x300-01.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-01.jpg" alt="Image" class="img-fluid tm-gallery-img"> <!-- 300x200 -->
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-07.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-07.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-07.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-07.jpg" alt="Image" class="img-fluid tm-gallery-img">  
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-02.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-02.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-02.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-02.jpg" alt="Image" class="img-fluid tm-gallery-img">
+                                </a>                           
+                            </div>
+                            <div class="tm-gallery-img-container">
+                                <a href="img/tm-450x300-09.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-09.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-09.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-09.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-03.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-03.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-03.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-03.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-08.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-08.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-08.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-08.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-10.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-10.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-10.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-10.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-04.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-04.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-04.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-04.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-05.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-05.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-05.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-05.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-11.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-11.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-11.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-11.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-06.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-06.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
                             </div>
                             <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-06.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-06.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
+                                <a href="img/tm-450x300-12.jpg" class="tm-gallery-img-link">
+                                    <img src="img/tm-450x300-12.jpg" alt="Image" class="img-fluid tm-gallery-img">
                                 </a>
+                            </div> 
                             </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-12.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-12.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </section>
 
             </div> <!-- row -->
-
             <div class="row gray-bg">
-
+                
                 <div id="tm-section-3" class="tm-section">
                     <div class="tm-container tm-container-wide">
                         <div class="tm-news-item">
-
+                            
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-01.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
+                                <img src="img/superhero.jpg" alt="Image" class="img-fluid tm-news-item-img">  
                             </div>
-
+                            
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">Lumino theme is a Bootstrap 4.0 mobile compatible layout for your website. Check "columns" page for one, two, three columns and tables.</p>
-                                <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Preview</a>
-                            </div>
-                        </div>
-
-                        <div class="tm-news-item">
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 flex-order-2 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-02.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container flex-order-1">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">You may download, modify and use this template as you wish. Lumino HTML5 template is a fully responsive mobile ready for any kind of website.</p>
+                                <h2 class="tm-news-title dark-gray-text">CS372 UR-SALE team</h2>
+                                <p class="tm-news-text">Michael Gardiner,Braydon Hanson,Ben He,Martin Li,Carter Myers,Mitchell Thies.</p>
                                 <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Detail</a>
                             </div>
                         </div>
 
-
-                    </div>
+                       
+                       
+                    </div>                    
                </div>
 
-           </div>
+           </div> 
 
             <div class="row gray-bg">
 
@@ -275,9 +268,9 @@
                     <div class="tm-container">
 
                         <h2 class="blue-text tm-title text-xs-center">Contact Us</h2>
-
+                      
                         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                            <form action="index.html" method="post" class="tm-contact-form">
+                            <form action="index.html" method="post" class="tm-contact-form">                                
                                 <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 tm-form-group-left">
                                     <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
                                 </div>
@@ -290,44 +283,45 @@
                                 <div class="form-group">
                                     <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Message" required></textarea>
                                 </div>
-
-                                <button type="submit" class="btn tm-light-blue-bordered-btn pull-xs-right">Submit</button>
-                            </form>
+                            
+                                <button type="submit" class="btn tm-light-blue-bordered-btn pull-xs-right">Submit</button>                          
+                            </form>   
                         </div> <!-- col -->
-
+                        
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 margin-top-xs-50">
-                            <h3 class="light-blue-text tm-subtitle">Etiam at rhoncus nisl</h3>
-                            <p>Nunc rutrum ac ante euismod cursus. Suspendisse imperdiet feugiat massa nec iaculis</p>
-                            <p>
+                            <h3 class="light-blue-text tm-subtitle">Please note: </h3>
+                            <p>If you choose not to register, you will be unable to post, edit or manage any new or existing ads.</p>
+                             <p>Any existing ads you posted previously will continue to be listed UR-SALE until they expire.  Rest assured that you'll continue to receive any replies via email as usual.</p>
+			    <p>
                                 Tel: <a href="tel:0100200340">010-020-0340</a><br>
-                                Email: <a href="mailto:info@company.com">info@company.com</a>
+                                Email: <a href="mailto:info@company.com">info@ursale.com</a>
                             </p>
                         </div>
-                    </div>
+                    </div>                    
                 </section>
 
                 <!-- footer -->
-                <footer class="tm-footer">
+                <footer class="tm-footer">                
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2016 Company Name</p>
-                    </div>
-                </footer>
+                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-SALE</p>                    
+                    </div>                
+                </footer>  
 
             </div> <!-- row -->
-
+           
         </div> <!-- container-fluid -->
-
+        
         <!-- load JS files -->
-
-        <script src="{% static "js/jquery-1.11.3.min.js" %}"></script>             <!-- jQuery (https://jquery.com/download/) -->
-        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h -->
-        <script src="{% static "js/bootstrap.min.js" %}"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
-        <script src="{% static "js/jquery.singlePageNav.min.js" %}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-        <script src="{% static "js/jquery.magnific-popup.min.js" %}"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
-
+        
+        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+        <script src="js/jquery.singlePageNav.min.js"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="js/jquery.magnific-popup.min.js"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
+        
         <!-- Templatemo scripts -->
-        <script>
-
+        <script>     
+       
             $(document).ready(function(){
 
                 var mobileTopOffset = 54;
@@ -337,21 +331,21 @@
                 if($(window).width() <= 767) {
                     topOffset = mobileTopOffset;
                 }
-
+                
                 /* Single page nav
                 -----------------------------------------*/
                 $('#tmNavbar').singlePageNav({
                    'currentClass' : "active",
                     offset : topOffset,
                     'filter': ':not(.external)'
-                });
+                }); 
 
                 /* Handle nav offset upon window resize
                 -----------------------------------------*/
                 $(window).resize(function(){
                     if($(window).width() <= 767) {
                         topOffset = mobileTopOffset;
-                    }
+                    } 
                     else {
                         topOffset = desktopTopOffset;
                     }
@@ -362,9 +356,9 @@
                         'filter': ':not(.external)'
                     });
                 });
+                
 
-
-                /* Collapse menu after click
+                /* Collapse menu after click 
                 -----------------------------------------*/
                 $('#tmNavbar a').click(function(){
                     $('#tmNavbar').collapse('hide');
@@ -382,7 +376,7 @@
                 }
 
                 $(window).scroll(function(){
-
+                   
                     if($(this).scrollTop() >= target) {
                         $(".tm-navbar-container").addClass("bg-inverse");
                     }
@@ -396,33 +390,33 @@
                  * https://css-tricks.com/snippets/jquery/smooth-scrolling/
                 --------------------------------------------------------------*/
                 $('a[href*="#"]:not([href="#"])').click(function() {
-                    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+                    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
                         && location.hostname == this.hostname) {
-
+                        
                         var target = $(this.hash);
                         target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-
+                        
                         if (target.length) {
-
+                            
                             $('html, body').animate({
                                 scrollTop: target.offset().top - topOffset
                             }, 1000);
                             return false;
                         }
                     }
-                });
+                }); 
 
-
+              
                 /* Magnific pop up
                 ------------------------- */
                 $('.tm-img-grid').magnificPopup({
                     delegate: 'a', // child items selector, by clicking on it popup will open
                     type: 'image',
-                    gallery: {enabled:true}
-                });
+                    gallery: {enabled:true}            
+                });            
             });
 
-        </script>
+        </script>             
 
 </body>
 </html>

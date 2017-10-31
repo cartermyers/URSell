@@ -1,4 +1,3 @@
-
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
@@ -8,7 +7,6 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
 /* Set a style for all buttons */
 button {
     background-color: green;
@@ -21,7 +19,33 @@ button {
     font:bold;
     font-size: 20px; 
 }
-
+.login-close
+{
+	background-color:transparent;
+	width:30px;
+	position:absolute;
+	top:0%;
+	right:0%;
+	color:white;
+	font-size:30px
+}
+.sidebar
+{
+	position: fixed;
+    top: 1.5%;
+    left: 1%;
+    background-color: transparent;
+    z-index:1005;
+    width:45px;
+}
+img.usericon
+{
+    background-color: transparent;
+    z-index:1005;
+    width:45px;
+    margin:15px; 
+    border-radius: 50%;
+}
 button:hover {
     opacity: 0.8;
 }
@@ -45,7 +69,7 @@ img.avatar {
     width: 25%;
     border-radius: 50%;
 }
-
+img.sidebar{margin:5px; border-radius: 50%;}
 .container {
     padding: 16px;
 }
