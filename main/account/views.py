@@ -37,39 +37,9 @@ def signup(request):
     remember_user = request.POST['remember_user']
 
     #dictionary for errors:
-    signup_errors = dict()
+    signup_errors = User.signup(email, password, password_repeat, username, profile_pic) 
 
-    # For now, we'll use simple validation
-    # but I want to look at Django's validation more closely
-
-    # ---- email ----
-
-    # u of r email
-    if not re.match(r"\S{3,}@uregina.ca$", email):
-        signup_errors['email'] = "Must be a valid University of Regina email."
-
-    # reject the email if it already is registered
-    try:
-        User.objects.get(email=email)
-        signup_errors['email'] = "Email is already registered"
-    except User.DoesNotExist:
-        pass
-
-    # check if passwords match
-    if password != password_repeat:
-        signup_errors['password'] = "Your passwords did not match."
-
-    # hash password:
-    password = make_password(password)
-
-    #unique username
-    try:
-        User.objects.get(username=username)
-        signup_errors['username'] = "Username already exists."
-    except User.DoesNotExist:
-        pass
-
-    # TODO: check sid?
+       # TODO: check sid?
     #       check profile pic?
     #       save profile pic (handle in models)
     #       use cookies for remember_user
@@ -83,5 +53,6 @@ def signup(request):
     #else, create the user and log them in
     new_user = User.objects.create_user(username=username, email=email, password=password)
 
+    #User.login()
     #return to the index
     return HttpResponseRedirect(reverse('index'))

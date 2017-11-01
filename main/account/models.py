@@ -16,3 +16,52 @@ class User(AbstractUser):
     def __str__(self):
         """Default text representation of a user"""
         return self.get_username()
+
+    signup(email, password, password_repeat, username, pic):
+        """
+        DEF: This function takes info from a POST form and creates a user
+
+        PRE: This function assumes that the email, psw, psw-repeat, and Uname are non-null
+
+        POST FIELDS:
+        - email
+        - psw
+        - psw-repeat
+        - Uname
+        - Sid (maybe remove later)
+        - pic
+        """
+       # For now, we'll use simple validation
+    
+       # ---- email ----
+
+       # u of r email
+        if not re.match(r"\S{3,}@uregina.ca$", email):
+            signup_errors['email'] = "Must be a valid University of Regina email."
+
+        # reject the email if it already is registered
+        try:
+            User.objects.get(email=email)
+            signup_errors['email'] = "Email is already registered"
+        except User.DoesNotExist:
+            pass
+
+        # check if passwords match
+        if password != password_repeat:
+            signup_errors['password'] = "Your passwords did not match." 
+
+        # hash password:
+        password = make_password(password)
+
+        #unique username
+        try:
+            User.objects.get(username=username)
+            signup_errors['username'] = "Username already exists."
+        except User.DoesNotExist:
+            pass
+
+        # TODO: 
+        #       check profile pic?
+        #       save profile pic (handle in models)
+
+            return signup_errors
