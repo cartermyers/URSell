@@ -12,3 +12,6 @@ def categories(request):
 
 def categories_test(request):
     return render(request, 'posts/categoriestest.html')
+
+def test(request):
+    return render(request, 'posts/test.html')
