@@ -1,0 +1,12 @@
+A list of current known bugs or other weird stuff.
+Explain the problem well and try to be as explicit as you can. Note
+the steps you took to experience the bug, any place you think it occurs
+(such as which page or which function), and other info.
+
+- Login/Sign Up Buttons
+  Whenever I use these buttons on a half-screen, or a smaller screen device,
+  the drop down menu does not go away when I select them. I think this is
+  because they are a <button> tag. If they are switched to an <a> tag with
+  href=#, I think it works fine, but I haven't looked into it much.
+
+  - CM
