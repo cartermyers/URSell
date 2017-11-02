@@ -11,5 +11,5 @@ class UserModelTests(TestCase):
 
     def test_email_signup(self):
         email = "wrongemail@gmail.com"
-        User.
+        User.sign_up(email, password, ...)
         
