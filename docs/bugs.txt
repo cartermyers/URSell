@@ -13,6 +13,9 @@ the steps you took to experience the bug, any place you think it occurs
   <li class="nav-item"><button data-toggle="collapse" data-target="#tmNavbar" class="tm-intro-link2" id = "sign-and-log" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></li>
   <li class="nav-item"><button data-toggle="collapse" data-target="#tmNavbar" class="tm-intro-link2" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button> </li>
 I add {data-toggle="collapse" data-target="#tmNavbar"} to the log in and sign up buttons and right now it works on my website.
+and I add this
+onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'"
+to these buttons so it can cancel each other out when user click on one another.
  -Martin Li
          
                        
