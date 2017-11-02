@@ -38,7 +38,7 @@
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Log out</a>
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">What ever</a>
   				<a href="test/test.html" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
-  				<a href="categoriestest.html" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
+  				<a href="{% url 'posts:categories_test' %}" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
 
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
@@ -144,7 +144,7 @@
                             <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                             <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></li>
                              <li class="nav-item"><button class="tm-intro-link2" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button> </li>
                         </ul>

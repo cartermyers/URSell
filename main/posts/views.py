@@ -8,4 +8,7 @@ from django.shortcuts import render
 from .models import Categories
 
 def categories(request):
-    return render(request, 'categories.html')
+    return render(request, 'posts/categories.html')
+
+def categories_test(request):
+    return render(request, 'posts/categoriestest.html')
