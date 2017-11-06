@@ -12,12 +12,16 @@ class User(AbstractUser):
     # CLASS FIELDS
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
+    profile_pic = models.ImageField(upload_to='account/', default='account/unknownuser.jpg')
 
     # CLASS METHODS
     # These are class functions
     def __str__(self):
         """Default text representation of a user"""
         return self.get_username()
+
+    def validate_email(email):
+        return re.match(r"\S{3,}@uregina.ca$", email)
 
     def validate_signup(self, email, password, password_repeat, username, pic):
         """
@@ -35,11 +39,11 @@ class User(AbstractUser):
 
         signup_errors = dict()
 
-       # ---- email ----
+        # ---- email ----
 
-       # u of r email
-        if not re.match(r"\S{3,}@uregina.ca$", email):
-            signup_errors['email'] = "Must be a valid University of Regina email."
+        # u of r email
+        if not validate_email(email):
+           signup_errors['email'] = "Must be a valid University of Regina email."
 
         # reject the email if it already is registered
         try:
