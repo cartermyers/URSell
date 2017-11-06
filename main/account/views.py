@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password
 
 import re
 
@@ -34,7 +33,8 @@ def signup(request):
     profile_pic = request.POST['pic']
 
     #dictionary for errors:
-    signup_errors = User.signup(email, password, password_repeat, username, profile_pic)
+    new_user = User()
+    signup_errors = new_user.validate_signup(email, password, password_repeat, username, profile_pic)
 
        # TODO:
     #       check profile pic?

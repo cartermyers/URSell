@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import password_validation, hashers
+import re
 
 class User(AbstractUser):
     """See https://docs.djangoproject.com/en/1.11/topics/auth/customizing/ for all fields/attributes included in the superuser"""
@@ -17,9 +19,7 @@ class User(AbstractUser):
         """Default text representation of a user"""
         return self.get_username()
 
-    def validate_email()
-
-    def signup(email, password, password_repeat, username, pic):
+    def validate_signup(self, email, password, password_repeat, username, pic):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -32,6 +32,8 @@ class User(AbstractUser):
         - Uname
         - pic
         """
+
+        signup_errors = dict()
        # For now, we'll use simple validation
 
        # ---- email ----
@@ -47,12 +49,18 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
+        # validate the password:
+        try:
+            password_validation.validate_password(password)
+        except password_validation.ValidationError:
+            signup_errors['password'] = password_validation.password_validators_help_texts()
+
         # check if passwords match
         if password != password_repeat:
             signup_errors['password'] = "Your passwords did not match."
 
         # hash password:
-        password = make_password(password)
+        password = hashers.make_password(password)
 
         #unique username
         try:
@@ -65,4 +73,4 @@ class User(AbstractUser):
         #       check profile pic?
         #       save profile pic (handle in models)
 
-            return signup_errors
+        return signup_errors if signup_errors else None
