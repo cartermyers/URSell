@@ -34,7 +34,6 @@ class User(AbstractUser):
         """
 
         signup_errors = dict()
-       # For now, we'll use simple validation
 
        # ---- email ----
 

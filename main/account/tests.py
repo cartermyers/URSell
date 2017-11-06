@@ -9,7 +9,15 @@ from .models import User
 
 class UserModelTests(TestCase):
 
-    def test_email_signup(self):
+    def test_email_validation(self):
         email = "wrongemail@gmail.com"
-        User.sign_up(email, password, ...)
-        
+        self.IsAssert() # or something
+
+    def test_password_validation(self):
+        pass
+
+    def test_user_signup(self):
+        # test for same emails
+        # test for same usernames
+        # test for proper case
+        pass
