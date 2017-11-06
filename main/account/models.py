@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth import password_validation, hashers
+from django.contrib.auth import password_validation
 
 import re
 
@@ -65,8 +65,6 @@ class User(AbstractUser):
         if password != password_repeat:
             signup_errors['password'] = "Your passwords did not match."
 
-        # hash password:
-        password = hashers.make_password(password)
 
         #unique username
         try:
@@ -75,20 +73,17 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
-        # TODO:
-
         #       check if a picture with the same name already exists:
-        """
+
         try:
             count = 1
-            old = User.objects.get(profile_pic= "account/" + pic)
+            old = User.objects.get(profile_pic= "account/" + pic.name)
             while old:
-                pic = pic + "(" + str(count) + ")"
+                pic.name = pic.name + "(" + str(count) + ")"
                 count += 1
-                old = User.objects.get(profile_pic="account/" + pic)
+                old = User.objects.get(profile_pic="account/" + pic.name)
         except User.DoesNotExist:
                 # else, we are fine
                 pass
-        """
 
         return signup_errors if signup_errors else None

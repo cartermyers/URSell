@@ -5,12 +5,13 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import hashers
 
 import re
 
 #models:
 from .models import User
+from .forms import SignupForm
 
 def signup(request):
     """
@@ -27,11 +28,11 @@ def signup(request):
     """
 
     # local variables with the post data:
+
     email = request.POST['email']
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    # profile_pic = request.POST['pic']
     profile_pic = request.FILES['pic']
 
     #dictionary for errors:
@@ -41,11 +42,12 @@ def signup(request):
     if signup_errors:
         return render(request, 'index.html', {'signup_errors': signup_errors})
 
-    #save the profile pic:
-    filename = FileSystemStorage().save(profile_pic.name, myfile)
-
     #else, create the user and log them in
-    new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=filename)
+
+    # hash password:
+    password = hashers.make_password(password)
+
+    new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
 
     #User.login()
     #return to the index
