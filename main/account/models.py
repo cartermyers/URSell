@@ -26,6 +26,23 @@ class User(AbstractUser):
         return re.match(r"\S{3,}@uregina.ca$", email)
 
     @staticmethod
+    def validate_pic_name(pic_name):
+        try:
+            count = 1
+            old = User.objects.get(profile_pic= "account/" + pic_name)
+            name = pic_name.split('.')
+            extension = '.' + name.pop(-1)
+            while old:
+                # do some fancy logic to change the file name:
+                # use a new file name for the user
+                pic_name = "".join(name) + str(count) + extension
+                old = User.objects.get(profile_pic="account/" + pic_name)
+                count += 1
+        except User.DoesNotExist:
+                # else, we are fine
+                return pic_name
+
+    @staticmethod
     def validate_signup(email, password, password_repeat, username, pic):
         """
         DEF: This function takes info from a POST form and creates a user
@@ -73,17 +90,8 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
-        #       check if a picture with the same name already exists:
-
-        try:
-            count = 1
-            old = User.objects.get(profile_pic= "account/" + pic.name)
-            while old:
-                pic.name = pic.name + "(" + str(count) + ")"
-                count += 1
-                old = User.objects.get(profile_pic="account/" + pic.name)
-        except User.DoesNotExist:
-                # else, we are fine
-                pass
+        # check if a picture with the same name already exists:
+        if pic:
+            pic.name = User.validate_pic_name(pic.name)
 
         return signup_errors if signup_errors else None

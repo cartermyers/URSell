@@ -11,7 +11,6 @@ import re
 
 #models:
 from .models import User
-from .forms import SignupForm
 
 def signup(request):
     """
@@ -33,7 +32,8 @@ def signup(request):
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    profile_pic = request.FILES['pic']
+    profile_pic = request.FILES.get('pic', None)
+
 
     #dictionary for errors:
     signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
