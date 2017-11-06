@@ -17,5 +17,9 @@ and I add this
 onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'"
 to these buttons so it can cancel each other out when user click on one another.
  -Martin Li
-         
-                       
+
+- Sign Up Photo
+  Whenever I try to add a photo to upload when signing up, it will only show
+  the photo name when I hover over it. Otherwise it is blank. I think this is
+  a little counter-intuitive and we should look into it.
+  - CM
