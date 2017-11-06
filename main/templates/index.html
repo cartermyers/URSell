@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>UR-SALE</title>
+	  <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
-
-    <title>UR-SALE</title>
-    <!-- load stylesheets -->
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
@@ -28,7 +27,23 @@
 </head>
 
     <body id="top" class="home">
-    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
+      <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+   			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{% static "img/user-sidebar.png" %}" alt="Avatar"></button>
+   			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
+   				<button class="login-close" onclick="sidebar_close()">&times;</button>
+     				<img class="usericon" src="{% static "img/user-sidebar.png" %}" alt="Avatar"><hr color="grey"/>
+    				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Log out</a>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">What ever</a>
+  				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+  				<a href="{% url 'posts:categories_test' %}" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
+
+   			</div>
+   			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+   <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
+
 							<div id="id01" class="modal">
  							 <form class="modal-content animate" action="/action_page.php">
   							  <div class="imgcontainer">
@@ -91,6 +106,16 @@
 								</div>
 
 								<script>
+                function sidebar_open() {
+ 								    document.getElementById("mySidebar").style.display = "block";
+ 								    document.getElementById("myOverlay").style.display = "block";
+ 								    document.getElementById("sidebaricon").style.display = "none";
+ 								}
+ 								function sidebar_close() {
+ 								    document.getElementById("mySidebar").style.display = "none";
+ 								    document.getElementById("myOverlay").style.display = "none";
+ 								    document.getElementById("sidebaricon").style.display = "block";
+ 								}
 								// Get the modal
 								var modal = document.getElementById('id02');
 								// When the user clicks anywhere outside of the modal, close it
@@ -112,25 +137,20 @@
                 <!-- navbar   -->
                 <nav class="navbar navbar-full navbar-fixed-top">
 
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
-                        &#9776;
-                    </button>
-
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
                     <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                         <ul class="nav navbar-nav">
                             <li class="nav-item"><a class="nav-link" href="#top">Intro</a> </li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Saling</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
+                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                             <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
                              <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
                         </ul>
                     </div>
                 </nav>
-
               </div>
-
            </div>
 
            <div class="row">
@@ -232,25 +252,12 @@
                         <div class="tm-news-item">
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-01.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
+                                <img src="{% static "img/superhero.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">Lumino theme is a Bootstrap 4.0 mobile compatible layout for your website. Check "columns" page for one, two, three columns and tables.</p>
-                                <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Preview</a>
-                            </div>
-                        </div>
-
-                        <div class="tm-news-item">
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 flex-order-2 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-02.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container flex-order-1">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">You may download, modify and use this template as you wish. Lumino HTML5 template is a fully responsive mobile ready for any kind of website.</p>
+                              <h2 class="tm-news-title dark-gray-text">CS372 UR-SALE team</h2>
+                                <p class="tm-news-text">Michael Gardiner, Braydon Hanson, Ben He, Martin Li, Carter Myers, Mitchell Thies.</p>
                                 <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Detail</a>
                             </div>
                         </div>
@@ -292,7 +299,7 @@
                             <p>Nunc rutrum ac ante euismod cursus. Suspendisse imperdiet feugiat massa nec iaculis</p>
                             <p>
                                 Tel: <a href="tel:0100200340">010-020-0340</a><br>
-                                Email: <a href="mailto:info@company.com">info@company.com</a>
+                                Email: <a href="mailto:info@company.com">info@ursale.com</a>
                             </p>
                         </div>
                     </div>
@@ -301,7 +308,7 @@
                 <!-- footer -->
                 <footer class="tm-footer">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2016 Company Name</p>
+                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-SALE</p>
                     </div>
                 </footer>
 
