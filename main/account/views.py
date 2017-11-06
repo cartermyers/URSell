@@ -23,7 +23,6 @@ def signup(request):
     - psw
     - psw-repeat
     - Uname
-    - Sid (maybe remove later)
     - pic
     """
 
@@ -32,17 +31,14 @@ def signup(request):
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    sid = request.POST['Sid']
     profile_pic = request.POST['pic']
-    remember_user = request.POST['remember_user']
 
     #dictionary for errors:
-    signup_errors = User.signup(email, password, password_repeat, username, profile_pic) 
+    signup_errors = User.signup(email, password, password_repeat, username, profile_pic)
 
-       # TODO: check sid?
+       # TODO:
     #       check profile pic?
     #       save profile pic (handle in models)
-    #       use cookies for remember_user
     #       log in user if successful
     #       send user error if unsuccessful
 

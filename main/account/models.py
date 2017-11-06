@@ -17,7 +17,9 @@ class User(AbstractUser):
         """Default text representation of a user"""
         return self.get_username()
 
-    signup(email, password, password_repeat, username, pic):
+    def validate_email()
+
+    def signup(email, password, password_repeat, username, pic):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -28,11 +30,10 @@ class User(AbstractUser):
         - psw
         - psw-repeat
         - Uname
-        - Sid (maybe remove later)
         - pic
         """
        # For now, we'll use simple validation
-    
+
        # ---- email ----
 
        # u of r email
@@ -48,7 +49,7 @@ class User(AbstractUser):
 
         # check if passwords match
         if password != password_repeat:
-            signup_errors['password'] = "Your passwords did not match." 
+            signup_errors['password'] = "Your passwords did not match."
 
         # hash password:
         password = make_password(password)
@@ -60,7 +61,7 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
-        # TODO: 
+        # TODO:
         #       check profile pic?
         #       save profile pic (handle in models)
 
