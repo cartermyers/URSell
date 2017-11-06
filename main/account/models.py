@@ -23,7 +23,7 @@ class User(AbstractUser):
 
     @staticmethod
     def validate_email(email):
-        return re.match(r"\S{3,}@uregina.ca$", email)
+        return True if re.match(r"\S{3,}@uregina.ca$", email) else False
 
     @staticmethod
     def validate_pic_name(pic_name):
