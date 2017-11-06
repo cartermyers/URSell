@@ -65,7 +65,7 @@
                       {% endfor %}
                     {% endif  %}
 
-								  <form class="modal-content animate" method="POST" action="{% url 'account:signup' %}">
+								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
                     {% csrf_token %}
                     <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>

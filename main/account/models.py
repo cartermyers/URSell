@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation, hashers
+
 import re
 
 class User(AbstractUser):
@@ -20,10 +21,12 @@ class User(AbstractUser):
         """Default text representation of a user"""
         return self.get_username()
 
+    @staticmethod
     def validate_email(email):
         return re.match(r"\S{3,}@uregina.ca$", email)
 
-    def validate_signup(self, email, password, password_repeat, username, pic):
+    @staticmethod
+    def validate_signup(email, password, password_repeat, username, pic):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -42,7 +45,7 @@ class User(AbstractUser):
         # ---- email ----
 
         # u of r email
-        if not validate_email(email):
+        if not User.validate_email(email):
            signup_errors['email'] = "Must be a valid University of Regina email."
 
         # reject the email if it already is registered
@@ -73,7 +76,19 @@ class User(AbstractUser):
             pass
 
         # TODO:
-        #       check profile pic?
-        #       save profile pic (handle in models)
+
+        #       check if a picture with the same name already exists:
+        """
+        try:
+            count = 1
+            old = User.objects.get(profile_pic= "account/" + pic)
+            while old:
+                pic = pic + "(" + str(count) + ")"
+                count += 1
+                old = User.objects.get(profile_pic="account/" + pic)
+        except User.DoesNotExist:
+                # else, we are fine
+                pass
+        """
 
         return signup_errors if signup_errors else None

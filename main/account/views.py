@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.core.files.storage import FileSystemStorage
 
 import re
 
@@ -30,24 +31,21 @@ def signup(request):
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    profile_pic = request.POST['pic']
+    # profile_pic = request.POST['pic']
+    profile_pic = request.FILES['pic']
 
     #dictionary for errors:
-    new_user = User()
-    signup_errors = new_user.validate_signup(email, password, password_repeat, username, profile_pic)
-
-       # TODO:
-    #       check profile pic?
-    #       save profile pic (handle in models)
-    #       log in user if successful
-    #       send user error if unsuccessful
+    signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
 
     # if there are any errors, display them to the user:
     if signup_errors:
         return render(request, 'index.html', {'signup_errors': signup_errors})
 
+    #save the profile pic:
+    filename = FileSystemStorage().save(profile_pic.name, myfile)
+
     #else, create the user and log them in
-    new_user = User.objects.create_user(username=username, email=email, password=password)
+    new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=filename)
 
     #User.login()
     #return to the index

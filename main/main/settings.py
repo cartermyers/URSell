@@ -143,4 +143,5 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # INVESTIGATE THIS MORE
+MEDIA_URL = '/media/'
 # MEDIA_URL = 'http://cartermyers.pythonanywhere.com/media'
