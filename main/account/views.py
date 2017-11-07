@@ -68,27 +68,24 @@ def login(request):
     """
 
 	#if user is already signed in, redirect them
-	if request.session.get('logged_n', None):
+    if request.session.get('logged_in', None):
 		return render(request, 'index.html')
 
     username = request.POST['uname']
     password = request.POST['psw']
     keep_log_in = request.POST.get('keep_log_in', None)
-		
-    login_errors = User.login(username, password)
 
-	if login_errors:
+    user = User()
+    login_errors = user.login(username, password)
+
+    if login_errors:
 		return render(request, 'index.html', {'login_errors': login_errors})
 
-	request.session['logged_in'] =	User.objects.get(username=username).pk
+    request.session['logged_in'] = user.pk
 
-	if keep_log_in:
+    if keep_log_in:
 		request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
-	else:
+    else:
 		request.session.set_expiry(0)	# expires on browser close
 
-	return render(request, 'index.html')
-
-    
-
-    
+    return render(request, 'index.html')
