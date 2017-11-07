@@ -55,3 +55,19 @@ def signup(request):
     #User.login()
     #return to the index
     return HttpResponseRedirect(reverse('index'))
+
+def login(request):
+    """
+    DEF: This function is the from handler for logging in users.
+
+    PRE: POST['uname'] and POST['psw'] are non-null.
+
+    POST: A user is logged in or an error is thrown. Either way, they are
+    redirected back to the homepage
+    """
+
+    username = request.POST['uname']
+    password = request.POST['psw']
+    remember_me = request.POST.get('remember', None)
+
+    

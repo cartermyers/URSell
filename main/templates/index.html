@@ -45,7 +45,8 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
- 							 <form class="modal-content animate" action="/action_page.php">
+ 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
+                 {% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
@@ -59,7 +60,7 @@
   							    <input type="password" placeholder="Password" name="psw" required>
 
   							    <button type="submit">Login</button>
-  							    <input type="checkbox" checked="checked"> Remember me
+  							    <input type="checkbox" checked="checked" name="remember"> Remember me
   							  </div>
 
   							  <div class="container" style="background-color:#f1f1f1">
