@@ -1,0 +1,14 @@
+A simple list of current things we need to do.
+Maybe we should organize this by language or page or
+something, for now it's just a list.
+
+- Finish sign up
+  - html return errors
+  - validation
+  - image storage
+  - testing
+
+- Finish log in
+  - bunch of stuff
+
+etc.
