@@ -85,6 +85,16 @@ def login(request):
     if keep_log_in:
 		request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
     else:
-		request.session.set_expiry(0)	# expires on browser close
+        pass
+        #request.session.set_expiry(0)	# expires on browser close
 
-    return HttpResponseRedirect(reverse('index.html'))
+    return HttpResponseRedirect(reverse('index'))
+
+def logout(request):
+    try:
+        del request.session['logged_in']
+        request.session.flush()
+    except KeyError:
+        pass
+
+    return HttpResponseRedirect(reverse('index'))
