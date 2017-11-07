@@ -104,7 +104,7 @@ class User(AbstractUser):
             if user.check_password(password):
                 self = user
             else:
-                errors['password'] = "Incorrect password"
+                errors['password'] = "Incorrect password."
 
         except User.DoesNotExist:
             errors['username'] = "There are no users with that username."

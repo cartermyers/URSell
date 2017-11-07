@@ -48,12 +48,11 @@ def signup(request):
 
     #else, create the user and log them in
 
-    # hash password:
-    password = hashers.make_password(password)
-
+    # create_user hashes the password for us
     new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
 
-    #User.login()
+    # log in user:
+    request.session['logged_in'] = new_user.pk
     #return to the index
     return HttpResponseRedirect(reverse('index'))
 
@@ -88,4 +87,4 @@ def login(request):
     else:
 		request.session.set_expiry(0)	# expires on browser close
 
-    return render(request, 'index.html')
+    return HttpResponseRedirect(reverse('index.html'))
