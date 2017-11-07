@@ -4,11 +4,10 @@ something, for now it's just a list.
 
 - Finish sign up
   - html return errors
-  - validation
-  - image storage
   - testing
 
-- Finish log in
-  - bunch of stuff
+- Log in
+  - Separate html for a logged in user (should be on the login branch)
+  - Serve user image and username (maybe store in session?)
 
 etc.
