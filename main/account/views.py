@@ -40,6 +40,9 @@ def signup(request):
 
     # if there are any errors, display them to the user:
     if signup_errors:
+        # NOTE: I might need to change to something like this:
+        #request.session['signup_errors'] = signup_errors
+        #return HttpResponseRedirect(reverse('index'))
         return render(request, 'index.html', {'signup_errors': signup_errors})
 
     #else, create the user and log them in
