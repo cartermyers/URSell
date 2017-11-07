@@ -1,5 +1,3 @@
 # ignore any compiled python files
 *.pyc
 
-# ignore any migration changes
-migrations
