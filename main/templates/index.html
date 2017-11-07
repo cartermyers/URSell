@@ -45,8 +45,18 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
+				{% if request.session.logged_in %}
+				You're logged in!
+				{% else %} 
+					{% if login_errors %}
+                    <h1> HERE ARE THE LOGIN ERRORS </h1>
+                      {% for key, value in signup_errors.items %}
+                        {{value}}<br/>
+                      {% endfor %}
+                    {% endif  %}
+
  							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
-                 {% csrf_token %}
+                 			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
@@ -60,7 +70,7 @@
   							    <input type="password" placeholder="Password" name="psw" required>
 
   							    <button type="submit">Login</button>
-  							    <input type="checkbox" checked="checked" name="remember"> Remember me
+  							    <input type="checkbox" checked="checked" name="keep_log_in"> Keep me logged in
   							  </div>
 
   							  <div class="container" style="background-color:#f1f1f1">
@@ -71,6 +81,7 @@
 								// Get the modal
 								var Logmodal = document.getElementById('id01');
 						</script>
+					{% endif %}
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
 

@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import hashers
+# from django.backends.base import SessionBase
 
 import re
 
@@ -66,8 +67,28 @@ def login(request):
     redirected back to the homepage
     """
 
+	#if user is already signed in, redirect them
+	if request.session.get('logged_n', None):
+		return render(request, 'index.html')
+
     username = request.POST['uname']
     password = request.POST['psw']
-    remember_me = request.POST.get('remember', None)
+    keep_log_in = request.POST.get('keep_log_in', None)
+		
+    login_errors = User.login(username, password)
+
+	if login_errors:
+		return render(request, 'index.html', {'login_errors': login_errors})
+
+	request.session['logged_in'] =	User.objects.get(username=username).pk
+
+	if keep_log_in:
+		request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
+	else:
+		request.session.set_expiry(0)	# expires on browser close
+
+	return render(request, 'index.html')
+
+    
 
     
