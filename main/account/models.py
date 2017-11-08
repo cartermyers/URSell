@@ -13,7 +13,7 @@ class User(AbstractUser):
     # CLASS FIELDS
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
-    profile_pic = models.ImageField(upload_to='account/', default='account/unknownuser.jpg')
+    profile_pic = models.ImageField(upload_to='account/', default='account/user-sidebar.png')
 
     # CLASS METHODS
     # These are class functions

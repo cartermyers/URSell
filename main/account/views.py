@@ -48,7 +48,11 @@ def signup(request):
     #else, create the user and log them in
 
     # create_user hashes the password for us
-    new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
+    if profile_pic:
+        new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
+    else:
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+
 
     # log in user:
     login(request, new_user)

@@ -28,10 +28,11 @@
 
     <body id="top" class="home">
       <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
-   			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{% static "img/user-sidebar.png" %}" alt="Avatar"></button>
+   			{% if user.is_authenticated %}
+        <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
    			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
    				<button class="login-close" onclick="sidebar_close()">&times;</button>
-     				<img class="usericon" src="{% static "img/user-sidebar.png" %}" alt="Avatar"><hr color="grey"/>
+     				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
     				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
@@ -42,6 +43,7 @@
 
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+        {% endif %}
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
@@ -162,7 +164,7 @@
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
                             <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
-                            {% if request.session.logged_in %}
+                            {% if request.user.is_authenticated %}
                             <li class="nav-item"><a href="logout.html" class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Log out</a></li>
                             <li class="nav-item"><a href="profile.html" class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Profile</a> </li>
                             {% else %}
