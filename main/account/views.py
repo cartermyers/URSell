@@ -5,8 +5,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth import hashers
-# from django.backends.base import SessionBase
+from django.contrib.auth import hashers, authenticate, login, logout
 
 import re
 
@@ -52,11 +51,12 @@ def signup(request):
     new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
 
     # log in user:
-    request.session['logged_in'] = new_user.pk
+    login(request, new_user)
+
     #return to the index
     return HttpResponseRedirect(reverse('index'))
 
-def login(request):
+def login_view(request):
     """
     DEF: This function is the from handler for logging in users.
 
@@ -67,24 +67,29 @@ def login(request):
     """
 
 	#if user is already signed in, redirect them
-    if request.session.get('logged_in', None):
-		return render(request, 'index.html')
+    #NOTE: I'm not sure if this is actually necessary
+    #if request.user.is_authenticated:
+        #HttpResponseRedirect(reverse('index'))
 
     username = request.POST['uname']
     password = request.POST['psw']
     keep_log_in = request.POST.get('keep_log_in', None)
 
-    user = User()
-    login_errors = user.login(username, password)
+    user = authenticate(request, username=username, password=password)
 
-    if login_errors:
-		return render(request, 'index.html', {'login_errors': login_errors})
-
-    request.session['logged_in'] = user.pk
+    # if user is not None, then there are no errors
+    if user:
+        login(request, user)
+    else:
+        return render(request, 'index.html', {'login_errors': 'Those are invalid credentials'})
 
     if keep_log_in:
 		request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
-    else:
-		request.session.set_expiry(0)	# expires on browser close
 
-    return HttpResponseRedirect(reverse('index.html'))
+    #else, uses the default expiry at browser close
+
+    return HttpResponseRedirect(reverse('index'))
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

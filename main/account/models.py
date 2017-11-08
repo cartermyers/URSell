@@ -95,18 +95,3 @@ class User(AbstractUser):
             pic.name = User.validate_pic_name(pic.name)
 
         return signup_errors if signup_errors else None
-
-    def login(self, username, password):
-        errors = dict()
-        try:
-            user = User.objects.get(username=username)
-
-            if user.check_password(password):
-                self = user
-            else:
-                errors['password'] = "Incorrect password."
-
-        except User.DoesNotExist:
-            errors['username'] = "There are no users with that username."
-
-        return errors if errors else None

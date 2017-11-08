@@ -45,15 +45,16 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
-				{% if request.session.logged_in %}
-				You're logged in!
+                <h1>here</h1>
+                {{ request.session.get_expiry_age }}
+				{% if request.user.is_authenticated %}
+				<h1>You're logged in!</h1>
+        {{ request.user.username }}<br />
 				{% endif %}
-        
+
 					{% if login_errors %}
                     <h1> HERE ARE THE LOGIN ERRORS </h1>
-                      {% for key, value in login_errors.items %}
-                        {{value}}<br/>
-                      {% endfor %}
+                      {{ login_errors }}<br />
           {% endif  %}
 
  							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
