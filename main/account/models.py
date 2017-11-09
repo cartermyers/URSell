@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
+from django.core.mail import send_mail
 
 import re
 
@@ -96,3 +97,13 @@ class User(AbstractUser):
             pic.name = User.validate_pic_name(pic.name)
 
         return signup_errors if signup_errors else None
+
+    def send_validation_email(self):
+        #the url that will process the validation
+        # NOTE: this needs to be reviewed
+        validation_url = '<a>localhost:8000/account/validate_email/' + str(self.pk) +'/</a>'
+
+        send_mail('URSell Email Validation',    #subject
+                  'Please validate your email by selecting the following link: ' + validation_url,  #message
+                  'ursell.test@gmail.com', #from
+                  [self.email])  #to

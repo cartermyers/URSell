@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth import hashers, authenticate, login, logout
+from django.contrib.auth import hashers, authenticate, login, logout, decorators
 
 import re
 
@@ -97,3 +97,33 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+def validate_email(request, user_id):
+    """NOTE: this is just a temporary implementation for testing"""
+
+    if not user_id:
+        request.user.send_validation_email()
+    else:
+        user = get_object_or_404(User, pk=user_id)
+        user.validated_email = True
+        user.save()
+    return HttpResponseRedirect(reverse('index'))
+
+    """
+    NOTE: here is a more general view for sending/receiving requests.
+        From a security view, there needs to be better checking if the
+        email was actually sent, if they responded from the email, etc.
+
+    context = dict()
+    if request.method == 'POST':
+        request.user.send_validation_email()
+        context['message'] = "An email has been sent to " + request.user.email + " for validation"
+    elif user_id:
+        user = get_object_or_404(User, pk=user_id)
+        user.validated_email = True
+        user.save()
+        context['message'] = "Your email is now validated!"
+
+
+    return HttpResponseRedirect(reverse(request.GET['next']))
+    """
