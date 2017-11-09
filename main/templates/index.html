@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
+    {% load dict_get %}
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
@@ -56,6 +57,7 @@
 
 					{% if login_errors %}
                     <h1> HERE ARE THE LOGIN ERRORS </h1>
+                    there is only one login error message<br />
                       {{ login_errors }}<br />
           {% endif  %}
 
@@ -90,9 +92,21 @@
 
                     {% if signup_errors %}
                     <h1> HERE ARE THE SIGNUP ERRORS </h1>
-                      {% for key, value in signup_errors.items %}
-                        {{value}}<br/>
-                      {% endfor %}
+                    Here are all possible signup_errors:<br />
+                      {% if signup_errors|get_item:'email' %}
+                        {{ signup_errors|get_item:'email' }}<br />
+                      {% endif %}
+
+                      {% if signup_errors|get_item:'password'%}
+                        {% for error in signup_errors|get_item:'password' %}<br />
+                          {{ error }}<br />
+                        {% endfor %}
+                      {% endif %}
+
+                      {% if signup_errors|get_item:'username'%}
+                        {{ signup_errors|get_item:'username' }}<br />
+                      {% endif %}
+
                     {% endif  %}
 
 								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">

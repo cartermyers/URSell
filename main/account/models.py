@@ -72,16 +72,17 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
+        # check if passwords match
+        if password != password_repeat:
+            signup_errors['password'] = ["Your passwords did not match."]
+
         # validate the password:
+        # NOTE: it is intentional that it can possibly overwrite the other key
+        # it doesn't matter if the passwords match if it is not valid
         try:
             password_validation.validate_password(password)
         except password_validation.ValidationError:
             signup_errors['password'] = password_validation.password_validators_help_texts()
-
-        # check if passwords match
-        if password != password_repeat:
-            signup_errors['password'] = "Your passwords did not match."
-
 
         #unique username
         try:
