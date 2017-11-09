@@ -47,7 +47,7 @@ def signup(request):
     #else, create the user and log them in
 
     # hash password:
-    password = hashers.make_password(password)
+    password = make_password(password)
 
     new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
 
