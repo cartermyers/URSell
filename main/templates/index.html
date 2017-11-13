@@ -73,8 +73,16 @@
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
 
-								  <form class="modal-content animate" action="/action_page.php">
-								    <div class="container">
+                    {% if signup_errors %}
+                    <h1> HERE ARE THE SIGNUP ERRORS </h1>
+                      {% for key, value in signup_errors.items %}
+                        {{value}}<br/>
+                      {% endfor %}
+                    {% endif  %}
+
+								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
+                    {% csrf_token %}
+                    <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 								     <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
 								      <label><b>Email</b></label>
@@ -89,12 +97,8 @@
 								      <label><b>Username</b></label>
 								      <input type="text" placeholder="Enter Username" name="Uname" required>
 
-								      <label><b>Student ID</b></label>
-								      <input type="text" placeholder="Enter Student ID" name="Sid" required>
-
 								      <label><b>Photo: </b></label>
-								      <input class="tm-intro-link2" type="file" name="pic" accept="image/*"><br>
-								      <input type="checkbox" checked="checked"> Remember me
+								      <input class="tm-intro-link2" type="file" name="pic" accept="image/*"><br
  								     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
 								      <div class="clearfix">

@@ -23,7 +23,6 @@ def signup(request):
     - psw
     - psw-repeat
     - Uname
-    - Sid (maybe remove later)
     - pic
     """
 
@@ -32,56 +31,26 @@ def signup(request):
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    sid = request.POST['Sid']
-    profile_pic = request.POST['pic']
-    remember_user = request.POST['remember_user']
+    profile_pic = request.FILES.get('pic', None)
+
 
     #dictionary for errors:
-    signup_errors = dict()
+    signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
 
-    # For now, we'll use simple validation
-    # but I want to look at Django's validation more closely
+    # if there are any errors, display them to the user:
+    if signup_errors:
+        # NOTE: I might need to change to something like this:
+        #request.session['signup_errors'] = signup_errors
+        #return HttpResponseRedirect(reverse('index'))
+        return render(request, 'index.html', {'signup_errors': signup_errors})
 
-    # ---- email ----
-
-    # u of r email
-    if not re.match(r"\S{3,}@uregina.ca$", email):
-        signup_errors['email'] = "Must be a valid University of Regina email."
-
-    # reject the email if it already is registered
-    try:
-        User.objects.get(email=email)
-        signup_errors['email'] = "Email is already registered"
-    except User.DoesNotExist:
-        pass
-
-    # check if passwords match
-    if password != password_repeat:
-        signup_errors['password'] = "Your passwords did not match."
+    #else, create the user and log them in
 
     # hash password:
     password = make_password(password)
 
-    #unique username
-    try:
-        User.objects.get(username=username)
-        signup_errors['username'] = "Username already exists."
-    except User.DoesNotExist:
-        pass
+    new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
 
-    # TODO: check sid?
-    #       check profile pic?
-    #       save profile pic (handle in models)
-    #       use cookies for remember_user
-    #       log in user if successful
-    #       send user error if unsuccessful
-
-    # if there are any errors, display them to the user:
-    if signup_errors:
-        return render(request, 'index.html', {'signup_errors': signup_errors})
-
-    #else, create the user and log them in
-    new_user = User.objects.create_user(username=username, email=email, password=password)
-
+    #User.login()
     #return to the index
     return HttpResponseRedirect(reverse('index'))
