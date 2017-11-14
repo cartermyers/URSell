@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 
-from .models import Categories
+from .models import Categories, Posts, PostImages
 
 def new_post(request):
     """ a view to handle and present the new post form
@@ -33,10 +34,17 @@ def new_post(request):
 
     errors = dict()
 
-    #
+    # process form here
+    if request.method == "POST":
 
 
-    return render(request, 'posts/categories.html', {'errors': errors})
+
+        # if it's a successful post, redirect to the new page:
+        return HttpResponseRedirect(reverse('postpage.html'))
+
+
+    # render the page with any errors or just a plain form
+    return render(request, 'posts/post2.html', {'errors': errors})
 
 def categories(request):
     return render(request, 'posts/categories.html')
