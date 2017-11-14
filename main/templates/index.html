@@ -86,9 +86,9 @@
                     {% if signup_errors %}
                     <h1> HERE ARE THE SIGNUP ERRORS </h1>
                     Here are all possible signup_errors:<br />
-                    {{ signup_errors|get_item:email }}<br />
-                    {{ signup_errors|get_item:password }}<br />
-                    {{ signup_errors|get_item:username }}<br />
+                    {{ signup_errors|get_item:'email' }}<br />
+                    {{ signup_errors|get_item:'password' }}<br />
+                    {{ signup_errors|get_item:'username' }}<br />
                     {% endif%}
 
 								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
