@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
+    {% load dict_get %}
 
     <title>UR-SALE</title>
     <!-- load stylesheets -->
@@ -28,9 +29,34 @@
 </head>
 
     <body id="top" class="home">
-    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
+      <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+   			{% if user.is_authenticated %}
+        <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+   			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
+   				<button class="login-close" onclick="sidebar_close()">&times;</button>
+     				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+    				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
+    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
+    				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+    				<a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
+  				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+  				<a href="{% url 'posts:categories_test' %}" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
+
+   			</div>
+   			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+        {% endif %}
+   <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
+
 							<div id="id01" class="modal">
- 							 <form class="modal-content animate" action="/action_page.php">
+					{% if login_errors %}
+                    <h1> HERE ARE THE LOGIN ERRORS </h1>
+                    there is only one login error message<br />
+                      {{ login_errors }}<br />
+          {% endif  %}
+
+ 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
+                 			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
@@ -44,7 +70,7 @@
   							    <input type="password" placeholder="Password" name="psw" required>
 
   							    <button type="submit">Login</button>
-  							    <input type="checkbox" checked="checked"> Remember me
+  							    <input type="checkbox" checked="checked" name="keep_log_in"> Keep me logged in
   							  </div>
 
   							  <div class="container" style="background-color:#f1f1f1">
@@ -60,10 +86,11 @@
 
                     {% if signup_errors %}
                     <h1> HERE ARE THE SIGNUP ERRORS </h1>
-                      {% for key, value in signup_errors.items %}
-                        {{value}}<br/>
-                      {% endfor %}
-                    {% endif  %}
+                    Here are all possible signup_errors:<br />
+                    {{ signup_errors|get_item:email }}<br />
+                    {{ signup_errors|get_item:password }}<br />
+                    {{ signup_errors|get_item:username }}<br />
+                    {% endif%}
 
 								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
                     {% csrf_token %}
@@ -126,9 +153,11 @@
                             <li class="nav-item"><a class="nav-link" href="#tm-section-2">Saling</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
-                            <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button></li>
-                             <li class="nav-item"><button class="tm-intro-link2" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign Up</button> </li>
+                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
+                            {% if not request.user.is_authenticated %}
+                            <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
+                             <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>

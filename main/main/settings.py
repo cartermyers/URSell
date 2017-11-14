@@ -54,6 +54,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
@@ -141,8 +144,22 @@ STATICFILES_DIRS = [
 
 # Media files (for us, images uploaded by users)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
 
 # INVESTIGATE THIS MORE
-MEDIA_URL = '/media/'
+MEDIA_URL = '/static/media/'
 # MEDIA_URL = 'http://cartermyers.pythonanywhere.com/media'
+
+# Email info (to be used later)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ursell.test@gmail.com' #name of email username
+EMAIL_HOST_PASSWORD = 'petsname'
+EMAIL_USE_TLS = True
+"""
+EMAIL_HOST = 'smtp.sendgrid.net' #name of mail server
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ursell' #name of email username
+EMAIL_HOST_PASSWORD = 'nicetry'
+EMAIL_USE_TLS = True
+"""

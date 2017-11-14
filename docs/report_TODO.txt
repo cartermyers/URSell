@@ -1,0 +1,40 @@
+Here is a point-by-point list of the project report. See CS372 - Project.pdf
+on URCourses for details on the task. If you are assigned to a task, and you
+think you may need some more time or some help, please let the
+group know. Please mark once you have completed the tasks, and also put
+down your name if you have reviewed another person's task.
+
+NOTE: There are still some areas where we haven't fully decided who will
+complete the work (namely, 7c and the slides).
+
+TASK                      ASSIGNEE                COMPLETE (REVIEWED)
+
+1.                        Carter
+
+2.  (a)                   Mitchell
+    (b)                   Mitchell
+    (c)                   Mitchell
+
+3.  (a)                   Carter
+    (b)                   Mitchell
+    (c)                   Carter
+    (d)                   Carter
+
+4.  (a)                   Everyone
+    (b)                   Brayden/Carter
+    (c)                   Michael/Everyone
+    (d)                   Carter
+
+5.  (a)                   Brayden
+    (b)                   Everyone
+    (c)                   Everyone
+    (d)                   Everyone
+    (e)                   Carter
+
+6.                        Martin/Ben
+
+7.  (a)                   Michael
+    (b)                   Brayden
+    (c)                   **OPEN**
+
+8.                        Everyone

@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
+from django.core.mail import send_mail
 
 import re
 
@@ -13,7 +14,7 @@ class User(AbstractUser):
     # CLASS FIELDS
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
-    profile_pic = models.ImageField(upload_to='account/', default='account/unknownuser.jpg')
+    profile_pic = models.ImageField(upload_to='account/', default='account/user-sidebar.png')
 
     # CLASS METHODS
     # These are class functions
@@ -72,16 +73,17 @@ class User(AbstractUser):
         except User.DoesNotExist:
             pass
 
+        # check if passwords match
+        if password != password_repeat:
+            signup_errors['password'] = ["Your passwords did not match."]
+
         # validate the password:
+        # NOTE: it is intentional that it can possibly overwrite the other key
+        # it doesn't matter if the passwords match if it is not valid
         try:
             password_validation.validate_password(password)
         except password_validation.ValidationError:
             signup_errors['password'] = password_validation.password_validators_help_texts()
-
-        # check if passwords match
-        if password != password_repeat:
-            signup_errors['password'] = "Your passwords did not match."
-
 
         #unique username
         try:
@@ -95,3 +97,13 @@ class User(AbstractUser):
             pic.name = User.validate_pic_name(pic.name)
 
         return signup_errors if signup_errors else None
+
+    def send_validation_email(self):
+        #the url that will process the validation
+        # NOTE: this needs to be reviewed
+        validation_url = '<a>localhost:8000/account/validate_email/' + str(self.pk) +'/</a>'
+
+        send_mail('URSell Email Validation',    #subject
+                  'Please validate your email by selecting the following link: ' + validation_url,  #message
+                  'ursell.test@gmail.com', #from
+                  [self.email])  #to
