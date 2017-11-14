@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth import hashers, authenticate, login, logout, decorators
 
 import re
 
@@ -23,65 +23,107 @@ def signup(request):
     - psw
     - psw-repeat
     - Uname
-    - Sid (maybe remove later)
     - pic
     """
 
     # local variables with the post data:
+
     email = request.POST['email']
     password = request.POST['psw']
     password_repeat = request.POST['psw-repeat']
     username = request.POST['Uname']
-    sid = request.POST['Sid']
-    profile_pic = request.POST['pic']
-    remember_user = request.POST['remember_user']
+    profile_pic = request.FILES.get('pic', None)
+
 
     #dictionary for errors:
-    signup_errors = dict()
-
-    # For now, we'll use simple validation
-    # but I want to look at Django's validation more closely
-
-    # ---- email ----
-
-    # u of r email
-    if not re.match(r"\S{3,}@uregina.ca$", email):
-        signup_errors['email'] = "Must be a valid University of Regina email."
-
-    # reject the email if it already is registered
-    try:
-        User.objects.get(email=email)
-        signup_errors['email'] = "Email is already registered"
-    except User.DoesNotExist:
-        pass
-
-    # check if passwords match
-    if password != password_repeat:
-        signup_errors['password'] = "Your passwords did not match."
-
-    # hash password:
-    password = make_password(password)
-
-    #unique username
-    try:
-        User.objects.get(username=username)
-        signup_errors['username'] = "Username already exists."
-    except User.DoesNotExist:
-        pass
-
-    # TODO: check sid?
-    #       check profile pic?
-    #       save profile pic (handle in models)
-    #       use cookies for remember_user
-    #       log in user if successful
-    #       send user error if unsuccessful
+    signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
 
     # if there are any errors, display them to the user:
     if signup_errors:
+        # NOTE: I might need to change to something like this:
+        #request.session['signup_errors'] = signup_errors
+        #return HttpResponseRedirect(reverse('index'))
         return render(request, 'index.html', {'signup_errors': signup_errors})
 
     #else, create the user and log them in
-    new_user = User.objects.create_user(username=username, email=email, password=password)
+
+    # create_user hashes the password for us
+    if profile_pic:
+        new_user = User.objects.create_user(username=username, email=email, password=password, profile_pic=profile_pic)
+    else:
+        new_user = User.objects.create_user(username=username, email=email, password=password)
+
+
+    # log in user:
+    login(request, new_user)
 
     #return to the index
     return HttpResponseRedirect(reverse('index'))
+
+def login_view(request):
+    """
+    DEF: This function is the from handler for logging in users.
+
+    PRE: POST['uname'] and POST['psw'] are non-null.
+
+    POST: A user is logged in or an error is thrown. Either way, they are
+    redirected back to the homepage
+    """
+
+	#if user is already signed in, redirect them
+    #NOTE: I'm not sure if this is actually necessary
+    #if request.user.is_authenticated:
+        #HttpResponseRedirect(reverse('index'))
+
+    username = request.POST['uname']
+    password = request.POST['psw']
+    keep_log_in = request.POST.get('keep_log_in', None)
+
+    user = authenticate(request, username=username, password=password)
+
+    # if user is not None, then there are no errors
+    if user:
+        login(request, user)
+    else:
+        return render(request, 'index.html', {'login_errors': 'Those are invalid credentials'})
+
+    if keep_log_in:
+		request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
+
+    #else, uses the default expiry at browser close
+
+    return HttpResponseRedirect(reverse('index'))
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+def validate_email(request, user_id):
+    """NOTE: this is just a temporary implementation for testing"""
+
+    if not user_id:
+        request.user.send_validation_email()
+    else:
+        user = get_object_or_404(User, pk=user_id)
+        user.validated_email = True
+        user.save()
+    return HttpResponseRedirect(reverse('index'))
+
+    """
+    NOTE: here is a more general view for sending/receiving requests.
+        From a security view, there needs to be better checking if the
+        email was actually sent, if they responded from the email, etc.
+
+    context = dict()
+    if request.method == 'POST':
+        request.user.send_validation_email()
+        context['message'] = "An email has been sent to " + request.user.email + " for validation"
+    elif user_id:
+        user = get_object_or_404(User, pk=user_id)
+        user.validated_email = True
+        user.save()
+        context['message'] = "Your email is now validated!"
+
+
+    return HttpResponseRedirect(reverse(request.GET['next']))
+    """
