@@ -58,6 +58,8 @@
           <legend><span class="number">2</span>Media</legend>
 	  <div>
 
+      <input type="file" name="files" multiple/> <!-- maybe this is easier? -->
+
 		Image1:  <input name="image[]" type="file" /><br />
 		Image2:  <input name="image[]" type="file" /><br />
 		Image3:  <input name="image[]" type="file" /><br />
@@ -82,7 +84,7 @@
             {% for category in categories %}
             <option value={{ category.pk }}>{{ category.title }}</option>
             {% endfor %}
-            
+
             <option value="textbooks">Textbooks</option>
             <option value="magazines">Magazines</option>
             <option value="children_young_adult">Children & Young Adult</option>
