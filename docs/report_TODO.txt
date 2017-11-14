@@ -9,7 +9,7 @@ complete the work (namely, 7c and the slides).
 
 TASK                      ASSIGNEE                COMPLETE (REVIEWED)
 
-1.                        Carter
+1.                        Carter                     X
 
 2.  (a)                   Mitchell
     (b)                   Mitchell
