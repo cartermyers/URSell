@@ -48,13 +48,6 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
-                <h1>here</h1>
-                {{ request.session.get_expiry_age }}
-				{% if request.user.is_authenticated %}
-				<h1>You're logged in!</h1>
-        {{ request.user.username }}<br />
-				{% endif %}
-
 					{% if login_errors %}
                     <h1> HERE ARE THE LOGIN ERRORS </h1>
                     there is only one login error message<br />
@@ -95,7 +88,7 @@
                     Here are all possible signup_errors:<br />
                     {{ signup_errors|get_item:email }}<br />
                     {{ signup_errors|get_item:password }}<br />
-                    {{ signup_errors|get_item:username }}<br />  
+                    {{ signup_errors|get_item:username }}<br />
                     {% endif%}
 
 								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
@@ -168,8 +161,8 @@
                             <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
                             <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                             {% if not request.user.is_authenticated %}
-                            <li class="nav-item"><button class="nav-link external" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
-                            <li class="nav-item"><button class="nav-link external" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
+                            <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
+                             <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
                             {% endif %}
                         </ul>
                     </div>
