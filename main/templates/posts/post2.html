@@ -79,6 +79,10 @@
         <label for="detail">Detail Category:</label>
         <select id="detail" name="detail">
           <optgroup label="Books">
+            {% for category in categories %}
+            <option value={{ category.pk }}>{{ category.title }}</option>
+            {% endfor %}
+            
             <option value="textbooks">Textbooks</option>
             <option value="magazines">Magazines</option>
             <option value="children_young_adult">Children & Young Adult</option>

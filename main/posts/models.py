@@ -20,6 +20,15 @@ class Posts(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0) #maybe change this type of field later
     description = models.TextField(null=True)
 
+    def __init__(self, category, poster, title, price, description):
+        self.category = category
+        self.poster = poster
+
+        self.title = title
+        self.price = price
+        self.description = description
+
+
     def __str__(self):
         return self.title
 

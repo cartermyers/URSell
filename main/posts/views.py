@@ -28,7 +28,7 @@ def new_post(request):
         - user_bio (text: location)
 
         4
-        - detail (selection, basically a category)
+        - detail (selection, basically a category) THIS VALUE SHOULD BE THE CATEGORY KEY
 
         5
         - tel (phone number) NOTE: is this needed?
@@ -39,14 +39,23 @@ def new_post(request):
     # process form here
     if request.method == "POST":
 
+        poster = request.user.pk
+        category = request.POST['detail']
 
+
+        title = request.POST['adtitle']
+
+
+        newpost = Posts()
 
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('postpage.html'))
 
 
     # render the page with any errors or just a plain form
-    return render(request, 'posts/post2.html', {'errors': errors})
+
+    categories = Categories.objects.all()
+    return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
 
 def categories(request):
     return render(request, 'posts/categories.html')
