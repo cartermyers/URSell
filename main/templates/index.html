@@ -122,6 +122,16 @@
 								</div>
 
 								<script>
+function sidebar_open() {
+                                        document.getElementById("mySidebar").style.display = "block";
+                                                                            document.getElementById("myOverlay").style.display = "block";
+                                                                                                                document.getElementById("sidebaricon").style.display = "none";
+                                                                                                                                                }
+                                function sidebar_close() {
+                                                                        document.getElementById("mySidebar").style.display = "none";
+                                                                                                            document.getElementById("myOverlay").style.display = "none";
+                                                                                                                                                document.getElementById("sidebaricon").style.display = "block";
+                                                                                                                                                                                }
 								// Get the modal
 								var modal = document.getElementById('id02');
 								// When the user clicks anywhere outside of the modal, close it
