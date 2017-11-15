@@ -34,11 +34,16 @@ class Posts(models.Model):
     def __str__(self):
         return self.title
 
+def unique_post_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)    #this generates a unique id for the filename
+    return os.path.join('posts', filename)
+
 # here is a simple model that allows us to store an arbitrary amount of images per post
 class PostImages(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
-    image = models.ImageField(upload_to='posts/')
+    image = models.ImageField(upload_to=unique_post_name)
 
     def __init__(self, post, image):
         self.post = post
