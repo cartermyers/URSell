@@ -19,14 +19,16 @@ class Posts(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0) #maybe change this type of field later
     description = models.TextField(null=True)
+    offering = models.BooleanField(default=True)    #false means they are wanting
 
-    def __init__(self, category, poster, title, price, description):
+    def __init__(self, category, poster, title, price, description, offering):
         self.category = category
         self.poster = poster
 
         self.title = title
         self.price = price
         self.description = description
+        self.offering = offering
 
 
     def __str__(self):
@@ -37,3 +39,7 @@ class PostImages(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='posts/')
+
+    def __init__(self, post, image):
+        self.post = post
+        self.image = image

@@ -18,21 +18,14 @@ def new_post(request):
         - adtitle (text)
         - type (radio: offering/wanting)
         - price (investigate this input more)
-        - saletype (radio: different inputs)
         - NOTE: NAME NEEDED description
 
         2
         - Image array (NEEDS DIFFERENT NAMES)
 
-        3
-        - user_bio (text: location)
-
         4
         - detail (selection, basically a category) THIS VALUE SHOULD BE THE CATEGORY KEY
-
-        5
-        - tel (phone number) NOTE: is this needed?
-        - email NOTE: is this needed? """
+        """
 
     errors = dict()
 
@@ -42,11 +35,18 @@ def new_post(request):
         poster = request.user.pk
         category = request.POST['detail']
 
-
         title = request.POST['adtitle']
+        price = request.POST['price']
+        description = request.POST['description']
+        offering = True if request.POST['type'] == 'offering' else False
 
+        new_post = Posts(category, poster, title, price, description, offering)
+        new_post.save()
 
-        newpost = Posts()
+        #and save all of the images:
+        for image in request.FILES.get_list('images'):
+            new_image = PostImages(new_post.pk, image)
+            new_image.save()
 
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('postpage.html'))

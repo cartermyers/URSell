@@ -53,10 +53,8 @@ def signup(request):
         else:
             new_user = User.objects.create_user(username=username, email=email, password=password)
 
-
         # log in user:
         login(request, new_user)
-
 
     #return to the index
     return HttpResponseRedirect(reverse('index'))
