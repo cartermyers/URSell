@@ -21,16 +21,6 @@ class Posts(models.Model):
     description = models.TextField(null=True)
     offering = models.BooleanField(default=True)    #false means they are wanting
 
-    def __init__(self, category, poster, title, price, description, offering):
-        self.category = category
-        self.poster = poster
-
-        self.title = title
-        self.price = price
-        self.description = description
-        self.offering = offering
-
-
     def __str__(self):
         return self.title
 
@@ -44,7 +34,3 @@ class PostImages(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to=unique_post_name)
-
-    def __init__(self, post, image):
-        self.post = post
-        self.image = image
