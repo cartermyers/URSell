@@ -40,7 +40,7 @@ def new_post(request):
         description = request.POST['description']
         offering = True if request.POST['type'] == 'offering' else False
 
-        new_post = Posts(category, poster, title, price, description, offering)
+        new_post = Posts(category=category, poster=poster, title=title, price=price, description=description, offering=offering)
         new_post.save()
 
         #and save all of the images:
