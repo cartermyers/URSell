@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Categories, Posts, PostImages
 
@@ -51,11 +52,35 @@ def new_post(request):
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('postpage.html'))
 
-
     # render the page with any errors or just a plain form
-
     categories = Categories.objects.all()
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
+
+def ads(request, category):
+    if category:
+        # get posts with category key
+        post_list = Posts.objects.filter(category=category)
+    else:
+        # get all posts
+        post_list = Posts.objects.all()
+
+    items_per_page = 10
+
+    page_list = Paginator(post_list, items_per_page)
+
+    """ Here is some code from https://docs.djangoproject.com/en/1.11/topics/pagination/ """
+    current_page = request.GET.get('page', None)
+    try:
+        posts = page_list.page(current_page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = page_list.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = page_list.page(page_list.num_pages)
+
+    return render(request, 'posts/ads.html', {'posts': posts})
+
 
 def categories(request):
     return render(request, 'posts/categories.html')
