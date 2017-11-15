@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -59,7 +59,7 @@ def new_post(request):
 def ads(request, category):
     if category:
         # get posts with category key
-        post_list = get_object_or_404(Posts, category=category)
+        post_list = Posts.objects.filter(category=category)
     else:
         # get all posts
         post_list = Posts.objects.all()

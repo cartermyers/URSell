@@ -12,7 +12,7 @@ Here is a test page.
           {% endif %}
 
           <span class="current">
-              Page {{ posts.number }} of {{ posts.page_list.num_pages }}.
+              Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
           </span>
 
           {% if posts.has_next %}
