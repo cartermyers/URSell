@@ -73,8 +73,6 @@ def login_view(request):
     # this holds where the users should be redirected to
     redirect = request.GET.get('next', reverse('index'))
 
-
-
     if request.method == "POST":
 
         username = request.POST['uname']
