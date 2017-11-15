@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -51,11 +51,18 @@ def new_post(request):
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('postpage.html'))
 
-
     # render the page with any errors or just a plain form
-
     categories = Categories.objects.all()
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
+
+def ads(request, category):
+    if category:
+        # get posts with category key
+    else:
+        # get all posts
+
+    return render(request, 'posts/ads.html')
+
 
 def categories(request):
     return render(request, 'posts/categories.html')
