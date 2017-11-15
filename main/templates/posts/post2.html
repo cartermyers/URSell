@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Sign Up</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="post2.css">
 
-  
+  {% load static %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{% static "css/post2.css" %}">
+
+
 </head>
 
 <body>
@@ -17,14 +19,15 @@
         <title>Post Your App</title>
         <link rel="stylesheet" href="css/normalize.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-        
+
     </head>
     <body>
 
-      <form class="form" action="index.html" method="post">
-      
+      <form class="form" action="{% url 'posts:newpost' %}" method="post">
+        {% csrf_token %}
+
         <h1>Post Your Ad </h1>
-        
+
         <fieldset>
 	  <label for="name">Ad Title:</label>
           <input class="input" type="text" id="name" name="adtitle">
@@ -33,14 +36,14 @@
 	   <label>Ad Type:</label>
             <input type="radio" id="" value="" name="type"><label for="" class="light">I am offering</label><br>
             <input type="radio" id="" value="" name="type"><label for="" class="light">I want</label>
-          
-          
+
+
           <label for="mail">Price $:</label>
 	  <input class="input" type="radio" id="" value="" name="price"><input type="price" id="price" name="price"></br>
 	  <input type="radio" id="" value="" name="price"><label for="" class="light">Free</label><br>
            <input type="radio" id="" value="" name="price"><label for="" class="light">Please Contact</label><br>
 	  <input type="radio" id="" value="" name="price"><label for="" class="light">Swap / Trade</label>
-          
+
           <label for="mail">For Sale By:</label>
 	  <input type="radio" id="" value="" name="saletype"><label for="" class="light">Student</label><br>
           <input type="radio" id="" value="" name="saletype"><label for="" class="light">Stuff</label><br>
@@ -50,32 +53,38 @@
           <label for="password">Description:</label>
           <textarea class="input" rows="6" cols="50" placeholder="Enter your  description here..."></textarea>
         </fieldset>
-        
+
         <fieldset>
           <legend><span class="number">2</span>Media</legend>
 	  <div>
-		
+
+      <input type="file" name="files" multiple/> <!-- maybe this is easier? -->
+
 		Image1:  <input name="image[]" type="file" /><br />
 		Image2:  <input name="image[]" type="file" /><br />
 		Image3:  <input name="image[]" type="file" /><br />
 		Image4:  <input name="image[]" type="file" /><br />
 		Image5:  <input name="image[]" type="file" /><br />
   		<input type="submit" value="Upload" />
-		
+
 	  </div>
         </fieldset>
-	
+
 	<fieldset>
           <legend><span class="number">3</span>Location</legend>
           <label for="bio">Location:</label>
           <textarea class="input" id="bio" name="user_bio"></textarea>
         </fieldset>
-	
+
 
         <fieldset>
         <label for="detail">Detail Category:</label>
         <select id="detail" name="detail">
           <optgroup label="Books">
+            {% for category in categories %}
+            <option value={{ category.pk }}>{{ category.title }}</option>
+            {% endfor %}
+
             <option value="textbooks">Textbooks</option>
             <option value="magazines">Magazines</option>
             <option value="children_young_adult">Children & Young Adult</option>
@@ -85,7 +94,7 @@
 	    <option value="Other">Other</option>
           </optgroup>
          </select>
-        
+
          </fieldset>
 
 	<fieldset>
@@ -100,10 +109,10 @@
 
         <button class="submit" type="submit">Post Ad</button>
       </form>
-      
+
     </body>
 </html>
-  
-  
+
+
 </body>
 </html>
