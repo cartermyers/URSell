@@ -36,7 +36,7 @@ def signup(request):
 
 
         #dictionary for errors:
-        signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
+        signup_errors = User.validate_signup(email, password, password_repeat, username)
 
         # if there are any errors, display them to the user:
         if signup_errors:
