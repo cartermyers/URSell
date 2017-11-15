@@ -23,68 +23,45 @@
     </head>
     <body>
 
-      <form class="form" action="{% url 'posts:newpost' %}" method="post">
-        {% csrf_token %}
+      <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
+-        {% csrf_token %}
 
         <h1>Post Your Ad </h1>
 
         <fieldset>
+	  <legend><span class="number">1</span>Your Ad Detail</legend>
+          <div>
 	  <label for="name">Ad Title:</label>
-          <input class="input" type="text" id="name" name="adtitle">
+          <input class="input" type="text" id="name" name="adtitle" required>
 
-          <legend><span class="number">1</span>Your Ad Detail</legend>
+
 	   <label>Ad Type:</label>
             <input type="radio" id="" value="" name="type"><label for="" class="light">I am offering</label><br>
             <input type="radio" id="" value="" name="type"><label for="" class="light">I want</label>
 
 
           <label for="mail">Price $:</label>
-	  <input class="input" type="radio" id="" value="" name="price"><input type="price" id="price" name="price"></br>
-	  <input type="radio" id="" value="" name="price"><label for="" class="light">Free</label><br>
-           <input type="radio" id="" value="" name="price"><label for="" class="light">Please Contact</label><br>
-	  <input type="radio" id="" value="" name="price"><label for="" class="light">Swap / Trade</label>
-
-          <label for="mail">For Sale By:</label>
-	  <input type="radio" id="" value="" name="saletype"><label for="" class="light">Student</label><br>
-          <input type="radio" id="" value="" name="saletype"><label for="" class="light">Stuff</label><br>
-	  <input type="radio" id="" value="" name="saletype"><label for="" class="light">Busniness</label><br>
-     	  <input type="radio" id="" value="" name=""><label for="" class="light">Other</label><br>
+	  <input class="input" type="radio" id="" value="" name="price" required><input type="price" id="price" name="price"></br>
 
           <label for="password">Description:</label>
-          <textarea class="input" rows="6" cols="50" placeholder="Enter your  description here..."></textarea>
-        </fieldset>
+          <textarea class="input" rows="6" cols="50" placeholder="Enter your  description here..." required></textarea>
 
+          </div>
         <fieldset>
-          <legend><span class="number">2</span>Media</legend>
+          <legend><span class="number">2</span><font color="#ffb84d">Media</legend>
 	  <div>
-
-      <input type="file" name="files" multiple/> <!-- maybe this is easier? -->
-
-		Image1:  <input name="image[]" type="file" /><br />
-		Image2:  <input name="image[]" type="file" /><br />
-		Image3:  <input name="image[]" type="file" /><br />
-		Image4:  <input name="image[]" type="file" /><br />
-		Image5:  <input name="image[]" type="file" /><br />
-  		<input type="submit" value="Upload" />
+		<font color="#ffb84d">Please select multiple images at once:<br><br>
+                <input type="file" name="files" multiple> <br><br>
+  		<input type="submit" value="Upload" required>
 
 	  </div>
         </fieldset>
 
 	<fieldset>
-          <legend><span class="number">3</span>Location</legend>
-          <label for="bio">Location:</label>
-          <textarea class="input" id="bio" name="user_bio"></textarea>
-        </fieldset>
-
-
-        <fieldset>
-        <label for="detail">Detail Category:</label>
+          <legend><span class="number">3</span>Ad Detail Category</legend>
+          <label for="detail">Select Your Book's Category:</label>
         <select id="detail" name="detail">
-          <optgroup label="Books">
-            {% for category in categories %}
-            <option value={{ category.pk }}>{{ category.title }}</option>
-            {% endfor %}
-
+            <optgroup label="Books" >
             <option value="textbooks">Textbooks</option>
             <option value="magazines">Magazines</option>
             <option value="children_young_adult">Children & Young Adult</option>
@@ -93,18 +70,14 @@
             <option value="non_fiction">Non-fiction</option>
 	    <option value="Other">Other</option>
           </optgroup>
+        </fieldset>
+
+
+        <fieldset>
+
          </select>
 
          </fieldset>
-
-	<fieldset>
-          <legend><span class="number">4</span>Contact Information</legend>
-	 <label for="bio">Phone Number:</label>
-          <input class="input" type="tel">
-          <label for="bio">Email:</label>
-          <input class="input" type="email">
-        </fieldset>
-
 
 
         <button class="submit" type="submit">Post Ad</button>
