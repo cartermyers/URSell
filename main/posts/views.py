@@ -40,12 +40,12 @@ def new_post(request):
         description = request.POST['description']
         offering = True if request.POST['type'] == 'offering' else False
 
-        new_post = Posts(category=category, poster=poster, title=title, price=price, description=description, offering=offering)
+        new_post = Posts(category_id=category, poster_id=poster, title=title, price=price, description=description, offering=offering)
         new_post.save()
 
         #and save all of the images:
         for image in request.FILES.get_list('images'):
-            new_image = PostImages(new_post.pk, image)
+            new_image = PostImages(post_id=new_post.pk, image=image)
             new_image.save()
 
         # if it's a successful post, redirect to the new page:
