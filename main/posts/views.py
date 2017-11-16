@@ -46,7 +46,7 @@ def new_post(request):
 
         #and save all of the images:
         if request.FILES.get('files', None):
-            for image in request.FILES.get_list('files'):
+            for image in request.FILES.getlist('files'):
                 new_image = PostImages(post_id=new_post.pk, image=image)
                 new_image.save()
 

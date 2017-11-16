@@ -24,6 +24,9 @@ class Posts(models.Model):
     def __str__(self):
         return self.title
 
+import uuid
+import os
+
 def unique_post_name(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)    #this generates a unique id for the filename
