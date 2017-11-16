@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Sign Up</title>
+  <title>New Post</title>
 
   {% load static %}
 
@@ -24,7 +24,7 @@
     <body>
 
       <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
--        {% csrf_token %}
+        {% csrf_token %}
 
         <h1>Post Your Ad </h1>
 
@@ -64,11 +64,6 @@
               {% for category in categories %}
               <option value="{{ category.pk }}">{{category.title}}</option>
               {% endfor %}
-            <option value="magazines">Magazines</option>
-            <option value="children_young_adult">Children & Young Adult</option>
-            <option value="comics_Graphic_novels"> Comics & Graphic Novels</option>
-            <option value="fiction">Fiction</option>
-            <option value="non_fiction">Non-fiction</option>
           </optgroup>
         </fieldset>
 
