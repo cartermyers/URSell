@@ -51,7 +51,7 @@ def new_post(request):
                 new_image.save()
 
         # if it's a successful post, redirect to the new page:
-        return HttpResponseRedirect(reverse('ads'))
+        return HttpResponseRedirect(reverse('index'))
 
     # render the page with any errors or just a plain form
     categories = Categories.objects.all()
