@@ -82,6 +82,8 @@ def ads(request, category):
 
     return render(request, 'posts/ads.html', {'posts': posts})
 
+def comment(request, post_id):
+    
 
 def categories(request):
     return render(request, 'posts/categories.html')
