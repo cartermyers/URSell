@@ -24,6 +24,11 @@ class Posts(models.Model):
     def __str__(self):
         return self.title
 
+class Comments(models.Model):
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=511)
+
 import uuid
 import os
 
