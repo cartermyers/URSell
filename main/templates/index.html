@@ -54,7 +54,7 @@
                       {{ login_errors }}<br />
           {% endif  %}
 
- 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
+ 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}{% if request.GET|get_item:'next'%}?next={{request.GET|get_item:'next'}}{% endif %}">
                  			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>

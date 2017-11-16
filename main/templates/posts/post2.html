@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+
+  {% load static %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{% static "css/post2.css" %}">
+
+
+</head>
+
+<body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Post Your App</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+
+    </head>
+    <body>
+
+      <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
+-        {% csrf_token %}
+
+        <h1>Post Your Ad </h1>
+
+        <fieldset>
+	  <legend><span class="number">1</span>Your Ad Detail</legend>
+          <div>
+	  <label for="name">Ad Title:</label>
+          <input class="input" type="text" id="name" name="adtitle" required>
+
+
+	   <label>Ad Type:</label>
+            <input type="radio" id="" value="offering" name="type"><label for="" class="light">I am offering</label><br>
+            <input type="radio" id="" value="wanting" name="type"><label for="" class="light">I want</label>
+
+
+          <label for="mail">Price $:</label>
+	         <input type="price" id="price" name="price" required></br>
+
+          <label for="password">Description:</label>
+          <textarea class="input" rows="6" cols="50" name="description" placeholder="Enter your  description here..." required></textarea>
+
+          </div>
+        <fieldset>
+          <legend><span class="number">2</span><font color="#ffb84d">Media</legend>
+	  <div>
+		<font color="#ffb84d">Please select multiple images at once:<br><br>
+                <input type="file" name="files" multiple> <br><br>
+
+	  </div>
+        </fieldset>
+
+	<fieldset>
+          <legend><span class="number">3</span>Ad Detail Category</legend>
+          <label for="detail">Select Your Book's Category:</label>
+        <select id="detail" name="detail">
+            <optgroup label="Books" >
+              {% for category in categories %}
+              <option value="{{ category.pk }}">{{category.title}}</option>
+              {% endfor %}
+            <option value="magazines">Magazines</option>
+            <option value="children_young_adult">Children & Young Adult</option>
+            <option value="comics_Graphic_novels"> Comics & Graphic Novels</option>
+            <option value="fiction">Fiction</option>
+            <option value="non_fiction">Non-fiction</option>
+          </optgroup>
+        </fieldset>
+
+
+        <fieldset>
+
+         </select>
+
+         </fieldset>
+
+
+        <button class="submit" type="submit">Post Ad</button>
+      </form>
+
+    </body>
+</html>
+
+
+</body>
+</html>
