@@ -68,7 +68,7 @@ def ads(request, category):
         post_list = Posts.objects.all()
 
     search = request.GET.get('search', '')
-    post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
+    post_list = post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
 
     items_per_page = 10
 
