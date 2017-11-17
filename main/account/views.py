@@ -6,11 +6,17 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import hashers, authenticate, login, logout, decorators
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 import re
 
 #models:
 from .models import User
+from .tokens import account_activation_token
 
 def signup(request):
     """
@@ -99,32 +105,35 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-def validate_email(request, user_id):
-    """NOTE: this is just a temporary implementation for testing"""
+@login_required
+def send_email_validation(request):
+    # send the request
+    current_domain = 'localhost:8000'
+    message = render_to_string('account/email_verify.html', {
+        'user': request.user.username,
+        'domain': current_domain,
+        'uid': urlsafe_base64_encode(force_bytes(request.user.pk)),
+        'token': account_activation_token.make_token(request.user),
+    })
 
-    if not user_id:
-        request.user.send_validation_email()
-    else:
-        user = get_object_or_404(User, pk=user_id)
-        user.validated_email = True
-        user.save()
+    send_mail('URSell Email Validation',    #subject
+              message,
+              'ursell.test@gmail.com', #from
+              [request.user.email])  #to
+
     return HttpResponseRedirect(reverse('index'))
 
-    """
-    NOTE: here is a more general view for sending/receiving requests.
-        From a security view, there needs to be better checking if the
-        email was actually sent, if they responded from the email, etc.
-
-    context = dict()
-    if request.method == 'POST':
-        request.user.send_validation_email()
-        context['message'] = "An email has been sent to " + request.user.email + " for validation"
-    elif user_id:
-        user = get_object_or_404(User, pk=user_id)
-        user.validated_email = True
+def validate_email(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
         user.save()
-        context['message'] = "Your email is now validated!"
-
-
-    return HttpResponseRedirect(reverse(request.GET['next']))
-    """
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Your email is now verified.')
+    else:
+        return HttpResponse('Activation link is invalid!')
