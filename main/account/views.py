@@ -110,7 +110,7 @@ def send_email_validation(request):
     # send the request
     current_domain = 'localhost:8000'
     message = render_to_string('account/email_verify.html', {
-        'user': request.user.username,
+        'username': request.user.username,
         'domain': current_domain,
         'uid': urlsafe_base64_encode(force_bytes(request.user.pk)),
         'token': account_activation_token.make_token(request.user),
