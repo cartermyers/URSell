@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from .models import Categories, Posts, PostImages
 
@@ -59,16 +60,15 @@ def new_post(request):
 
 def ads(request, category):
 
-    search = request.GET.get('search', '')
-
     if category:
         # get posts with category key
-        post_list = Posts.objects.filter(category=category, title__contains=search, description__contains=search)
+        post_list = Posts.objects.filter(category=category)
     else:
         # get all posts
-        post_list = Posts.objects.all(title__contains=search, description__contains=search)
+        post_list = Posts.objects.all()
 
-
+    search = request.GET.get('search', '')
+    post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
 
     items_per_page = 10
 
