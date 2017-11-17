@@ -58,12 +58,17 @@ def new_post(request):
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
 
 def ads(request, category):
+
+    search = request.GET.get('search', '')
+
     if category:
         # get posts with category key
-        post_list = Posts.objects.filter(category=category)
+        post_list = Posts.objects.filter(category=category, title__contains=search, description__contains=search)
     else:
         # get all posts
-        post_list = Posts.objects.all()
+        post_list = Posts.objects.all(title__contains=search, description__contains=search)
+
+
 
     items_per_page = 10
 
