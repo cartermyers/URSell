@@ -82,14 +82,15 @@ def ads(request, category):
 
     return render(request, 'posts/ads.html', {'posts': posts})
 
-@login_required
 def comment(request, post_id):
-    if request.method == "POST":
+
+    if request.method == "POST" and request.user.is_authenticated:
         # process form
-        pass
-    else:
-        # render post page? decide later
-        pass
+        """
+        comment = request.POST['comment']
+        c = Comments(post_id=post_id, text=comment)
+        c.save()
+        """
 
     pass
     # return HttpResponseRedirect(reverse('postpage/%d/' % post_id))
