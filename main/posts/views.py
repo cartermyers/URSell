@@ -82,8 +82,17 @@ def ads(request, category):
 
     return render(request, 'posts/ads.html', {'posts': posts})
 
+@login_required
 def comment(request, post_id):
-    
+    if request.method == "POST":
+        # process form
+        pass
+    else:
+        # render post page? decide later
+        pass
+
+    pass
+    # return HttpResponseRedirect(reverse('postpage/%d/' % post_id))
 
 def categories(request):
     return render(request, 'posts/categories.html')
