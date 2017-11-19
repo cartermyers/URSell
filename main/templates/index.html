@@ -48,18 +48,16 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
-					{% if login_errors %}
-                    <h1> HERE ARE THE LOGIN ERRORS </h1>
-                    there is only one login error message<br />
-                      {{ login_errors }}<br />
-          {% endif  %}
-
  							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}{% if request.GET|get_item:'next'%}?next={{request.GET|get_item:'next'}}{% endif %}">
                  			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
  							   </div>
+
+                  {% if login_errors %}
+                    <span class="error" align="center" style="color:red;"><h2>Invalid login!</h2></span>
+                  {% endif %}
 
  							   <div class="container">
  							     <label><b>Username</b></label>
