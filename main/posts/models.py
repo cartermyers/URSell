@@ -31,6 +31,9 @@ class Comments(models.Model):
     text = models.CharField(max_length=511)
     time = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.text
+
 import uuid
 import os
 
