@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -94,6 +94,12 @@ def comment(request, post_id):
 
     pass
     # return HttpResponseRedirect(reverse('postpage/%d/' % post_id))
+
+def post_page(request, post_id):
+
+    post = get_object_or_404(Posts, pk=post_id)
+
+    return render(request, 'posts/post_page.html', {'post': post})
 
 def categories(request):
     return render(request, 'posts/categories.html')
