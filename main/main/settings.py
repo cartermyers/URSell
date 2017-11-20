@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'posts.apps.PostsConfig',
 
+    #thumbnails:
+    'easy_thumbnails',
+
     # DEFAULT APPS:
     'django.contrib.admin',
     'django.contrib.auth',

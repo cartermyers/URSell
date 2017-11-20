@@ -8,9 +8,14 @@ This is a tes.<br /><br />
 {{ post.price }}<br />
 {{ post.description }}<br />
 
+{% load thumbnail %}
+
 <br />
 {% for i in post.postimages_set.all %}
-  <img src="{{ i.image.url }}"><br />
+{% thumbnail i.image 200x200 upscale as thumb %}
+<img src="{{ thumb.url }}"
+       width="{{ thumb.width }}"
+       height="{{ thumb.height }}" />
 {% endfor %}
 
 <br />
