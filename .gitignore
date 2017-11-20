@@ -1,3 +1,5 @@
 # ignore any compiled python files
 *.pyc
 
+# and the db for the prod version
+db.sqlite3
