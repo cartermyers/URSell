@@ -2,7 +2,18 @@ Here is a test page.
 
 {% if posts %}
   {% for post in posts %}
-    {{ post }}<br /><br />
+    {{ post.title }}<br />
+    {{ post.poster }}<br  />
+    {{ post.category }}<br  />
+    {{ post.price }}<br  />
+    {{ post.description }}<br  />
+    {{ post.offering }}<br  />
+
+    {% for i in post.postimages_set.all %}
+    <img src="{{ i.image.url }}" alt="no image">
+    {% endfor %}
+    
+    <br />
   {% endfor %}
 
   <div class="pagination">
