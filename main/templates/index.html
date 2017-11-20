@@ -49,18 +49,16 @@
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
-					{% if login_errors %}
-                    <h1> HERE ARE THE LOGIN ERRORS </h1>
-                    there is only one login error message<br />
-                      {{ login_errors }}<br />
-          {% endif  %}
-
- 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}">
+ 							 <form method="POST" class="modal-content animate" action="{% url 'account:login' %}{% if request.GET|get_item:'next'%}?next={{request.GET|get_item:'next'}}{% endif %}">
                  			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
  							   </div>
+
+                  {% if login_errors %}
+                    <span class="error" align="center" style="color:red;"><h2>Invalid login!</h2></span>
+                  {% endif %}
 
  							   <div class="container">
  							     <label><b>Username</b></label>
@@ -83,30 +81,41 @@
 						</script>
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
-
-                    {% if signup_errors %}
-                    <h1> HERE ARE THE SIGNUP ERRORS </h1>
-                    Here are all possible signup_errors:<br />
-                    {{ signup_errors|get_item:'email' }}<br />
-                    {{ signup_errors|get_item:'password' }}<br />
-                    {{ signup_errors|get_item:'username' }}<br />
-                    {% endif%}
-
 								  <form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
                     {% csrf_token %}
                     <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 								     <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
-								      <label><b>Email</b></label>
+
+                     <label><b>Email
+                    {% if signup_errors %}
+                    {% if signup_errors|get_item:'email' %}
+                      <span class="error" style="color:red;margin-left:15px;">Invalid Email Address (must end in @uregina.ca)</span>
+                    {% endif %}
+                    {% endif %}
+                      </b></label>
+
 								      <input type="text" placeholder="Enter Email" name="email" required>
 
-								      <label><b>Password</b></label>
+                      <label><b>Password
+                     {% if signup_errors %}
+                     {% if signup_errors|get_item:'password' %}
+                       <span class="error" style="color:red;margin-left:15px;">{% for error in signup_errors|get_item:'password' %}{{error}}<br />{% endfor %}</span>
+                     {% endif %}
+                     {% endif %}
+                       </b></label>
 								      <input type="password" placeholder="Enter Password" name="psw" required>
 
-								      <label><b>Repeat Password</b></label>
+                      <label><b>Repeat Password </b></label>
 								      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
-								      <label><b>Username</b></label>
+                      <label><b>Username
+                     {% if signup_errors %}
+                     {% if signup_errors|get_item:'username' %}
+                       <span class="error" style="color:red;margin-left:15px;">Username already exists</span>
+                     {% endif %}
+                     {% endif %}
+                       </b></label>
 								      <input type="text" placeholder="Enter Username" name="Uname" required>
 
 								      <label><b>Photo: </b></label>

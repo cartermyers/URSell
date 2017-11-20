@@ -7,9 +7,9 @@ down your name if you have reviewed another person's task.
 NOTE: There are still some areas where we haven't fully decided who will
 complete the work (namely, 7c and the slides).
 
-TASK                      ASSIGNEE                COMPLETE (REVIEWED)
+TASK                      ASSIGNEE                COMPLETE  (REVIEWED)
 
-1.                        Carter
+1.                        Carter                     X      (Michael)
 
 2.  (a)                   Mitchell
     (b)                   Mitchell

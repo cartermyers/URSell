@@ -1,0 +1,5 @@
+Problem Definition
+
+In recent years, prices for students have continuously increased. Tuition, rent, textbooks: the list is seemingly endless. With the growing price of overall cost of living for students, there has been a demand to not only find inexpensive items for students, but to also sell items that are no longer needed. While there are generic options for students to advertise and search for these products, there is no dedicated, reputable mediator.
+
+By creating URSell, we hope to host a trusted source of buying, selling, and trading dedicated to university members. Whether it be textbooks, furniture, or even tutoring services, students should be able to easily find and display what they desire. Similar to other sites, user's will be able to set their price, barter, and trade with no extra cost. However, they will have the added benefit of dealing with other students similar to them.

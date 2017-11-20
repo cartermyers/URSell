@@ -6,7 +6,18 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
 from django.core.mail import send_mail
 
+# from main.global_func import unique_file_path
+
 import re
+
+
+import uuid
+import os
+
+def unique_profile_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)    #this generates a unique id for the filename
+    return os.path.join('account', filename)
 
 class User(AbstractUser):
     """See https://docs.djangoproject.com/en/1.11/topics/auth/customizing/ for all fields/attributes included in the superuser"""
@@ -14,7 +25,7 @@ class User(AbstractUser):
     # CLASS FIELDS
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
-    profile_pic = models.ImageField(upload_to='account/', default='account/user-sidebar.png')
+    profile_pic = models.ImageField(upload_to=unique_profile_name, default='account/user-sidebar.png')
 
     # CLASS METHODS
     # These are class functions
@@ -27,24 +38,7 @@ class User(AbstractUser):
         return True if re.match(r"\S{3,}@uregina.ca$", email) else False
 
     @staticmethod
-    def validate_pic_name(pic_name):
-        try:
-            count = 1
-            old = User.objects.get(profile_pic= "account/" + pic_name)
-            name = pic_name.split('.')
-            extension = '.' + name.pop(-1)
-            while old:
-                # do some fancy logic to change the file name:
-                # use a new file name for the user
-                pic_name = "".join(name) + str(count) + extension
-                old = User.objects.get(profile_pic="account/" + pic_name)
-                count += 1
-        except User.DoesNotExist:
-                # else, we are fine
-                return pic_name
-
-    @staticmethod
-    def validate_signup(email, password, password_repeat, username, pic):
+    def validate_signup(email, password, password_repeat, username):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -91,10 +85,6 @@ class User(AbstractUser):
             signup_errors['username'] = "Username already exists."
         except User.DoesNotExist:
             pass
-
-        # check if a picture with the same name already exists:
-        if pic:
-            pic.name = User.validate_pic_name(pic.name)
 
         return signup_errors if signup_errors else None
 
