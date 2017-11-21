@@ -27,23 +27,19 @@ def signup(request):
     """
 
     # local variables with the post data:
-    if request.method == "POST":
+    if request.method == "POST" and not request.user.is_authenticated:
         email = request.POST['email']
         password = request.POST['psw']
         password_repeat = request.POST['psw-repeat']
         username = request.POST['Uname']
         profile_pic = request.FILES.get('pic', None)
 
-
         #dictionary for errors:
         signup_errors = User.validate_signup(email, password, password_repeat, username)
 
         # if there are any errors, display them to the user:
         if signup_errors:
-            # NOTE: I might need to change to something like this:
-            #request.session['signup_errors'] = signup_errors
-            #return HttpResponseRedirect(reverse('index'))
-            return render(request, 'index.html', {'signup_errors': signup_errors})
+            return render(request, 'account/signup.html', {'signup_errors': signup_errors})
 
         #else, create the user and log them in
 
@@ -56,8 +52,14 @@ def signup(request):
         # log in user:
         login(request, new_user)
 
-    #return to the index
-    return HttpResponseRedirect(reverse('index'))
+        #return to the index
+        return HttpResponseRedirect(reverse('index'))
+
+    # else, just return the signup form (if the user is not logged in):
+    if not request.user.is_authenticated:
+        return render(request, 'account/signup.html')
+    else:
+        return HttpResponseRedirect(reverse('index'))
 
 
 def login_view(request):
@@ -73,7 +75,7 @@ def login_view(request):
     # this holds where the users should be redirected to
     redirect = request.GET.get('next', reverse('index'))
 
-    if request.method == "POST":
+    if request.method == "POST" and not request.user.is_authenticated:
 
         username = request.POST['uname']
         password = request.POST['psw']

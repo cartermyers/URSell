@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup</title>
+	  <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+    {% load dict_get %}
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static "font-awesome-4.5.0/css/font-awesome.min.css" %}">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">                                     <!-- Magnific pop up style -->
+    <link rel="stylesheet" href="{% static "css/templatemo-style.css" %}">                                   <!-- Templatemo style -->
+    <link rel="stylesheet" href="{% static "css/login.css" %}">                                     <!-- login style -->
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                     <!-- other style -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+</head>
+
+<div>
+<form class="modal-content animate" method="POST" enctype="multipart/form-data" action="{% url 'account:signup' %}">
+  {% csrf_token %}
+  <div class="container">
+   <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+   <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
+
+   <label><b>Email
+  {% if signup_errors %}
+  {% if signup_errors|get_item:'email' %}
+    <span class="error" style="color:red;margin-left:15px;">Invalid Email Address (must end in @uregina.ca)</span>
+  {% endif %}
+  {% endif %}
+    </b></label>
+
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label><b>Password
+   {% if signup_errors %}
+   {% if signup_errors|get_item:'password' %}
+     <span class="error" style="color:red;margin-left:15px;">{% for error in signup_errors|get_item:'password' %}{{error}}<br />{% endfor %}</span>
+   {% endif %}
+   {% endif %}
+     </b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <label><b>Repeat Password </b></label>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+    <label><b>Username
+   {% if signup_errors %}
+   {% if signup_errors|get_item:'username' %}
+     <span class="error" style="color:red;margin-left:15px;">Username already exists</span>
+   {% endif %}
+   {% endif %}
+     </b></label>
+    <input type="text" placeholder="Enter Username" name="Uname" required>
+
+    <label><b>Photo: </b></label>
+    <input class="tm-intro-link2" type="file" name="pic" accept="image/*"><br
+   <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+    <div class="clearfix">
+     <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="submit" class="signupbtn">Sign Up</button>
+    </div>
+  </div>
+</form>
+</div>
