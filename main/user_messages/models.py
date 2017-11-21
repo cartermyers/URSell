@@ -5,11 +5,22 @@ from django.db import models
 
 from account.models import User
 
-class SentMail(models.Model):
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+# an abstract class for mailboxes
+class Mail(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name='+')
+    reciever = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name='+')
 
+    # time
+    subject = models.CharField(max_length=255)
+    content = models.TextField()
+    trash = models.BooleanField(default=False)
 
+    class Meta:
+        abstract = True
+
+class SentMail(Mail):
+    pass
 
 # Basically, a copy
-class RecieveMail(models.Model):
+class RecieveMail(Mail):
     pass
