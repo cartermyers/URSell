@@ -88,11 +88,16 @@ def login_view(request):
             return render(request, 'account/login.html', {'login_errors': 'Those are invalid credentials'})
 
         if keep_log_in:
-		          request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
+            request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
 
         #else, uses the default expiry at browser close
+        return HttpResponseRedirect(redirect)
 
-    return HttpResponseRedirect(redirect)
+    # this is the plain form page:
+    if not request.user.is_authenticated:
+        return render(request, 'account/login.html')
+    else:
+        return HttpResponseRedirect(redirect)
 
 def logout_view(request):
     logout(request)
