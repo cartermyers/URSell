@@ -1,0 +1,21 @@
+Technical documentation
+
+UML supporting tool
+The UML supporting tool used is starUML. http://staruml.io/
+
+Programming languages
+- python
+- html
+- css
+- javascript
+
+Reused algorithms and programs
+- lumino theme template for css http://www.templatemo.com/tm-483-lumino
+- ??Magnific Popup CSS??
+
+Software tools and environments
+- django 1.11 is used for the login, sign up, and post page. https://www.djangoproject.com/
+
+Database management system
+SQLite
+(provide screenshot of the table contents)
