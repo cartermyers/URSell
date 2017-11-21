@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+	  <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+    {% load dict_get %}
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static "font-awesome-4.5.0/css/font-awesome.min.css" %}">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">                                     <!-- Magnific pop up style -->
+    <link rel="stylesheet" href="{% static "css/templatemo-style.css" %}">                                   <!-- Templatemo style -->
+    <link rel="stylesheet" href="{% static "css/login.css" %}">                                     <!-- login style -->
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                     <!-- other style -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+</head>
+
+<div>
+ <form method="POST" class="modal-content animate" action="{% url 'account:login' %}{% if request.GET|get_item:'next'%}?next={{request.GET|get_item:'next'}}{% endif %}">
+        {% csrf_token %}
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
+   </div>
+
+    {% if login_errors %}
+      <span class="error" align="center" style="color:red;"><h2>Invalid login!</h2></span>
+    {% endif %}
+
+   <div class="container">
+     <label><b>Username</b></label>
+     <input type="text" placeholder="Enter Username" name="uname" required>
+
+     <label><b>Password</b></label>
+      <input type="password" placeholder="Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      <input type="checkbox" checked="checked" name="keep_log_in"> Keep me logged in
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+
+</div></form></div>

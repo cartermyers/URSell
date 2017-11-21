@@ -85,13 +85,12 @@ def login_view(request):
         if user:
             login(request, user)
         else:
-            return render(request, 'index.html', {'login_errors': 'Those are invalid credentials'})
+            return render(request, 'account/login.html', {'login_errors': 'Those are invalid credentials'})
 
         if keep_log_in:
 		          request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
 
         #else, uses the default expiry at browser close
-
 
     return HttpResponseRedirect(redirect)
 
