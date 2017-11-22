@@ -1,0 +1,22 @@
+Technical documentation
+
+UML supporting tool
+The UML supporting tool used is starUML. http://staruml.io/
+
+Programming languages
+- python is used for the backend functions.
+- html is used for the layout of the website pages.
+- css is used to style the website pages.
+- javascript
+
+Reused algorithms and programs
+- lumino theme template for css http://www.templatemo.com/tm-483-lumino
+- ??Magnific Popup CSS??
+
+Software tools and environments
+- django 1.11 is used for the backend framework. https://www.djangoproject.com/
+- W3.CSS framework used to style website pages. https://www.w3schools.com/
+
+Database management system
+SQLite
+(provide screenshot of the table contents)

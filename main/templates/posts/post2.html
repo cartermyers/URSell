@@ -5,6 +5,7 @@
   <title>New Post</title>
 
   {% load static %}
+  {% load dict_get %}
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="{% static "css/post2.css" %}">
@@ -36,11 +37,14 @@
 
 
 	   <label>Ad Type:</label>
-            <input type="radio" id="" value="offering" name="type"><label for="" class="light">I am offering</label><br>
+            <input type="radio" id="" value="offering" name="type" checked><label for="" class="light">I am offering</label><br>
             <input type="radio" id="" value="wanting" name="type"><label for="" class="light">I want</label>
 
 
           <label for="mail">Price $:</label>
+          {% if errors|get_item:'price' %}
+            <div style='color:red;'>{{ errors|get_item:'price' }}</div>
+          {% endif %}
 	         <input type="price" id="price" name="price" required></br>
 
           <label for="password">Description:</label>
@@ -50,8 +54,12 @@
         <fieldset>
           <legend><span class="number">2</span><font color="#ffb84d">Media</legend>
 	  <div>
-		<font color="#ffb84d">Please select multiple images at once:<br><br>
-                <input type="file" name="files" multiple> <br><br>
+		<font color="#ffb84d">Please select multiple images at once:<br>
+      {% if errors|get_item:'images' %}
+        <div style='color:red;'>{{ errors|get_item:'images' }}</div>
+      {% endif %}
+      <br>
+                <input type="file" name="files" accept="image/*" multiple> <br><br>
 
 	  </div>
         </fieldset>

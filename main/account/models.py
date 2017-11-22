@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
 from django.core.mail import send_mail
 
-# from main.global_func import unique_file_path
+from main.views import image_validation
 
 import re
 
@@ -38,7 +38,7 @@ class User(AbstractUser):
         return True if re.match(r"\S{3,}@uregina.ca$", email) else False
 
     @staticmethod
-    def validate_signup(email, password, password_repeat, username):
+    def validate_signup(email, password, password_repeat, username, profile_pic):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -63,13 +63,13 @@ class User(AbstractUser):
         # reject the email if it already is registered
         try:
             User.objects.get(email=email)
-            signup_errors['email'] = "Email is already registered"
+            signup_errors['email'] = "That email is already registered."
         except User.DoesNotExist:
             pass
 
         # check if passwords match
         if password != password_repeat:
-            signup_errors['password'] = ["Your passwords did not match."]
+            signup_errors['password'] = "Your passwords did not match."
 
         # validate the password:
         # NOTE: it is intentional that it can possibly overwrite the other key
@@ -77,14 +77,18 @@ class User(AbstractUser):
         try:
             password_validation.validate_password(password)
         except password_validation.ValidationError:
-            signup_errors['password'] = password_validation.password_validators_help_texts()
+            signup_errors['password'] = " ".join(password_validation.password_validators_help_texts())
 
         #unique username
         try:
             User.objects.get(username=username)
-            signup_errors['username'] = "Username already exists."
+            signup_errors['username'] = "That username already exists."
         except User.DoesNotExist:
             pass
+
+        # profile pic:
+        if profile_pic and not image_validation([profile_pic]):
+            signup_errors['pic'] = 'You can only upload image file types.'
 
         return signup_errors if signup_errors else None
 

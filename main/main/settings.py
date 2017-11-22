@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'user_messages.apps.UserMessagesConfig',
 
+    #thumbnails:
+    'easy_thumbnails',
+
     # DEFAULT APPS:
     'django.contrib.admin',
     'django.contrib.auth',

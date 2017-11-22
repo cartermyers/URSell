@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth import hashers, authenticate, login, logout, decorators
 
 import re
@@ -27,23 +28,27 @@ def signup(request):
     """
 
     # local variables with the post data:
-    if request.method == "POST":
+    if request.method == "POST" and not request.user.is_authenticated:
         email = request.POST['email']
         password = request.POST['psw']
         password_repeat = request.POST['psw-repeat']
         username = request.POST['Uname']
         profile_pic = request.FILES.get('pic', None)
 
-
         #dictionary for errors:
-        signup_errors = User.validate_signup(email, password, password_repeat, username)
+        signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
 
         # if there are any errors, display them to the user:
         if signup_errors:
-            # NOTE: I might need to change to something like this:
-            #request.session['signup_errors'] = signup_errors
-            #return HttpResponseRedirect(reverse('index'))
-            return render(request, 'index.html', {'signup_errors': signup_errors})
+            error_message = "That signup won't work.<br />Here are some hints:<br /><h5>"
+
+            for key, value in signup_errors.items():
+                values = value.split(".")
+                for v in values:
+                    error_message += v + "<br />"
+
+            messages.error(request, error_message + "</h5>")
+            return HttpResponseRedirect(reverse('index'))
 
         #else, create the user and log them in
 
@@ -56,7 +61,8 @@ def signup(request):
         # log in user:
         login(request, new_user)
 
-    #return to the index
+        #return to the index
+
     return HttpResponseRedirect(reverse('index'))
 
 
@@ -73,7 +79,7 @@ def login_view(request):
     # this holds where the users should be redirected to
     redirect = request.GET.get('next', reverse('index'))
 
-    if request.method == "POST":
+    if request.method == "POST" and not request.user.is_authenticated:
 
         username = request.POST['uname']
         password = request.POST['psw']
@@ -85,19 +91,20 @@ def login_view(request):
         if user:
             login(request, user)
         else:
-            return render(request, 'index.html', {'login_errors': 'Those are invalid credentials'})
+            messages.error(request, 'Those are invalid credentials. Please try again.')
+            HttpResponseRedirect(reverse('index'))
 
         if keep_log_in:
-		          request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
+            request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
 
         #else, uses the default expiry at browser close
-
 
     return HttpResponseRedirect(redirect)
 
 def logout_view(request):
+    redirect = request.GET.get('next', reverse('index'))
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(redirect)
 
 def validate_email(request, user_id):
     """NOTE: this is just a temporary implementation for testing"""
