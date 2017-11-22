@@ -43,6 +43,29 @@
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
         {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+          {% if 'error' in message.tags %}
+        <div id="id03" class="modal"  style ="z-index:66666" >
+ 							<form class="modal-content animate" action="/action_page.php">
+  							  <div class="imgcontainer">
+  							    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+ 							   </div>
+                {% autoescape off %}
+								<span class="error" align="center"><h2>Opps!</h2><h2>{{ message }}</h2><br />
+                {% endautoescape %}
+								<p>Click on the 'x' button to go back</p></span>
+ 							   <div class="container">
+  							   </div></form></div>
+ 							   <script>
+
+								// Get the modal
+								var Errormodal = document.getElementById('id03').style.display='block';
+						</script>
+            {% endif %}
+          {% endfor %}
+          {% endif %}
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">

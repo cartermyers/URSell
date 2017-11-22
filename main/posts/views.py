@@ -50,6 +50,10 @@ def new_post(request):
             for image in request.FILES.getlist('files'):
                 new_image = PostImages(post_id=new_post.pk, image=image)
                 new_image.save()
+        # or just save one default image if no uploads
+        else:
+            new_image = PostImages(post_id=new_post.pk)
+            new_image.save()
 
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('index'))
@@ -70,7 +74,7 @@ def ads(request, category):
     search = request.GET.get('search', '')
     post_list = post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
 
-    items_per_page = 10
+    items_per_page = 8
 
     page_list = Paginator(post_list, items_per_page)
 
@@ -78,14 +82,22 @@ def ads(request, category):
     current_page = request.GET.get('page', None)
     try:
         posts = page_list.page(current_page)
+        current_page = int(current_page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
         posts = page_list.page(1)
+        current_page = 1
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = page_list.page(page_list.num_pages)
+        current_page = page_list.num_pages
 
-    return render(request, 'posts/ads.html', {'posts': posts})
+    # do some calculations to find a number of next pages
+    start_page = max(0, current_page - 3)
+    end_page = min(page_list.num_pages, current_page + 3)
+    page_range = range(start_page + 1, end_page + 1)
+
+    return render(request, 'posts/ads.html', {'posts': posts, 'current_page': current_page, 'page_range': page_range})
 
 
 def categories(request):
