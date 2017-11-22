@@ -87,6 +87,7 @@ def ads(request, category):
 
     return render(request, 'posts/ads.html', {'posts': posts})
 
+@login_required
 def comment(request, post_id):
 
     if request.method == "POST" and request.user.is_authenticated:
@@ -100,11 +101,11 @@ def comment(request, post_id):
     pass
     # return HttpResponseRedirect(reverse('postpage/%d/' % post_id))
 
-def post_page(request, post_id):
 
+def post_page(request, post_id):
     post = get_object_or_404(Posts, pk=post_id)
 
-    return render(request, 'posts/post_page.html', {'post': post})
+    return render(request, 'posts/item.html', {'post': post})
 
 def categories(request):
     return render(request, 'posts/categories.html')
