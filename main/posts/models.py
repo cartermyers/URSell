@@ -29,9 +29,20 @@ class Posts(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0) #maybe change this type of field later
     description = models.TextField(null=True)
     offering = models.BooleanField(default=True)    #false means they are wanting
+    time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+class Comments(models.Model):
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    text = models.CharField(max_length=511)
+    time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.text
 
 # here is a simple model that allows us to store an arbitrary amount of images per post
 class PostImages(models.Model):
