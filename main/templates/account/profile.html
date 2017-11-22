@@ -163,25 +163,28 @@ input:checked + .slider:before {
 
                     <section id="tm-section-1">
                         <div class="tm-container text-xs-center tm-section-1-inner">
-                            <br><br><h1 class="tm-site-name">User Pofile</h1><!-- Pic here?--><hr />
+                            <br><br><h1 class="tm-site-name">User Pofile</h1>
+														<!--
+														 thumbnail user_profile.profile_pic 200x200 upscale as thumb
+														<img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+													-->
+													<img src="{{ user_profile.profile_pic.url }}" />
+														<hr />
                             <p class="tm-intro-text">{{ user_profile.username }}</p>
 			     <p class="tm-intro-text">{{ user_profile.email }}</p>
 					 <p class="tm-intro-text">This user's email
 					 {% if user_profile.validated_email %}
-					 		has been
+					 		has been validated!</p>
 						{% else %}
-							is not
+							is not validated!</p>
+							<button class="tm-intro-link2" style="margin:auto; width:auto;"onclick="document.getElementById('id02').style.display='block';">Email verification</button>
 					 {% endif %}
-					 validated!</p>
 
 					 {% ifequal request.user.pk user_profile.pk %}
 			      <p class="tm-intro-text">Email Notification: <br><label class="switch">
   				<input type="checkbox" checked>
   				<span class="slider round"></span>
 			      </label></p>
-						{% if not user_profile.email_validated %}
-                            <button class="tm-intro-link2" style="margin:auto; width:auto;"onclick="document.getElementById('id02').style.display='block';">Email verification</button>
-						{% endif %}
 						{% endifequal %}
                         </div>
                    </section>
