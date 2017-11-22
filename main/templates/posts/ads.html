@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="categorypost.css">/*for item post*/
+{% load static %}
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">				<!-- W3schools font for side bar -->	
+<link rel="stylesheet" href="{% static "css/categorypost.css" %}">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">				<!-- W3schools font for side bar -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
-<link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                	<!-- Font Awesome -->
-<link rel="stylesheet" href="css/bootstrap.min.css">                                      	<!-- Bootstrap style -->
-<link rel="stylesheet" href="css/magnific-popup.css">                                     	<!-- Magnific pop up style -->
-<link rel="stylesheet" href="css/templatemo-style.css">                                   	<!-- Templatemo style -->
-<link rel="stylesheet" href="css/login.css">                                     		<!-- login style -->
-<link rel="stylesheet" href="css/mystyle.css">                                     		<!-- other style -->
-  
+<link rel="stylesheet" href="{% static "font-awesome-4.5.0/css/font-awesome.min.css" %}">                	<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">                                      	<!-- Bootstrap style -->
+<link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">                                     	<!-- Magnific pop up style -->
+<link rel="stylesheet" href="{% static "css/templatemo-style.css" %}">                                   	<!-- Templatemo style -->
+<link rel="stylesheet" href="{% static "css/login.css" %}">                                     		<!-- login style -->
+<link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                     		<!-- other style -->
+
 <link href='https://fonts.googleapis.com/css?family=Raleway:400,700|Merriweather' rel='stylesheet' type='text/css'>
 
 
@@ -27,8 +29,8 @@
         <meta property="og:description"   content="Your description" />
         <meta property="og:image"         content="http://demo.icanbecreative.com/css3-animated-search-box/featured.jpg" />
  <style type="text/css">
-          
-         
+
+
         </style>
         <script type="text/javascript">
         function searchToggle(obj, evt){
@@ -70,7 +72,8 @@
 
 <body>
 <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
-			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button> 
+  {% if request.user.is_authenticated %}
+			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button>
 			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
 				<button class="login-close" onclick="sidebar_close()">&times;</button>
   				<img class="usericon" src="img/user-sidebar.png" alt="Avatar"><hr color="grey"/>
@@ -78,14 +81,13 @@
   				<a href="email.html" style="background-color:transparent" class="w3-bar-item w3-button">Email</a>
   				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
   				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Log out</a>
-  				
-
-
 			</div>
+  {% endif %}
+
 			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
 <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
-								  
+
 								  <form class="modal-content animate" action="/action_page.php">
 								    <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -124,25 +126,25 @@
 
 
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
-        
+
             <div class="row">
-              
+
                 <div class="tm-navbar-container">
                 <!-- navbar   -->
                 <nav class="navbar navbar-full navbar-fixed-top">
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
-                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">                     
+                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a  class="nav-link external" href="index.html">Home</a> </li>
+                            <li class="nav-item"><a  class="nav-link external" href="{% url 'index' %}">Home</a> </li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
-		             <li class="nav-item"><a class="nav-link" href="post2.html">Post Ad</a></li>
-                            <li class="nav-item"><a class="nav-link external" href="categoriestest.html">Categories</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="{% url 'posts:newpost' %}">Post Ad</a></li>
+                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                        </ul>
                     </div>
                 </nav>
-              </div>  
-<!----------------------------here is the search--------------------------------------->           
-  
+              </div>
+<!----------------------------here is the search--------------------------------------->
+
             <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search" />
@@ -153,132 +155,53 @@
 
                 </div>
             </div>
-       
+
 
 
 <!----------------------------here is the item post--------------------------------------->
 
          <!----------------------------row 1------------------------>
 
-	<div class="view view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-			
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-			
-    		</div>
-  	</div>
-   
 
-   
-	<div class="view view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-    		</div>
-  	</div>
-   
+  {% for post in posts %}
+  <div class="view view-tenth">
+        <img src="{% static post.postimages_set.all.0.image.url %}" />
+        <div class="mask">
+            <h2>{{ post.title }}</h2>
 
-   
-	<div class="view view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-    		</div>
-  	</div>
-	
-		<!----------------------------row 2------------------------>
-<div class="view2 view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-    		</div>
-  	</div>
-   
+            <p>{{ post.poster.username }}</p>
+            <a href="#" class="info">Read More</a>
+      Open
+      <label class="switch">
+      <input type="checkbox">
+      <span class="slider"></span>
+      </label>
 
-   
-	<div class="view2 view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-    		</div>
-  	</div>
-   
-
-   
-	<div class="view2 view-tenth">
-    		<img src="http://static1.squarespace.com/static/55ac6d80e4b0a964784b2f80/t/5703eb0cb09f95f41391ea85/1459874573710/j07SfQZ.png" />
-    		<div class="mask">
-      			<h2>AD title goes here</h2>
-      			<p>Maype some description and </p>
-      			<a href="#" class="info">Read More</a>
-			Open
-			<label class="switch">
-			<input type="checkbox">
-			<span class="slider"></span>
-			</label>
-    		</div>
-  	</div>
-
-    	
-		<!----------------------------end of row 2------------------------>
+        </div>
+    </div>
+  {% endfor %}
 
 <!----------------------------here is the next page--------------------------------------->
 <ul class="pagination modal-4">
-  <li><a href="#" class="prev">
-    <i class="fa fa-chevron-left"></i>
-      Previous
-    </a>
-  </li>
-  <li><a href="#">1</a></li>
-  <li> <a href="#">2</a></li>
-  <li> <a href="#">3</a></li>
-  <li> <a href="#">4</a></li>
-  <li> <a href="#" class="active">5</a></li>
-  <li> <a href="#">6</a></li>
-  <li> <a href="#">7</a></li>
-  <li><a href="#" class="next"> Next 
-    <i class="fa fa-chevron-right"></i>
-  </a></li>
-</ul><br> 
+  {% if posts.has_previous %}
+      <li><a href="?page={{ posts.previous_page_number }}" class="prev"><<i class="fa fa-chevron-left"></i>Previous</a></li>
+  {% endif %}
 
+  {% for i in page_range %}
+    <li><a href="?page={{ i }}"
+      {% ifequal i current_page %}
+      class="active"
+      {% endifequal %}
+      >{{ i }}</a></li>
+  {% endfor %}
+  
+    {% if posts.has_next %}
+      <li><a href="?page={{ posts.next_page_number }}" class="next"> Next
+      <i class="fa fa-chevron-right"></i>
+      </a></li>
+    {% endif %}
+</ul><br>
 
-
-<!----------------------------here is the end of next page--------------------------------------->	
+<!----------------------------here is the end of next page--------------------------------------->
 
 </body>
