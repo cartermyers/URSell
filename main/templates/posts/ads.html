@@ -74,10 +74,10 @@
 <body>
 <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
   {% if request.user.is_authenticated %}
-			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button>
+			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
 			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
 				<button class="login-close" onclick="sidebar_close()">&times;</button>
-  				<img class="usericon" src="img/user-sidebar.png" alt="Avatar"><hr color="grey"/>
+  				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
   				<a href="userpofile.html" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
   				<a href="email.html" style="background-color:transparent" class="w3-bar-item w3-button">Email</a>
   				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
@@ -166,8 +166,8 @@
 
   {% for post in posts %}
   <div class="view view-tenth">
-        {% thumbnail post.postimages_set.all.0.image 200x200 upscale as thumb %}
-        <img src="{{ thumb.url }}" alt="" />
+        {% thumbnail post.postimages_set.all.0.image 300x200 crop as thumb %}
+        <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="" />
         <!--img src="{{ post.postimages_set.all.0.image.url }}" /-->
         <div class="mask">
             <h2>{{ post.title }}</h2>
