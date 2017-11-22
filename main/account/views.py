@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
 from django.contrib.auth import hashers, authenticate, login, logout, decorators
 
 import re
@@ -55,11 +56,14 @@ def signup(request):
         #return to the index
         return HttpResponseRedirect(reverse('index'))
 
+    """
     # else, just return the signup form (if the user is not logged in):
     if not request.user.is_authenticated:
         return render(request, 'account/signup.html')
     else:
-        return HttpResponseRedirect(reverse('index'))
+    """
+
+    return HttpResponseRedirect(reverse('index'))
 
 
 def login_view(request):
@@ -87,19 +91,15 @@ def login_view(request):
         if user:
             login(request, user)
         else:
-            return render(request, 'account/login.html', {'login_errors': 'Those are invalid credentials'})
+            messages.error(request, 'Those are invalid credentials. Please try again.')
+            HttpResponseRedirect(reverse('index'))
 
         if keep_log_in:
             request.session.set_expiry(60 * 60 * 24 * 10) # set expiry for 10 days
 
         #else, uses the default expiry at browser close
-        return HttpResponseRedirect(redirect)
 
-    # this is the plain form page:
-    if not request.user.is_authenticated:
-        return render(request, 'account/login.html')
-    else:
-        return HttpResponseRedirect(redirect)
+    return HttpResponseRedirect(redirect)
 
 def logout_view(request):
     logout(request)

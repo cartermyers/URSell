@@ -150,7 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
 MEDIA_URL = '/static/media/'
 # MEDIA_URL = 'http://cartermyers.pythonanywhere.com/media'
 
-LOGIN_URL = 'account:login'  #since user's login at the index
+LOGIN_URL = 'index'  #since user's login at the index
 
 # Email info (to be used later)
 EMAIL_HOST = 'smtp.gmail.com'
