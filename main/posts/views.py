@@ -91,8 +91,6 @@ def ads(request, category):
 def categories(request):
     return render(request, 'posts/categories.html')
 
-def categories_test(request):
-    return render(request, 'posts/categoriestest.html')
 
 def test(request):
     return render(request, 'posts/test.html')
