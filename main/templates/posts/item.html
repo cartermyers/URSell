@@ -126,12 +126,18 @@
               Comments
             </div>
             <div class="card-body">
-              {% for comment in post.comment_set.all %}
+              {% for comment in post.comments_set.all %}
               <p>{{ comment.text }}</p>
               <small class="text-muted">Posted by {{ comment.user }} on {{ comment.time }}</small>
               <hr>
               {% endfor %}
-              <a href="#" class="btn btn-success">Leave a Comment</a>
+              {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'posts:comment' post_id=post.pk %}">
+                  {% csrf_token %}
+                  <input type="text" name="comment" required /><br /><br />
+                  <button type="submit" class="btn btn-success">Leave a Comment</button>
+                </form>
+              {% endif %}
             </div>
           </div>
           <!-- /.card -->

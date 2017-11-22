@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
-from .models import Categories, Posts, PostImages
+from .models import Categories, Posts, PostImages, Comments
 
 @login_required
 def new_post(request):
@@ -90,16 +90,13 @@ def ads(request, category):
 @login_required
 def comment(request, post_id):
 
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST":
         # process form
-        """
         comment = request.POST['comment']
-        c = Comments(post_id=post_id, text=comment)
+        c = Comments(post_id=post_id, user_id=request.user.pk, text=comment)
         c.save()
-        """
 
-    pass
-    # return HttpResponseRedirect(reverse('postpage/%d/' % post_id))
+    return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
 
 
 def post_page(request, post_id):
