@@ -96,8 +96,9 @@ def login_view(request):
     return HttpResponseRedirect(redirect)
 
 def logout_view(request):
+    redirect = request.GET.get('next', reverse('index'))
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(redirect)
 
 def validate_email(request, user_id):
     """NOTE: this is just a temporary implementation for testing"""
