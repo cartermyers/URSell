@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
-from .models import Categories, Posts, PostImages
+from .models import Categories, Posts, PostImages, Comments
 
 @login_required
 def new_post(request):
@@ -99,6 +99,22 @@ def ads(request, category):
 
     return render(request, 'posts/ads.html', {'posts': posts, 'current_page': current_page, 'page_range': page_range})
 
+@login_required
+def comment(request, post_id):
+
+    if request.method == "POST":
+        # process form
+        comment = request.POST['comment']
+        c = Comments(post_id=post_id, user_id=request.user.pk, text=comment)
+        c.save()
+
+    return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
+
+
+def post_page(request, post_id):
+    post = get_object_or_404(Posts, pk=post_id)
+
+    return render(request, 'posts/item.html', {'post': post})
 
 def categories(request):
     categories = Categories.objects.all().order_by('-pk')
