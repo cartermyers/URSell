@@ -165,7 +165,7 @@
 
   {% for post in posts %}
   <div class="view view-tenth">
-        <img src="{% static post.postimages_set.all.0.image.url %}" />
+        <img src="{{ post.postimages_set.all.0.image.url }}" />
         <div class="mask">
             <h2>{{ post.title }}</h2>
 
@@ -194,7 +194,7 @@
       {% endifequal %}
       >{{ i }}</a></li>
   {% endfor %}
-  
+
     {% if posts.has_next %}
       <li><a href="?page={{ posts.next_page_number }}" class="next"> Next
       <i class="fa fa-chevron-right"></i>

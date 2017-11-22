@@ -50,6 +50,10 @@ def new_post(request):
             for image in request.FILES.getlist('files'):
                 new_image = PostImages(post_id=new_post.pk, image=image)
                 new_image.save()
+        # or just save one default image if no uploads
+        else:
+            new_image = PostImages(post_id=new_post.pk)
+            new_image.save()
 
         # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('index'))
@@ -70,7 +74,7 @@ def ads(request, category):
     search = request.GET.get('search', '')
     post_list = post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
 
-    items_per_page = 10
+    items_per_page = 8
 
     page_list = Paginator(post_list, items_per_page)
 

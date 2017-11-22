@@ -36,4 +36,4 @@ def unique_post_name(instance, filename):
 class PostImages(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
-    image = models.ImageField(upload_to=unique_post_name)
+    image = models.ImageField(upload_to=unique_post_name, default='posts/no_image_available.svg')
