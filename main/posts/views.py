@@ -101,10 +101,10 @@ def ads(request, category):
 
 
 def categories(request):
-    return render(request, 'posts/categories.html')
+    categories = Categories.objects.all().order_by('-pk')
 
-def categories_test(request):
-    return render(request, 'posts/categoriestest.html')
+    return render(request, 'posts/categories.html', {'categories': categories})
+
 
 def test(request):
     return render(request, 'posts/test.html')
