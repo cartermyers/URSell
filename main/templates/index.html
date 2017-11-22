@@ -40,8 +40,6 @@
     				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
     				<a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
   				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
-  				<a href="{% url 'posts:categories_test' %}" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
-
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
         {% endif %}
@@ -72,7 +70,7 @@
 
   							  <div class="container" style="background-color:#f1f1f1">
 							      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
- 							     
+
  							   </div></form></div>
  							   <script>
 								// Get the modal
@@ -167,7 +165,6 @@
                             <li class="nav-item"><a class="nav-link" href="#top">Intro</a> </li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
                             <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                             {% if not request.user.is_authenticated %}
                             <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>

@@ -16,6 +16,21 @@
 </head>
 
     <body id="top" class="page-2">
+      {% if user.is_authenticated %}
+      <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+      <div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
+        <button class="login-close" onclick="sidebar_close()">&times;</button>
+          <img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+          <a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
+          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
+          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
+          <a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+          <a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
+        <a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+
+      </div>
+      <div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+      {% endif %}
  <!------------------------------------------------------------------------------- List of the titles ------------------------------------------------------------------------------>
         <div class="tm-navbar-container tm-navbar-container-dark">
             <nav class="navbar navbar-full navbar-fixed-top bg-inverse">
@@ -24,12 +39,12 @@
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a href="index.html" class="nav-link external">Home</a></li>
-                        <li class="nav-item"><a href="#Buy" class="nav-link">Buy & Sell</a> </li>
-                        <li class="nav-item"><a href="#Car" class="nav-link">Cars & Vehicles</a></li>
-			<li class="nav-item"><a href="#Community" class="nav-link">Community</a></li>
-			<li class="nav-item"><a href="#Services" class="nav-link">Services</a></li>
-			<li class="nav-item"><a href="#Jobs" class="nav-link">Jobs</a></li>
+                        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link external">Home</a></li>
+                        <li class="nav-item"><a href="{% url 'posts:ads' %}" class="nav-link external">Most Recent</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'posts:newpost' %}" class="nav-link external">Post Ad</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a href="#" class="nav-link">Categories</a> </li>
                     </ul>
                 </div>
             </nav>
@@ -42,8 +57,8 @@
                 <div class="col-md-12">
                     <h1 class="text-xs-center blue-text tm-page-2-title">Categories</h1>
                     <p class="text-xs-center tm-page-2-p tm-page-2-subtitle">
-                        All you daily needs. <br>
-                        Start from UR-SALE.
+                        All you daily needs <br>
+                        start at UR-SALE.
                     </p>
                 </div>
               </div>
@@ -63,8 +78,7 @@
                               </p>
 
                               <div class="tm-flex-center">
-                                  <a href="{% url 'posts:ads' %}" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                                  <a href="{% url 'posts:newpost' %}" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Post Ad</a>
+                                  <a href="{% url 'posts:ads' %}{{ category.pk }}/" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
                               </div>
 
                           </div>
