@@ -51,63 +51,26 @@
 
             <div class="row">
                 <div class="tm-section" id="Buy">
-                    <div class="col-md-4 margin-bottom-sm-3">
-                        <div class="tm-3-col-box">
-                            <img src="{% static 'img/B&S-books.jpg' %}" alt="Image" class="img-fluid">
 
-                            <div class="tm-description-box">
-                                <p class="tm-description-text">
-                                   			 Books
-                                </p>
+                  {% for category in categories %}
+                  <div class="col-md-4 margin-bottom-sm-3">
+                      <div class="tm-3-col-box">
+                          <img src="{{ category.image.url }}" alt="Image" class="img-fluid">
 
-                                <div class="tm-flex-center">
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Post Ad</a>
-                                </div>
+                          <div class="tm-description-box">
+                              <p class="tm-description-text">
+                                       {{ category.title }}
+                              </p>
 
-                            </div>
-                        </div>
-                    </div>
+                              <div class="tm-flex-center">
+                                  <a href="{% url 'posts:ads' %}" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
+                                  <a href="{% url 'posts:newpost' %}" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Post Ad</a>
+                              </div>
 
-                    <div class="col-md-4 margin-bottom-sm-3">
-
-                        <div class="tm-3-col-box">
-                            <img src="{% static 'img/B&S-electronics.jpg' %}" alt="Image" class="img-fluid">
-
-                            <div class="tm-description-box">
-                                <p class="tm-description-text">
-                                    Electronics.
-                                </p>
-
-                                <div class="tm-flex-center">
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Post Ad</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="tm-3-col-box">
-                            <img src="{% static 'img/B&S-other.jpg' %}" alt="Image" class="img-fluid">
-
-                            <div class="tm-description-box">
-                                <p class="tm-description-text">
-                                   Other.
-                                </p>
-
-                                <div class="tm-flex-center">
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                                    <a href="#" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Post Ad</a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
