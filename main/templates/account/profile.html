@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	{% load static %}
 	<title>UR-SALE</title>
 	<!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
@@ -12,12 +13,12 @@
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                		<!-- Font Awesome -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">                                      		<!-- Bootstrap style -->
-    <link rel="stylesheet" href="css/magnific-popup.css">                                     		<!-- Magnific pop up style -->
-     <link rel="stylesheet" href="css/templatemo-style.css">                                   		<!-- Templatemo style -->
-     <link rel="stylesheet" href="css/login.css">                                     				<!-- login style -->
-     <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                		<!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                                      		<!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">                                     		<!-- Magnific pop up style -->
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   		<!-- Templatemo style -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">                                     				<!-- login style -->
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
 
 <style>
 .switch {
@@ -80,6 +81,7 @@ input:checked + .slider:before {
 
     <body id="top" class="home">
 <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+		{% if request.user.is_authenticated %}
 			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button>
 			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
 				<button class="login-close" onclick="sidebar_close()">&times;</button>
@@ -93,10 +95,9 @@ input:checked + .slider:before {
 				<a href="categoriestest.html" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
 				<a href="post.html" style="background-color:transparent" class="w3-bar-item w3-button">post page</a>
 				<a href="post2.html" style="background-color:transparent" class="w3-bar-item w3-button">post2 page</a>
-
-
-
 			</div>
+			{% endif %}
+
 			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
      							<div id="id02" class="modal">
@@ -163,16 +164,26 @@ input:checked + .slider:before {
 
                     <section id="tm-section-1">
                         <div class="tm-container text-xs-center tm-section-1-inner">
-                            <br><br><h1 class="tm-site-name">User Pofile</h1><hr />
-                            <p class="tm-intro-text">User Email: UR-sell@uregina.ca</p>
-			     <p class="tm-intro-text">User Name: UR-Sell</p>
-			     <p class="tm-intro-text">User Email:</p>
-			     <p class="tm-intro-text">User Email:</p>
+                            <br><br><h1 class="tm-site-name">User Pofile</h1><!-- Pic here?--><hr />
+                            <p class="tm-intro-text">{{ user_profile.username }}</p>
+			     <p class="tm-intro-text">{{ user_profile.email }}</p>
+					 <p class="tm-intro-text">This user's email
+					 {% if user_profile.validated_email %}
+					 		has been
+						{% else %}
+							is not
+					 {% endif %}
+					 validated!</p>
+
+					 {% ifequal request.user.pk user_profile.pk %}
 			      <p class="tm-intro-text">Email Notification: <br><label class="switch">
   				<input type="checkbox" checked>
   				<span class="slider round"></span>
 			      </label></p>
+						{% if not user_profile.email_validated %}
                             <button class="tm-intro-link2" style="margin:auto; width:auto;"onclick="document.getElementById('id02').style.display='block';">Email verification</button>
+						{% endif %}
+						{% endifequal %}
                         </div>
                    </section>
 
@@ -185,7 +196,7 @@ input:checked + .slider:before {
                 <section id="tm-section-2" class="tm-section">
                     <div class="tm-container text-xs-center">
 
-                        <h2 class="blue-text tm-title">User Post</h2>
+                        <h2 class="blue-text tm-title">User Posts</h2>
                         <p class="margin-b-5"></p>
                         <p></p>
 
@@ -265,11 +276,11 @@ input:checked + .slider:before {
 
         <!-- load JS files -->
 
-        <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h -->
-        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
-        <script src="js/jquery.singlePageNav.min.js"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-        <script src="js/jquery.magnific-popup.min.js"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
 
         <!-- Templatemo scripts -->
         <script>
