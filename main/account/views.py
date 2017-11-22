@@ -36,7 +36,7 @@ def signup(request):
         profile_pic = request.FILES.get('pic', None)
 
         #dictionary for errors:
-        signup_errors = User.validate_signup(email, password, password_repeat, username)
+        signup_errors = User.validate_signup(email, password, password_repeat, username, profile_pic)
 
         # if there are any errors, display them to the user:
         if signup_errors:
