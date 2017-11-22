@@ -40,7 +40,15 @@ def signup(request):
 
         # if there are any errors, display them to the user:
         if signup_errors:
-            return render(request, 'account/signup.html', {'signup_errors': signup_errors})
+            error_message = "That signup won't work.<br />Here are some hints:<br /><h5>"
+
+            for key, value in signup_errors.items():
+                values = value.split(".")
+                for v in values:
+                    error_message += v + "<br />"
+
+            messages.error(request, error_message + "</h5>")
+            return HttpResponseRedirect(reverse('index'))
 
         #else, create the user and log them in
 
@@ -54,14 +62,6 @@ def signup(request):
         login(request, new_user)
 
         #return to the index
-        return HttpResponseRedirect(reverse('index'))
-
-    """
-    # else, just return the signup form (if the user is not logged in):
-    if not request.user.is_authenticated:
-        return render(request, 'account/signup.html')
-    else:
-    """
 
     return HttpResponseRedirect(reverse('index'))
 

@@ -54,7 +54,9 @@
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
  							   </div>
+                {% autoescape off %}
 								<span class="error" align="center"><h2>Opps!</h2><h2>{{ message }}</h2><br />
+                {% endautoescape %}
 								<p>Click on the 'x' button to go back</p></span>
  							   <div class="container">
   							   </div></form></div>
