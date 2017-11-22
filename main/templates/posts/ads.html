@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 {% load static %}
+{% load thumbnail %}
 
 <link rel="stylesheet" href="{% static "css/categorypost.css" %}">
 
@@ -165,7 +166,9 @@
 
   {% for post in posts %}
   <div class="view view-tenth">
-        <img src="{{ post.postimages_set.all.0.image.url }}" />
+        {% thumbnail post.postimages_set.all.0.image 200x200 upscale as thumb %}
+        <img src="{{ thumb.url }}" alt="" />
+        <!--img src="{{ post.postimages_set.all.0.image.url }}" /-->
         <div class="mask">
             <h2>{{ post.title }}</h2>
 
