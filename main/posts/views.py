@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
 from .models import Categories, Posts, PostImages, Comments
+from main.views import image_validation
 
 @login_required
 def new_post(request):
@@ -30,24 +31,47 @@ def new_post(request):
         """
 
     errors = dict()
+    categories = Categories.objects.all()
 
     # process form here
     if request.method == "POST":
 
+        # VALIDATE ALL FIELDS
+
         poster = request.user.pk
         category = request.POST['detail']
-
         title = request.POST['adtitle']
-        price = request.POST['price']
+
+        try:
+            price = float(request.POST['price'])
+        except ValueError:
+            # send error message to post form
+            errors['price'] = 'Please enter a valid price.'
+
         description = request.POST['description']
         offering = True if request.POST['type'] == 'offering' else False
+
+        files = []
+        if request.FILES.get('files', None):
+            files = request.FILES.getlist('files')
+            # number of images
+            if len(files) > 5:
+                errors['images'] = "You can only upload up to 5 pictures per post."
+            elif not image_validation(files):
+                # image extensions
+                errors['images'] = 'You can only upload image file types.'
+
+        if errors:
+            return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
+
+        # SAVE TO DB
 
         new_post = Posts(category_id=category, poster_id=poster, title=title, price=price, description=description, offering=offering)
         new_post.save()
 
         #and save all of the images:
-        if request.FILES.get('files', None):
-            for image in request.FILES.getlist('files'):
+        if files:
+            for image in files:
                 new_image = PostImages(post_id=new_post.pk, image=image)
                 new_image.save()
         # or just save one default image if no uploads
@@ -55,11 +79,9 @@ def new_post(request):
             new_image = PostImages(post_id=new_post.pk)
             new_image.save()
 
-        # if it's a successful post, redirect to the new page:
         return HttpResponseRedirect(reverse('index'))
 
     # render the page with any errors or just a plain form
-    categories = Categories.objects.all()
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
 
 def ads(request, category):

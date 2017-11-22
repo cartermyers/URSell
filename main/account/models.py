@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
 from django.core.mail import send_mail
 
-# from main.global_func import unique_file_path
+from main.views import image_validation
 
 import re
 
@@ -38,7 +38,7 @@ class User(AbstractUser):
         return True if re.match(r"\S{3,}@uregina.ca$", email) else False
 
     @staticmethod
-    def validate_signup(email, password, password_repeat, username):
+    def validate_signup(email, password, password_repeat, username, profile_pic):
         """
         DEF: This function takes info from a POST form and creates a user
 
@@ -85,6 +85,10 @@ class User(AbstractUser):
             signup_errors['username'] = "That username already exists."
         except User.DoesNotExist:
             pass
+
+        # profile pic:
+        if profile_pic and not image_validation([profile_pic]):
+            signup_errors['pic'] = 'You can only upload image file types.'
 
         return signup_errors if signup_errors else None
 

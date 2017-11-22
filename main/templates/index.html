@@ -107,35 +107,16 @@
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 								     <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
 
-                     <label><b>Email
-                    {% if signup_errors %}
-                    {% if signup_errors|get_item:'email' %}
-                      <span class="error" style="color:red;margin-left:15px;">Invalid Email Address (must end in @uregina.ca)</span>
-                    {% endif %}
-                    {% endif %}
-                      </b></label>
-
+                     <label><b>Email</b></label>
 								      <input type="text" placeholder="Enter Email" name="email" required>
 
-                      <label><b>Password
-                     {% if signup_errors %}
-                     {% if signup_errors|get_item:'password' %}
-                       <span class="error" style="color:red;margin-left:15px;">{% for error in signup_errors|get_item:'password' %}{{error}}<br />{% endfor %}</span>
-                     {% endif %}
-                     {% endif %}
-                       </b></label>
+                      <label><b>Password</b></label>
 								      <input type="password" placeholder="Enter Password" name="psw" required>
 
                       <label><b>Repeat Password </b></label>
 								      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
-                      <label><b>Username
-                     {% if signup_errors %}
-                     {% if signup_errors|get_item:'username' %}
-                       <span class="error" style="color:red;margin-left:15px;">Username already exists</span>
-                     {% endif %}
-                     {% endif %}
-                       </b></label>
+                      <label><b>Username</b></label>
 								      <input type="text" placeholder="Enter Username" name="Uname" required>
 
 								      <label><b>Photo: </b></label>
