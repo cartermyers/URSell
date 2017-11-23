@@ -65,6 +65,85 @@ table, th, td {
 								}
 							</script>
       {% endif %}
+      <!------------------------------------------------------------------------------- Email lightbox ------------------------------------------------------------------------------>
+                    {% for element in received.all %}
+                    <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                    <form class="modal-content animate" action="/action_page.php">
+                      <div class="container" style = "overflow: scroll;">
+                       <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                       <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                    <p>From: {{ element.sender }}</p>
+                    <p>To: {{ element.reciever }}</p>
+                    <hr />
+                    <p style="color:black">{{ element.content }}</p>
+                      </div>
+                    </form>
+                  </div>
+
+                  <script>
+                  // Get the modal
+                  var modal = document.getElementById('{{ element.pk }}');
+                  // When the user clicks anywhere outside of the modal, close it
+                  window.onclick = function(event) {
+                        if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                      }
+                  </script>
+                  {% endfor %}
+                  {% for element in sent.all %}
+                  <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                  <form class="modal-content animate" action="/action_page.php">
+                    <div class="container" style = "overflow: scroll;">
+                     <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                     <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                  <p>From: {{ element.sender }}</p>
+                  <p>To: {{ element.reciever }}</p>
+                  <hr />
+                  <p style="color:black">{{ element.content }}</p>
+                    </div>
+                  </form>
+                </div>
+
+                <script>
+                // Get the modal
+                var modal = document.getElementById('{{ element.pk }}');
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                      if (event.target == modal) {
+                              modal.style.display = "none";
+                            }
+                    }
+                </script>
+                {% endfor %}
+                {% for element in trash.all %}
+                <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                <form class="modal-content animate" action="/action_page.php">
+                  <div class="container" style = "overflow: scroll;">
+                   <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                   <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                <p>From: {{ element.sender }}</p>
+                <p>To: {{ element.reciever }}</p>
+                <hr />
+                <p style="color:black">{{ element.content }}</p>
+                  </div>
+                </form>
+              </div>
+
+              <script>
+              // Get the modal
+              var modal = document.getElementById('{{ element.pk }}');
+              // When the user clicks anywhere outside of the modal, close it
+              window.onclick = function(event) {
+                    if (event.target == modal) {
+                            modal.style.display = "none";
+                          }
+                  }
+              </script>
+              {% endfor %}
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
             <div class="row">
@@ -124,7 +203,10 @@ table, th, td {
           {% if received %}
     				<table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in received.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td><td>
+                <p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -141,7 +223,10 @@ table, th, td {
           {% if sent %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in sent.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender|truncatechars:15|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td>
+                <td><p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -158,7 +243,10 @@ table, th, td {
           {% if trash %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in trash.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender|truncatechars:15|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td>
+                <td><p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
