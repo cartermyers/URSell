@@ -75,17 +75,16 @@
              <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               {% for pic in post.postimages_set.all %}
-              <!-- put the dynamic generation of the data-to-slide thing here-->
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"
+              {% ifequal forloop.counter0 0 %}
+              class="active"
+              {% endifequal %}
+              ></li>
               {% endfor %}
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-	      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-	      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
               {% for pic in post.postimages_set.all %}
-              {% ifequal forloop.counter 1%}
+              {% ifequal forloop.counter 1 %}
               <div class="carousel-item active">
               {% else %}
               <div class="carousel-item">
