@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # CREATED APPS:
     'account.apps.AccountConfig',
     'posts.apps.PostsConfig',
+    'user_messages.apps.UserMessagesConfig',
 
     #thumbnails:
     'easy_thumbnails',
