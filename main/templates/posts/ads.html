@@ -146,16 +146,17 @@
               </div>
 <!----------------------------here is the search--------------------------------------->
 
+            <form method="GET" action="{% url 'posts:ads' %}"
             <div class="search-wrapper">
                 <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search" />
-                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    <input name="search" type="text" class="search-input" required placeholder="Type to search" />
+                    <button class="search-icon" type="submit" onclick="searchToggle(this, event);"><span></span></button>
                 </div>
                 <span class="close" onclick="searchToggle(this, event);"></span>
                 <div class="result-container">
-
                 </div>
             </div>
+          </form>
 
 
 
