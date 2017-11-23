@@ -42,3 +42,17 @@ def mailbox(request):
     received = received.difference(trash)
 
     return render(request, 'user_messages/mailbox.html', {'sent': sent, 'received': received, 'trash': trash})
+
+@login_required
+def delete_mail(request, mail_id):
+    try:
+        try:
+            mail = SentMail.objects.get(pk=mail_id, sender_id=request.user.pk)
+        except SentMail.DoesNotExist:
+            mail = RecieveMail.objects.get(pk=mail_id, reciever_id=request.user.pk)
+
+        mail.delete()
+    except RecieveMail.DoesNotExist:
+        pass
+
+    return HttpResponseRedirect(reverse('messages:mailbox'))

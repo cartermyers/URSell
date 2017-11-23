@@ -21,6 +21,13 @@ class Mail(models.Model):
     def __str__(self):
         return "From: " + self.sender.username + "; To: " + self.reciever.username + "; Title: " + self.subject
 
+    def delete(self, *args, **kwargs):
+        if self.trash:
+            super(Mail, self).delete(*args, **kwargs)
+        else:
+            self.trash = True
+            super(Mail, self).save(*args, **kwargs)
+
     class Meta:
         abstract = True
 

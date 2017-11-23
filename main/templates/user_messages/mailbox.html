@@ -124,7 +124,7 @@ table, th, td {
           {% if received %}
     				<table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in received.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -141,7 +141,7 @@ table, th, td {
           {% if sent %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in sent.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -158,7 +158,7 @@ table, th, td {
           {% if trash %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in trash.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
