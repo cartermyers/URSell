@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.utils.encoding import python_2_unicode_compatible
 
 from main.views import image_validation
+# from user_messages.models import RecieveMail
 
 import re
 
@@ -27,6 +28,7 @@ class User(AbstractUser):
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
     profile_pic = models.ImageField(upload_to=unique_profile_name, default='account/user-sidebar.png')
+    email_notifications = models.BooleanField(default=False)
 
     # CLASS METHODS
     # These are class functions
@@ -92,3 +94,12 @@ class User(AbstractUser):
             signup_errors['pic'] = 'You can only upload image file types.'
 
         return signup_errors if signup_errors else None
+
+    def send_notification(self, subject, message):
+        r = RecieveMail(sender_id=1, reciever_id=self.pk, subject=subject, content=message)
+        r.save()
+        if self.validated_email and self.email_notifications:
+            send_mail('URSell: ' + subject,    #subject
+                      message,
+                      'ursell.test@gmail.com', #from
+                      [self.email])  #to

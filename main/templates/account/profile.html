@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 	{% load static %}
+	{% load thumbnail %}
 	<title>UR-SALE</title>
 	<!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
@@ -19,64 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   		<!-- Templatemo style -->
     <link rel="stylesheet" href="{% static 'css/login.css' %}">                                     				<!-- login style -->
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
-
-<style>
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {display:none;}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
     <body id="top" class="home">
@@ -160,15 +104,16 @@ input:checked + .slider:before {
 
            <div class="row">
                 <div class="tm-intro">
-
+									<!------------------------------------------------------------------------------- Message notice ------------------------------------------------------------------------------>
+									                       <a href = "email.html"><i class="fa fa-envelope-o" style="font-size:48px;position: fixed;right: 12px;top: 100px;"></i></a>
+									<!------------------------------------------------------------------------------- Message notice ------------------------------------------------------------------------------>
                     <section id="tm-section-1">
                         <div class="tm-container text-xs-center tm-section-1-inner">
                             <br><br><h1 class="tm-site-name">User Pofile</h1>
-														<!--
-														 thumbnail user_profile.profile_pic 200x200 upscale as thumb
+
+														 {% thumbnail user_profile.profile_pic 100x100 upscale as thumb %}
 														<img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
-													-->
-													<img src="{{ user_profile.profile_pic.url }}" />
+
 														<hr />
                             <p class="tm-intro-text">{{ user_profile.username }}</p>
 			     <p class="tm-intro-text">{{ user_profile.email }}</p>
@@ -176,15 +121,24 @@ input:checked + .slider:before {
 					 {% if user_profile.validated_email %}
 					 		has been validated!</p>
 							{% ifequal request.user.pk user_profile.pk %}
-	 			      <p class="tm-intro-text">Email Notification: <br><label class="switch">
-	   						<input type="checkbox" checked>
-	   						<span class="slider round"></span>
-	 			      </label></p>
+							<form method="POST" action="{% url 'account:settings' %}">
+								{% csrf_token %}
+                           <p class="tm-intro-text">Email Notifications:
+                               <label class="switch" style = "margin-top:50px;">
+                                       <input name="notifications" type="checkbox"
+																			 {% if user_profile.email_notifications %}
+																			 checked
+																			 {% endif %}
+																			 >
+                                       <span class="slider round"></span>
+                               </label></p>
+                           <button class="tm-intro-link2" style="margin:auto; width:auto;"type="submit">Save Changes</button>
+							</form>
 	 						{% endifequal %}
 						{% else %}
 							is not validated!</p>
-							<a href="{% url 'account:send_validate_email' %}"  class="tm-intro-link2" style="margin:auto; width:auto;">Email verification</a>
 							{% ifequal request.user.pk user_profile.pk %}
+							<a href="{% url 'account:send_validate_email' %}"  class="tm-intro-link2" style="margin:auto; width:auto;">Email verification</a>
 	 			      <p class="tm-intro-text">Verify your email to receive notifications.</p>
 	 						{% endifequal %}
 					 {% endif %}

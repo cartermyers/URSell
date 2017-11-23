@@ -107,6 +107,7 @@ def login_view(request):
 
     return HttpResponseRedirect(redirect)
 
+#this doesn't require the user to be logged in
 def logout_view(request):
     redirect = request.GET.get('next', reverse('index'))
     logout(request)
@@ -155,3 +156,11 @@ def profile(request, user_id=None):
     user = get_object_or_404(User, pk=user_id)
 
     return render(request, 'account/profile.html', {'user_profile': user})
+
+@login_required
+def user_settings(request):
+    if request.method == "POST":
+        request.user.email_notifications = True if request.POST.get('notifications', None) else False
+        request.user.save()
+
+    return HttpResponseRedirect(reverse('myprofile'))
