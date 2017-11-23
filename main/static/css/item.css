@@ -6,16 +6,16 @@
 /*
 	RGBA color values are an extension of RGB coloe values with an alpha channel
 	-specifies the opcaity of the object
-	RGBA-(red,green,blue,alpha)  alpha is 0.0=fully transparnet͸�� to 1.0 fully opaque��͸��
+	RGBA-(red,green,blue,alpha)  alpha is 0.0=fully transparnetÍ¸Ã÷ to 1.0 fully opaque²»Í¸Ã÷
 */
 body {
   padding-top: 54px;
-  background: radial-gradient(ellipse at bottom left, 
-			      rgba(104, 128, 138, 0.4) 10%, 
-			      rgba(138, 114, 76, 0) 40%), 
-			      linear-gradient(to bottom, 
-			      rgba(57, 173, 219, .25), 
-			      rgba(42, 60, 87, 0.4)), 
+  background: radial-gradient(ellipse at bottom left,
+			      rgba(104, 128, 138, 0.4) 10%,
+			      rgba(138, 114, 76, 0) 40%),
+			      linear-gradient(to bottom,
+			      rgba(229, 169, 38, .9),
+			      rgba(229, 169, 38, 0.9)),
 			      linear-gradient(135deg, #670d10, #092756);
 }
 
