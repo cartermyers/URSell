@@ -148,6 +148,7 @@ def validate_email(request, uidb64, token):
 
     return HttpResponseRedirect(reverse('account:profile', kwargs={'user_id': uid}))
 
+
 def profile(request, user_id=None):
 
     if user_id == None and request.user.is_authenticated:
