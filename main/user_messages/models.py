@@ -38,14 +38,16 @@ class SentMail(Mail):
 class RecieveMail(Mail):
     pass
 
+def send_notification(mail):
+    r = RecieveMail(sender_id=mail.sender_id, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
+    r.save()
+    # this function handles the received box as well:
+    user = User.objects.get(pk=mail.reciever_id)
+    user.send_email_notification(mail.subject, mail.content)
+
 # whenever we send mail from user to user, save two copies:
 def send_mail(mail):
-    r = RecieveMail(sender_id=mail.sender_id, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
     s = SentMail(sender_id=mail.sender_id, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
-    r.save()
     s.save()
-
-# send notifications to users
-def send_notification(mail):
-    r = RecieveMail(sender_id=1, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
-    r.save()
+    #this handles the received part
+    send_notification(mail)

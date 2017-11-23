@@ -27,6 +27,7 @@ class User(AbstractUser):
     # These are the attributes in the database
     validated_email = models.BooleanField(default=False)
     profile_pic = models.ImageField(upload_to=unique_profile_name, default='account/user-sidebar.png')
+    email_notifications = models.BooleanField(default=False)
 
     # CLASS METHODS
     # These are class functions
@@ -93,12 +94,9 @@ class User(AbstractUser):
 
         return signup_errors if signup_errors else None
 
-    def send_validation_email(self):
-        #the url that will process the validation
-        # NOTE: this needs to be reviewed
-        validation_url = '<a>localhost:8000/account/validate_email/' + str(self.pk) +'/</a>'
-
-        send_mail('URSell Email Validation',    #subject
-                  'Please validate your email by selecting the following link: ' + validation_url,  #message
-                  'ursell.test@gmail.com', #from
-                  [self.email])  #to
+    def send_email_notification(self, subject, message):
+        if self.validated_email and self.email_notifications:
+            send_mail('URSell: ' + subject,    #subject
+                      message,
+                      'ursell.test@gmail.com', #from
+                      [self.email])  #to

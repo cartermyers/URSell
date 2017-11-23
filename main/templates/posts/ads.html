@@ -146,16 +146,17 @@
               </div>
 <!----------------------------here is the search--------------------------------------->
 
+            <form method="GET" action="{% url 'posts:ads' %}"
             <div class="search-wrapper">
                 <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search" />
-                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    <input name="search" type="text" class="search-input" required placeholder="Type to search" />
+                    <button class="search-icon" type="submit" onclick="searchToggle(this, event);"><span></span></button>
                 </div>
                 <span class="close" onclick="searchToggle(this, event);"></span>
                 <div class="result-container">
-
                 </div>
             </div>
+          </form>
 
 
 
@@ -172,11 +173,14 @@
             <h2>{{ post.title }}</h2>
 
             <p>{{ post.poster.username }}</p>
-            <a href="#" class="info">Read More</a>
-      Open
-      <label class="switch">
-      <input type="checkbox">
-      <span class="slider"></span>
+            <a href="{% url 'posts:post' post_id=post.pk %}" class="info">Read More</a>
+            <a class="info">
+              {% if post.status %}
+              open
+              {% else %}
+              closed
+              {% endif %}
+            </a>
       </label>
 
         </div>

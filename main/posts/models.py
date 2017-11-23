@@ -30,6 +30,7 @@ class Posts(models.Model):
     description = models.TextField(null=True)
     offering = models.BooleanField(default=True)    #false means they are wanting
     time = models.DateTimeField(auto_now=True)
+    status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
