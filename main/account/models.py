@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import password_validation
 from django.core.mail import send_mail
+from django.utils.encoding import python_2_unicode_compatible
 
 from main.views import image_validation
 
@@ -19,6 +20,7 @@ def unique_profile_name(instance, filename):
     filename = "%s.%s" % (uuid.uuid4(), ext)    #this generates a unique id for the filename
     return os.path.join('account', filename)
 
+@python_2_unicode_compatible
 class User(AbstractUser):
     """See https://docs.djangoproject.com/en/1.11/topics/auth/customizing/ for all fields/attributes included in the superuser"""
 
