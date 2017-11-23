@@ -135,3 +135,13 @@ def validate_email(request, user_id):
 
     return HttpResponseRedirect(reverse(request.GET['next']))
     """
+
+
+def profile(request, user_id=None):
+
+    if user_id == None and request.user.is_authenticated:
+        user_id = request.user.pk
+
+    user = get_object_or_404(User, pk=user_id)
+
+    return render(request, 'account/profile.html', {'user_profile': user})
