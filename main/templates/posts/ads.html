@@ -173,11 +173,14 @@
             <h2>{{ post.title }}</h2>
 
             <p>{{ post.poster.username }}</p>
-            <a href="#" class="info">Read More</a>
-      Open
-      <label class="switch">
-      <input type="checkbox">
-      <span class="slider"></span>
+            <a href="{% url 'posts:post' post_id=post.pk %}" class="info">Read More</a>
+            <a class="info">
+              {% if post.status %}
+              open
+              {% else %}
+              closed
+              {% endif %}
+            </a>
       </label>
 
         </div>
