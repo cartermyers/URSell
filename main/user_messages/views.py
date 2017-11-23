@@ -41,6 +41,11 @@ def mailbox(request):
     sent = sent.difference(trash)
     received = received.difference(trash)
 
+    #now order by time
+    sent = sent.order_by('-time')
+    received = received.order_by('-time')
+    trash = trash.order_by('-time')
+
     return render(request, 'user_messages/mailbox.html', {'sent': sent, 'received': received, 'trash': trash})
 
 @login_required
