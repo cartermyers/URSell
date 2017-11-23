@@ -8,7 +8,6 @@ from django.core.mail import send_mail
 from django.utils.encoding import python_2_unicode_compatible
 
 from main.views import image_validation
-# from user_messages.models import RecieveMail
 
 import re
 
@@ -95,9 +94,7 @@ class User(AbstractUser):
 
         return signup_errors if signup_errors else None
 
-    def send_notification(self, subject, message):
-        r = RecieveMail(sender_id=1, reciever_id=self.pk, subject=subject, content=message)
-        r.save()
+    def send_email_notification(self, subject, message):
         if self.validated_email and self.email_notifications:
             send_mail('URSell: ' + subject,    #subject
                       message,

@@ -164,4 +164,4 @@ def user_settings(request):
         request.user.email_notifications = True if request.POST.get('notifications', None) else False
         request.user.save()
 
-    return HttpResponseRedirect(reverse('myprofile'))
+    return HttpResponseRedirect(reverse('account:myprofile'))
