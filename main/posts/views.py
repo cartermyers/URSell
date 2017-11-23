@@ -97,6 +97,15 @@ def delete_post(request, post_id):
 
     return HttpResponseRedirect(reverse('account:myprofile'))
 
+@login_required
+def post_settings(request, post_id):
+    post = get_object_or_404(Posts, pk=post_id, poster_id=request.user.pk)
+
+    post.status = True if request.POST.get("status", None) else None
+    post.save()
+
+    return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
+
 def ads(request, category):
 
     if category:
