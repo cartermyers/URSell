@@ -115,7 +115,7 @@
           by:&nbsp</a><a float:right href="#">{{ post.poster }}</a>&nbsp&nbsp<time>{{ post.time }}</time>&nbsp
 
           {% ifequal request.user.pk post.poster_id %}
-		        <a class="w3-btn w3-black w3-disabled" href="#">Delete Post</a></br>
+		        <a class="w3-btn w3-black w3-disabled" href="{% url 'posts:delete_post' post_id=post.pk %}">Delete Post</a></br>
             <h5>Open?</h5>
 
 	        <label class="switch">
@@ -138,7 +138,7 @@
               <p>{{ comment.text }}</p>
               <small class="text-muted">Posted by <a href="commenter.html">{{ comment.user }}</a> on {{ comment.time }}</small>
               {% ifequal request.user.pk comment.user_id %}
-              <a class="w3-btn w3-black w3-disabled" href="#">Delete Comment</a>
+              <a class="w3-btn w3-black w3-disabled" href="{% url 'posts:delete_comment' comment_id=comment.pk %}">Delete Comment</a>
               {% endifequal %}
               <hr>
               {% endfor %}
