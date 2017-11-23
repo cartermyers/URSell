@@ -77,6 +77,9 @@ div#all {
   text-align: center
 }
 
+
+
+
 .view a.info {
   display: inline-block;
   text-decoration: none;
@@ -87,10 +90,28 @@ div#all {
   text-transform: uppercase;
   box-shadow: 0 0 1px #000
 }
+.view a.infoo {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  background: #F7C12C;              /*button background image*/
+  color: #fff;
+  font-family: Raleway, serif;
+  text-transform: uppercase;
+  box-shadow: 0 0 1px #000
+}
+
+
+
+
 
 .view a.info:hover {
   box-shadow: 0 0 5px #000
 }
+.view a.infoO:hover {
+  box-shadow: 0 0 5px #000
+}
+
 
 
 /*individual post*/
@@ -124,11 +145,23 @@ div#all {
   padding-
 }
 
+
+
+
 .view-tenth a.info {
   opacity: 0;
   transform: scale(0);
   transition: all 0.5s linear;
 }
+.view-tenth a.infoO {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s linear;
+}
+
+
+
+
 
 .view-tenth:hover img {
   -webkit-transform: scale(10);
@@ -142,10 +175,20 @@ div#all {
 
 .view-tenth:hover h2,
 .view-tenth:hover p,
+
+
+
 .view-tenth:hover a.info {
   transform: scale(1);
   opacity: 1;
 }
+.view-tenth:hover a.infoO {
+  transform: scale(1);
+  opacity: 1;
+}
+
+
+
 /*--------------------------------------------------view one end-----------------------------------------------------------------*/
 
 /*--------------------------------------------------view two-------------------------------------------------------*/
@@ -199,6 +242,8 @@ div#all {
   text-align: center
 }
 
+
+
 .view2 a.info {
   display: inline-block;
   text-decoration: none;
@@ -209,10 +254,30 @@ div#all {
   text-transform: uppercase;
   box-shadow: 0 0 1px #000
 }
+.view2 a.infoo {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  background: #F7C12C;
+  color: #fff;
+  font-family: Raleway, serif;
+  text-transform: uppercase;
+  box-shadow: 0 0 1px #000
+}
+
+
+
+
+
+
 
 .view2 a.info:hover {
   box-shadow: 0 0 5px #000
 }
+.view2 a.infoo:hover {
+  box-shadow: 0 0 5px #000
+}
+
 
 
 /*individual post*/
@@ -251,6 +316,12 @@ div#all {
   transform: scale(0);
   transition: all 0.5s linear;
 }
+.view-tenth a.infoo {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s linear;
+}
+
 
 .view-tenth:hover img {
   -webkit-transform: scale(10);
@@ -268,190 +339,17 @@ div#all {
   transform: scale(1);
   opacity: 1;
 }
+.view-tenth:hover a.infoo {
+  transform: scale(1);
+  opacity: 1;
+}
+
 
 
 /*--------------------------------------------------view two end-------------------------------------------------------
-/*-------------------------------------------Infinite pagination-----------------------------------------------------*/
-.pagination-wrapper {
-  font-size: 0;
-  position: absolute;
-  top:50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-@keyframes pagination-container--animation-prev {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(18px); }
-}
-
-@keyframes pagination-container--animation-next {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-18px); }
-}
-
-.transition-prev .pagination-container {
-  animation: pagination-container--animation-prev 0.3s forwards;
-}
-
-.transition-next .pagination-container {
-  animation: pagination-container--animation-next 0.3s forwards;
-}
-
-.little-dot {
-  width: 6px;
-  height: 6px;
-  background: #fff;
-  border-radius: 100%;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 6px;
-  position: relative;
-  z-index: 10;
-}
-
-.little-dot--first,
-.little-dot--last {
-  z-index: 5;
-}
-
-@keyframes slideLeft {
-  0% {
-    transform: translateX(0px);
-  }
-
-  100% {
-    transform: translateX(-18px);
-  }
-}
-
-.transition-prev .little-dot--first {
-  animation: slideLeft 0.4s 0.3s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-@keyframes little-dot--first--animation {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.transition-next .little-dot--first {
-  animation: little-dot--last--animation 0.3s forwards;
-}
-
-
-@keyframes little-dot--last--animation {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.transition-prev .little-dot--last {
-  animation: little-dot--last--animation 0.3s forwards;
-}
-
-@keyframes slideRight {
-  0% {
-    transform: translateX(0px);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(18px);
-    opacity: 1;
-  }
-}
-
-.transition-next .little-dot--last {
-  animation: slideRight 0.4s 0.3s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.big-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 100%;
-  background: #f6af54;
-  position: absolute;
-  top: 50%;
-  right: -6px;
-  transform: translateY(-50%);
-}
-
-.transition-next .big-dot {
-  right: auto;
-  left: -6px;
-}
-
-.big-dot-container {
-  width: 18px;
-  height: 18px;
-  border-radius: 100%;
-  position: absolute;
-  top: 50%;
-  right: 3px;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.transition-next .big-dot-container {
-  right: auto;
-  left: 3px;
-}margin-left: 90px;
-  margin-top: 160px;
-  float: left;
-
-@keyframes big-dot-container--animation-prev {
-  0% { transform: translateY(-50%); }
-  100% { transform: translateY(-50%) rotate(-179deg); }
-}
-
-@keyframes big-dot-container--animation-next {
-  0% { transform: translateY(-50%); }
-  100% { transform: translateY(-50%) rotate(-181deg); }
-}
-
-.transition-prev .big-dot-container {
-  animation: big-dot-container--animation-prev 0.3s forwards;
-}
-
-.transition-next .big-dot-container {
-  animation: big-dot-container--animation-next 0.3s forwards;
-}
-
-.btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  fill: #fff;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.btn:hover {
-  opacity: 0.6;
-}
-
-.btn--next {
-  left: calc(100% + 20px);  
-}
-
-.btn--prev {
-  right: calc(100% + 20px);
-}
-
-
-
-/*--------------------------------organize post position----------------------------------*/
-.image-container
-{
-  padding: 0;
-  margin-left: auto;
-  margin-right: auto;
-  
-  text-align: center;
-}
-
-/*--------------------------------organize post position----------------------------------*/
-   .search-wrapper {
+/*--------------------------------organize search position----------------------------------*/
+   .search-wrapper
+	   {
                 position: absolute;
                 -webkit-transform: translate(-50%, -50%);
                 -moz-transform: translate(-50%, -50%);
@@ -639,17 +537,8 @@ div#all {
                 display:none;
                 color:#B7B7B7;
             }<form onsubmit="submitFn(this, event);">
-            <div class="search-wrapper">
-                <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search" />
-                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
-                </div>
-                <span class="close" onclick="searchToggle(this, event);"></span>
-                <div class="result-container">
 
-               </div>
-           </div>
-</form>
+		</form>
 
 
             @media screen and (max-width: 560px) {
@@ -663,8 +552,8 @@ div#all {
   display: inline-block;
   padding: 0;
   font-size: 0;
-  position: absolute;
-  bottom:5%;
+  position: relative;
+  bottom:-50px;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -727,7 +616,7 @@ div#all {
 }
 
 /*--------------------------------------------------status button--------------------------------------------------*/
-.switch 
+.switch
 {
   position: relative;
   display: inline-block;
