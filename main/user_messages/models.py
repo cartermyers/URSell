@@ -44,3 +44,8 @@ def send_mail(mail):
     s = SentMail(sender_id=mail.sender_id, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
     r.save()
     s.save()
+
+# send notifications to users
+def send_notification(mail):
+    r = RecieveMail(sender_id=1, reciever_id=mail.reciever_id, subject=mail.subject, content=mail.content)
+    r.save()

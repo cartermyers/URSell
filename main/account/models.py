@@ -11,7 +11,6 @@ from main.views import image_validation
 
 import re
 
-
 import uuid
 import os
 

@@ -11,6 +11,7 @@ from django.db.models import Q
 
 from .models import Categories, Posts, PostImages, Comments
 from main.views import image_validation
+from user_messages.models import Mail, send_notification
 
 @login_required
 def new_post(request):
@@ -129,6 +130,14 @@ def comment(request, post_id):
         comment = request.POST['comment']
         c = Comments(post_id=post_id, user_id=request.user.pk, text=comment)
         c.save()
+
+        # send notification/message
+        post = Posts.objects.filter(pk=post_id)
+        subject = request.user + " just commented on your post."
+        message = request.user + ' commented on your post titled "' + post.title + '". They said "' + comment + '". Go check it out!'
+        mail = Mail(reciever_id=post.user_id, subject=subject, content=message)
+
+        send_notification(mail)
 
     return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
 
