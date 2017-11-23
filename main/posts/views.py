@@ -100,6 +100,7 @@ def ads(request, category):
 
     search = request.GET.get('search', '')
     post_list = post_list.filter(Q(title__icontains=search) | Q(description__icontains=search))
+    post_list = post_list.order_by('-time')
 
     items_per_page = 8
 
