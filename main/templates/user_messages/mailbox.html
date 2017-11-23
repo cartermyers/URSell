@@ -65,6 +65,37 @@ table, th, td {
 								}
 							</script>
       {% endif %}
+      <!------------------------------------------------------------------------------- Email lightbox ------------------------------------------------------------------------------>
+                    <div id="id02" class="modal" style ="z-index:66665">
+
+                    <form class="modal-content animate" action="/action_page.php">
+                      <div class="container" style = "overflow: scroll;">
+                       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+                       <h1 style= "text-align:center;"><label><b>Title</b></label></h1>
+                    <p>From: Whatever@gmail.com</p>
+                    <p>To: lllllll@uregina.ca </p>
+                    <hr />
+                    <p style="color:black">This is a email tdsaiofhgaldsufjhskdfhjkasdfgh'akjsghfkjasdgh'fjaksdfhkjsdafghadjsfhewyfgsadghj'hasdfgjasfgkjhsfdjksaghkdfhasjkfhaskdfh'a</p>
+                      </div>
+                    </form>
+                  </div>
+
+                  <script>
+                  // Get the modal
+                  var modal = document.getElementById('id02');
+                  // When the user clicks anywhere outside of the modal, close it
+                  window.onclick = function(event) {
+                        if (event.target == modal) {
+                                modal.style.display = "none";
+                                }
+                        else if (event.target == Logmodal) {
+                        Logmodal.style.display = "none";
+                      }
+                        else if (event.target == Errormodal) {
+                        document.getElementById('id03').style.display='none';
+                      }
+                      }
+                  </script>
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
             <div class="row">
@@ -124,7 +155,7 @@ table, th, td {
           {% if received %}
     				<table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in received.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td><p class="content" onclick="document.getElementById('id02').style.display='block'">{{ message.content }}<p></td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -141,7 +172,7 @@ table, th, td {
           {% if sent %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in sent.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td><p class="content" onclick="document.getElementById('id02').style.display='block'">{{ message.content }}<p></td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
@@ -158,7 +189,7 @@ table, th, td {
           {% if trash %}
             <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
               {% for message in trash.all %}
-              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td><p class="content" onclick="document.getElementById('id02').style.display='block'">{{ message.content }}<p></td><td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
               {% endfor %}
 
           {% else%}
