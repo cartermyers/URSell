@@ -125,6 +125,8 @@ def ads(request, category):
 @login_required
 def comment(request, post_id):
 
+    post = get_object_or_404(Posts, pk=post_id)
+
     if request.method == "POST":
         # process form
         comment = request.POST['comment']
@@ -132,10 +134,9 @@ def comment(request, post_id):
         c.save()
 
         # send notification/message
-        post = Posts.objects.filter(pk=post_id)
-        subject = request.user + " just commented on your post."
-        message = request.user + ' commented on your post titled "' + post.title + '". They said "' + comment + '". Go check it out!'
-        mail = Mail(reciever_id=post.user_id, subject=subject, content=message)
+        subject = request.user.username + " just commented on your post."
+        message = request.user.username + ' commented on your post titled "' + post.title + '". They said "' + comment + '". Go check it out!'
+        mail = Mail(reciever_id=post.poster_id, subject=subject, content=message)
 
         send_notification(mail)
 
