@@ -85,7 +85,11 @@
             </ol>
             <div class="carousel-inner" role="listbox">
               {% for pic in post.postimages_set.all %}
+              {% ifequal forloop.counter 1%}
               <div class="carousel-item active">
+              {% else %}
+              <div class="carousel-item">
+              {% endifequal %}
                 {% thumbnail pic.image 900x350 upscale as thumb %}
                 <img class="d-block img-fluid" src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="" />
               </div>

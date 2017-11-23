@@ -128,7 +128,8 @@ def send_email_validation(request):
               'ursell.test@gmail.com', #from
               [request.user.email])  #to
 
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('account:profile', kwargs={'user_id': request.user.pk}))
+
 
 def validate_email(request, uidb64, token):
     try:
@@ -136,11 +137,20 @@ def validate_email(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+        messages.error("Sorry! That's not a valid token.")
     if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
+        user.validated_email = True
         user.save()
-        login(request, user)
-        # return redirect('home')
-        return HttpResponse('Your email is now verified.')
-    else:
-        return HttpResponse('Activation link is invalid!')
+        messages.success("You're now verified!")
+
+
+    return HttpResponseRedirect(reverse('account:profile', kwargs={'user_id': user_id}))
+
+def profile(request, user_id=None):
+
+    if user_id == None and request.user.is_authenticated:
+        user_id = request.user.pk
+
+    user = get_object_or_404(User, pk=user_id)
+
+    return render(request, 'account/profile.html', {'user_profile': user})

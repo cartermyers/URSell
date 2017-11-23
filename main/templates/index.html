@@ -38,7 +38,7 @@
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
     				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-    				<a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
+    				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
   				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
