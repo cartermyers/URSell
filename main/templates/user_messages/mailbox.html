@@ -116,26 +116,51 @@ table, th, td {
 		<div class="container" >
   			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Inbox</button>
   			<div id="demo" class="collapse">
-    				<table><tr><td>From</td><td>content</td><td></td></tr>
-				       <tr><td>Ursell@uregina.ca</td><td>This is a inbox sample, it doesn't.....</td>
-					<td><i class="fa fa-trash"></i></td></tr>
+          {% if received %}
+    				<table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in received.all %}
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %}
 			</table>
 			</div>
 		</div>
 		<div class="container">
   			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">Sent</button>
   			<div id="demo1" class="collapse">
-    				<table><tr><td>To</td><td>Message</td><td>Delete</td></tr>
-				       <tr><td>Ursell@uregina.ca</td><td>This is a sent sample, it doesn't.....</td>
-					<td><i class="fa fa-trash"></i></td></tr>
+          {% if sent %}
+            <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in sent.all %}
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %}
 				</table>
 			</div>
 		</div>
 		<div class="container">
   			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">Trash</button>
   			<div id="demo2" class="collapse">
-    				<table><tr><td>Type</td><td>Contact</td><td>content</td><td></td></tr>
-				       <tr><td>Sent/received</td><td>Ursell@uregina.ca</td><td>This is a trash sample, it doesn't.....</td><td><i class="fa fa-arrow-right"></i></td></tr>  		</table>
+          {% if trash %}
+            <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in trash.all %}
+              <tr><td>{{ message.sender }}</td><td>{{ message.reciever }}</td><td>{{ message.subject }}</td><td>{{ message.content }}</td><td>{{ message.time }}</td><td><i class="fa fa-trash"></i></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %} 		</table>
 			</div>
 		</div>
                 <!-- footer -->
