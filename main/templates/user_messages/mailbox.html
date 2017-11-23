@@ -94,8 +94,13 @@ table, th, td {
                         <h2 class="blue-text tm-title text-xs-center" >Send an Message</h2>
 
                         <div >
-                            <form action="index.html" method="post" class="tm-contact-form">
+                            <form action="{% url 'messages:send_user_mail' %}" method="post" class="tm-contact-form">
                               {% csrf_token %}
+                              {% if messages %}
+                              {% for message in messages %}
+                                <div>{{ message }}</div>
+                              {% endfor %}
+                              {% endif %}
                                 <div class="form-group">
                                     <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Username"  required/>
                                 </div>
