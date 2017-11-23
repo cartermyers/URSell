@@ -137,6 +137,9 @@
               {% for comment in post.comments_set.all %}
               <p>{{ comment.text }}</p>
               <small class="text-muted">Posted by <a href="commenter.html">{{ comment.user }}</a> on {{ comment.time }}</small>
+              {% ifequal request.user.pk comment.user_id %}
+              <a class="w3-btn w3-black w3-disabled" href="#">Delete Comment</a>
+              {% endifequal %}
               <hr>
               {% endfor %}
               {% if request.user.is_authenticated %}
