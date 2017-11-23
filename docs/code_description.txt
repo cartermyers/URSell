@@ -1,0 +1,32 @@
+Code Description
+
+Classes
+
+Account App
+- Class User
+	- validate_email(email)
+	- validate_signup(email, password, password_repeat, username)
+	- validate_password(password)
+	- send_validation_email(self)
+	- signup(request)
+	- login_view(request)
+	- logout_view(request)
+	
+- dict()
+
+Main App
+- index(request)
+
+Posts App
+- Class Categories
+
+- Class Posts
+	- unique_post_name(instance, filename)
+	
+- Class PostImages
+
+	- new_post(request)
+	- ads(request, category)
+	- categories(request)
+	- categories_test(request)
+	- test(request)
