@@ -137,11 +137,12 @@ def validate_email(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-        messages.error(request, "Sorry! That's not a valid token.")
     if user is not None and account_activation_token.check_token(user, token):
         user.validated_email = True
         user.save()
         messages.success(request, "You're now verified!")
+    else:
+        messages.error(request, "Sorry! That's not a valid token.")
 
 
     return HttpResponseRedirect(reverse('account:profile', kwargs={'user_id': uid}))
