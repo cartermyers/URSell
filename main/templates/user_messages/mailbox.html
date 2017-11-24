@@ -145,24 +145,22 @@ table, th, td {
               {% endfor %}
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
-            <div class="row">
+          <div class="row">
 
-                <div class="tm-navbar-container">
-                <!-- navbar   -->
-                <nav class="navbar navbar-full navbar-fixed-top">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
-                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item"><a  class="nav-link external" href="index.html">Home</a> </li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
-                       </ul>
-                    </div>
-                </nav>
-              </div>
-           </div>
+              <div class="tm-navbar-container">
+              <!-- navbar   -->
+              <nav class="navbar navbar-full navbar-fixed-top">
+                  <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
+                  <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                      <ul class="nav navbar-nav">
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'index' %}">Home</a> </li>
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
+        <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
+                      </ul>
+                  </div>
+              </nav>
+            </div>
+         </div>
 
             <div class="row gray-bg">
 
