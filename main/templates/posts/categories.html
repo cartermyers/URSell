@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   {% load static %}
+  {% load thumbnail%}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,11 +11,25 @@
     <title>Category</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
     <link rel="shortcut icon" href="{% static 'img/Uregina.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bigcategory.css' %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                                      <!-- Bootstrap style -->
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   <!-- Templatemo style -->
     <link rel="stylesheet" href="{% static "css/login.css" %}">
+
+    <style>
+          .footer {
+                  position: absolute;
+                  right: 0;
+                  bottom: 50;
+                  left: 0;
+                  padding: 5rem;
+                  background-color: #ff9900;
+                  text-align: center;
+                  }
+   </style>
+
 </head>
 
     <body id="top" class="page-2">
@@ -64,6 +79,7 @@
             </nav>
         </div>
  <!------------------------------------------------------------------------------- Buy & Sell ------------------------------------------------------------------------------>
+
       <div class="container-fluid">
 
             <div class="row">
@@ -79,6 +95,19 @@
             </div>
 
             <div class="row">
+              {% for category in categories %}
+              <div class="view view-tenth">
+                {% thumbnail category.image 370x280 crop as thumb %}
+              <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
+                <div class="mask">
+                   <h2>{{ category.title }}</h2>
+                                                     <p>{{ category.description|truncatechars:30 }}</p>
+                   <a href="{% url 'posts:ads' category=category.pk %}" class="info">Read More</a>
+                 </label>
+                </div>
+              </div>
+
+
                 <div class="tm-section" id="Buy">
 
                   {% for category in categories %}
