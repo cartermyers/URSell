@@ -98,36 +98,19 @@
               {% for category in categories %}
               <div class="view view-tenth">
                 {% thumbnail category.image 370x280 crop as thumb %}
-              <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
+              <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="hey"/>
                 <div class="mask">
                    <h2>{{ category.title }}</h2>
-                                                     <p>{{ category.description|truncatechars:30 }}</p>
-                   <a href="{% url 'posts:ads' category=category.pk %}" class="info">Read More</a>
+                    <p>{{ category.description|truncatechars:150 }}</p>
+                   <a href="{% url 'posts:ads' %}{{ category.pk }}" class="info">Read More</a>
                  </label>
                 </div>
               </div>
+              {% endfor %}
+            </div>
 
 
                 <div class="tm-section" id="Buy">
-
-                  {% for category in categories %}
-                  <div class="col-md-4 margin-bottom-sm-3">
-                      <div class="tm-3-col-box">
-                          <img src="{{ category.image.url }}" alt="Image" class="img-fluid">
-
-                          <div class="tm-description-box">
-                              <p class="tm-description-text">
-                                       {{ category.title }}
-                              </p>
-
-                              <div class="tm-flex-center">
-                                  <a href="{% url 'posts:ads' %}{{ category.pk }}/" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                              </div>
-
-                          </div>
-                      </div>
-                  </div>
-                  {% endfor %}
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -140,6 +123,8 @@
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
         <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
+
 
         <!-- Templatemo scripts -->
         <script>
