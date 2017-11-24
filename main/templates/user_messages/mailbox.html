@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+	<title>UR-SALE</title>
+	<!-- icon --><link rel="shortcut icon" href="{% static 'img/Uregina.ico' %}"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                		<!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                                      		<!-- Bootstrap style -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">                                     		<!-- Magnific pop up style -->
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   		<!-- Templatemo style -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">                                     				<!-- login style -->
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">                                     				<!-- other style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+table {
+	width : 100%;
+	margin : 0 auto;
+	border-collapse : collapse;
+}
+
+table, th, td {
+	border : black solid 1px;
+	padding : 0.77%;
+}
+</style>
+</head>
+
+    <body id="top" class="home">
+      {% if request.user.is_authenticated %}
+<!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+			<button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="img/user-sidebar.png" alt="Avatar"></button>
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="img/user-sidebar.png" alt="Avatar"><hr color="grey"/>
+  				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Log out</a>
+  				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">What ever</a>
+				<a href="test/test.html" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+				<a href="categoriestest.html" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
+				<a href="post.html" style="background-color:transparent" class="w3-bar-item w3-button">post page</a>
+				<a href="post2.html" style="background-color:transparent" class="w3-bar-item w3-button">post2 page</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+
+								<script>
+								function sidebar_open() {
+								    document.getElementById("mySidebar").style.display = "block";
+								    document.getElementById("myOverlay").style.display = "block";
+								    document.getElementById("sidebaricon").style.display = "none";
+								}
+								function sidebar_close() {
+								    document.getElementById("mySidebar").style.display = "none";
+								    document.getElementById("myOverlay").style.display = "none";
+								    document.getElementById("sidebaricon").style.display = "block";
+								}
+							</script>
+      {% endif %}
+      <!------------------------------------------------------------------------------- Email lightbox ------------------------------------------------------------------------------>
+                    {% for element in received.all %}
+                    <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                    <form class="modal-content animate" action="/action_page.php">
+                      <div class="container" style = "overflow: scroll;">
+                       <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                       <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                    <p>From: {{ element.sender }}</p>
+                    <p>To: {{ element.reciever }}</p>
+                    <hr />
+                    <p style="color:black">{{ element.content }}</p>
+                      </div>
+                    </form>
+                  </div>
+
+                  <script>
+                  // Get the modal
+                  var modal = document.getElementById('{{ element.pk }}');
+                  // When the user clicks anywhere outside of the modal, close it
+                  window.onclick = function(event) {
+                        if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                      }
+                  </script>
+                  {% endfor %}
+                  {% for element in sent.all %}
+                  <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                  <form class="modal-content animate" action="/action_page.php">
+                    <div class="container" style = "overflow: scroll;">
+                     <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                     <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                  <p>From: {{ element.sender }}</p>
+                  <p>To: {{ element.reciever }}</p>
+                  <hr />
+                  <p style="color:black">{{ element.content }}</p>
+                    </div>
+                  </form>
+                </div>
+
+                <script>
+                // Get the modal
+                var modal = document.getElementById('{{ element.pk }}');
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                      if (event.target == modal) {
+                              modal.style.display = "none";
+                            }
+                    }
+                </script>
+                {% endfor %}
+                {% for element in trash.all %}
+                <div id="{{ element.pk }}" class="modal" style ="z-index:66665">
+
+                <form class="modal-content animate" action="/action_page.php">
+                  <div class="container" style = "overflow: scroll;">
+                   <span onclick="document.getElementById('{{ element.pk }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+                   <h1 style= "text-align:center;"><label><b>{{ element.subject }}</b></label></h1>
+                <p>From: {{ element.sender }}</p>
+                <p>To: {{ element.reciever }}</p>
+                <hr />
+                <p style="color:black">{{ element.content }}</p>
+                  </div>
+                </form>
+              </div>
+
+              <script>
+              // Get the modal
+              var modal = document.getElementById('{{ element.pk }}');
+              // When the user clicks anywhere outside of the modal, close it
+              window.onclick = function(event) {
+                    if (event.target == modal) {
+                            modal.style.display = "none";
+                          }
+                  }
+              </script>
+              {% endfor %}
+<!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="tm-navbar-container">
+                <!-- navbar   -->
+                <nav class="navbar navbar-full navbar-fixed-top">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
+                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item"><a  class="nav-link external" href="index.html">Home</a> </li>
+                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link external" href="categories.html">Categories</a></li>
+                       </ul>
+                    </div>
+                </nav>
+              </div>
+           </div>
+
+            <div class="row gray-bg">
+
+                <section id="tm-section-4" class="tm-section"  style = "margin-top:80px;">
+                    <div class="tm-container">
+
+                        <h2 class="blue-text tm-title text-xs-center" >Send an Message</h2>
+
+                        <div >
+                            <form action="{% url 'messages:send_user_mail' %}" method="post" class="tm-contact-form">
+                              {% csrf_token %}
+                              {% if messages %}
+                              {% for message in messages %}
+                                <div>{{ message }}</div>
+                              {% endfor %}
+                              {% endif %}
+                                <div class="form-group">
+                                    <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Username"  required/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Title"  required/>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Message" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn tm-light-blue-bordered-btn pull-xs-right">Send</button>
+                            </form>
+                        </div> <!-- col -->
+                      </div>
+
+                </section>
+		<hr />
+		<div class="container" >
+  			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Inbox</button>
+  			<div id="demo" class="collapse">
+          {% if received %}
+    				<table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in received.all %}
+              <tr><td>{{ message.sender|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td><td>
+                <p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %}
+			</table>
+			</div>
+		</div>
+		<div class="container">
+  			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">Sent</button>
+  			<div id="demo1" class="collapse">
+          {% if sent %}
+            <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in sent.all %}
+              <tr><td>{{ message.sender|truncatechars:15|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td>
+                <td><p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %}
+				</table>
+			</div>
+		</div>
+		<div class="container">
+  			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">Trash</button>
+  			<div id="demo2" class="collapse">
+          {% if trash %}
+            <table><tr><td>From</td><td>To</td><td>Subject</td><td>Message</td><td>Date</td><td>Delete</td></tr>
+              {% for message in trash.all %}
+              <tr><td>{{ message.sender|truncatechars:15|truncatechars:15 }}</td><td>{{ message.reciever|truncatechars:15 }}</td>
+                <td>{{ message.subject|truncatechars:15 }}</td>
+                <td><p class="content" onclick="document.getElementById('{{ message.pk }}').style.display='block'">{{ message.content|truncatechars:15 }}<p></td>
+                  <td>{{ message.time }}</td><td><a href="{% url 'messages:delete_mail' mail_id=message.pk %}" class="fa fa-trash"></a></td></tr>
+              {% endfor %}
+
+          {% else%}
+
+          <table>There's nothing here.</table>
+
+          {% endif %} 		</table>
+			</div>
+		</div>
+                <!-- footer -->
+                <footer class="tm-footer"  style = "margin-top:200px;>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-SALE</p>
+                    </div>
+                </footer>
+
+            </div> <!-- row -->
+
+        </div> <!-- container-fluid -->
+
+
+        <!-- load JS files -->
+
+        <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
+
+        <!-- Templatemo scripts -->
+        <script>
+
+            $(document).ready(function(){
+
+                var mobileTopOffset = 54;
+                var desktopTopOffset = 80;
+                var topOffset = desktopTopOffset;
+
+                if($(window).width() <= 767) {
+                    topOffset = mobileTopOffset;
+                }
+
+                /* Single page nav
+                -----------------------------------------*/
+                $('#tmNavbar').singlePageNav({
+                   'currentClass' : "active",
+                    offset : topOffset,
+                    'filter': ':not(.external)'
+                });
+
+                /* Handle nav offset upon window resize
+                -----------------------------------------*/
+                $(window).resize(function(){
+                    if($(window).width() <= 767) {
+                        topOffset = mobileTopOffset;
+                    }
+                    else {
+                        topOffset = desktopTopOffset;
+                    }
+
+                    $('#tmNavbar').singlePageNav({
+                        'currentClass' : "active",
+                        offset : topOffset,
+                        'filter': ':not(.external)'
+                    });
+                });
+
+
+                /* Collapse menu after click
+                -----------------------------------------*/
+                $('#tmNavbar a').click(function(){
+                    $('#tmNavbar').collapse('hide');
+                });
+
+                /* Turn navbar background to solid color starting at section 2
+                ---------------------------------------------------------------*/
+                var target = $("#tm-section-2").offset().top - topOffset;
+
+                if($(window).scrollTop() >= target) {
+                    $(".tm-navbar-container").addClass("bg-inverse");
+                }
+                else {
+                    $(".tm-navbar-container").removeClass("bg-inverse");
+                }
+
+                $(window).scroll(function(){
+
+                    if($(this).scrollTop() >= target) {
+                        $(".tm-navbar-container").addClass("bg-inverse");
+                    }
+                    else {
+                        $(".tm-navbar-container").removeClass("bg-inverse");
+                    }
+                });
+
+
+                /* Smooth Scrolling
+                 * https://css-tricks.com/snippets/jquery/smooth-scrolling/
+                --------------------------------------------------------------*/
+                $('a[href*="#"]:not([href="#"])').click(function() {
+                    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+                        && location.hostname == this.hostname) {
+
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+                        if (target.length) {
+
+                            $('html, body').animate({
+                                scrollTop: target.offset().top - topOffset
+                            }, 1000);
+                            return false;
+                        }
+                    }
+                });
+
+
+                /* Magnific pop up
+                ------------------------- */
+                $('.tm-img-grid').magnificPopup({
+                    delegate: 'a', // child items selector, by clicking on it popup will open
+                    type: 'image',
+                    gallery: {enabled:true}
+                });
+            });
+
+        </script>
+
+</body>
+</html>

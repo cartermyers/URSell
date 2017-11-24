@@ -19,6 +19,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
+    url(r'^messages/', include('user_messages.urls', namespace='messages')),
     url(r'^posts/', include('posts.urls', namespace='posts')),
     url(r'^account/', include('account.urls', namespace='account')), #user profile page and other account actions
     url(r'^$', views.index, name='index'),  #main page

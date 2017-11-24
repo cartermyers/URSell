@@ -38,13 +38,34 @@
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
     				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
     				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-    				<a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
+    				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
   				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
-  				<a href="{% url 'posts:categories_test' %}" style="background-color:transparent" class="w3-bar-item w3-button">category Test page</a>
-
    			</div>
    			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
         {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+          {% if 'error' in message.tags %}
+        <div id="id03" class="modal"  style ="z-index:66666" >
+ 							<form class="modal-content animate" action="/action_page.php">
+  							  <div class="imgcontainer">
+  							    <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+ 							   </div>
+                {% autoescape off %}
+								<span class="error" align="center"><h2>Opps!</h2><h2>{{ message }}</h2><br />
+                {% endautoescape %}
+								<p>Click on the 'x' button to go back</p></span>
+ 							   <div class="container">
+  							   </div></form></div>
+ 							   <script>
+
+								// Get the modal
+								var Errormodal = document.getElementById('id03').style.display='block';
+						</script>
+            {% endif %}
+          {% endfor %}
+          {% endif %}
    <!------------------------------------------------------------------------------- Log in model ------------------------------------------------------------------------------>
 
 							<div id="id01" class="modal">
@@ -72,7 +93,7 @@
 
   							  <div class="container" style="background-color:#f1f1f1">
 							      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
- 							     <span class="psw">Forgot <a href="#">password?</a></span>
+
  							   </div></form></div>
  							   <script>
 								// Get the modal
@@ -86,35 +107,16 @@
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 								     <h1 style= "text-align:center;"><label><b>Sign Up</b></label></h1><hr />
 
-                     <label><b>Email
-                    {% if signup_errors %}
-                    {% if signup_errors|get_item:'email' %}
-                      <span class="error" style="color:red;margin-left:15px;">Invalid Email Address (must end in @uregina.ca)</span>
-                    {% endif %}
-                    {% endif %}
-                      </b></label>
-
+                     <label><b>Email</b></label>
 								      <input type="text" placeholder="Enter Email" name="email" required>
 
-                      <label><b>Password
-                     {% if signup_errors %}
-                     {% if signup_errors|get_item:'password' %}
-                       <span class="error" style="color:red;margin-left:15px;">{% for error in signup_errors|get_item:'password' %}{{error}}<br />{% endfor %}</span>
-                     {% endif %}
-                     {% endif %}
-                       </b></label>
+                      <label><b>Password</b></label>
 								      <input type="password" placeholder="Enter Password" name="psw" required>
 
                       <label><b>Repeat Password </b></label>
 								      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
-                      <label><b>Username
-                     {% if signup_errors %}
-                     {% if signup_errors|get_item:'username' %}
-                       <span class="error" style="color:red;margin-left:15px;">Username already exists</span>
-                     {% endif %}
-                     {% endif %}
-                       </b></label>
+                      <label><b>Username</b></label>
 								      <input type="text" placeholder="Enter Username" name="Uname" required>
 
 								      <label><b>Photo: </b></label>
@@ -164,14 +166,16 @@
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
                     <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="#top">Intro</a> </li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-2">Most Recent</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#top">Home</a> </li>
+                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-4">Contact</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item"><a href="{% url 'posts:newpost' %}" class="nav-link external">Post Ad</a></li>
+                            {% endif %}
                             <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
                             {% if not request.user.is_authenticated %}
                             <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
-                             <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
+                            <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
                             {% endif %}
                         </ul>
                     </div>
@@ -295,41 +299,6 @@
            </div>
 
             <div class="row gray-bg">
-
-                <section id="tm-section-4" class="tm-section">
-                    <div class="tm-container">
-
-                        <h2 class="blue-text tm-title text-xs-center">Contact Us</h2>
-
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                            <form action="index.html" method="post" class="tm-contact-form">
-                                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 tm-form-group-left">
-                                    <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 tm-form-group-right">
-                                    <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email"  required/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Subject"  required/>
-                                </div>
-                                <div class="form-group">
-                                    <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Message" required></textarea>
-                                </div>
-
-                                <button type="submit" class="btn tm-light-blue-bordered-btn pull-xs-right">Submit</button>
-                            </form>
-                        </div> <!-- col -->
-
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 margin-top-xs-50">
-                            <h3 class="light-blue-text tm-subtitle">Etiam at rhoncus nisl</h3>
-                            <p>Nunc rutrum ac ante euismod cursus. Suspendisse imperdiet feugiat massa nec iaculis</p>
-                            <p>
-                                Tel: <a href="tel:0100200340">010-020-0340</a><br>
-                                Email: <a href="mailto:info@company.com">info@ursale.com</a>
-                            </p>
-                        </div>
-                    </div>
-                </section>
 
                 <!-- footer -->
                 <footer class="tm-footer">

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% load static %}
+    {% load thumbnail %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shop Item</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/item1.css' %}" rel="stylesheet">
+    <link href="{% static 'css/item2.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/item.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">                                     				<!-- login style -->
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- index navigation -->
+
+
+
+
+    <!-- index navigation end-->
+    <!--style>
+    		.slider {
+      			position: absolute;
+      			cursor: pointer;
+      			top: 0;
+     			left: 0;
+      			right: 0;
+      			bottom: 0;
+     			background-color: #ccc;
+      			-webkit-transition: .4s;
+      			transition: .4s;
+    			}
+    		.slider:before {
+      			position: absolute;
+     			content: "";
+      			height: 26px;
+     			width: 26px;
+      			left: 4px;
+      			bottom: 4px;
+      			background-color: white;
+      			-webkit-transition: .4s;
+      			transition: .4s;
+    			}
+
+    		input:checked + .slider {
+      			background-color: #ff9900;
+    			}
+
+    		input:focus + .slider {
+      			box-shadow: 0 0 1px #ff9900;
+    			}
+
+    		input:checked + .slider:before {
+      		-webkit-transform: translateX(26px);
+      		-ms-transform: translateX(26px);
+      		transform: translateX(26px);
+    		}
+
+
+
+    	</style-->
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">UR-Sale</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'posts:categories' %}">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'posts:newpost' %}">Post Ad</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="userprofile.html">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+          <h1 class="my-4">{{ post.category }}</h1>
+          <div class="list-group">
+            <a href="{% url 'posts:ads' %}{{ post.category.pk }}/" class="list-group-item active">{{ post.category }} ads</a>
+
+          </div>
+        </div>
+
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-9">
+          <div class="card mt-4">
+
+             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+              {% for pic in post.postimages_set.all %}
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"
+              {% ifequal forloop.counter0 0 %}
+              class="active"
+              {% endifequal %}
+              ></li>
+              {% endfor %}
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              {% for pic in post.postimages_set.all %}
+              {% ifequal forloop.counter 1 %}
+              <div class="carousel-item active">
+              {% else %}
+              <div class="carousel-item">
+              {% endifequal %}
+                {% thumbnail pic.image 900x350 upscale as thumb %}
+                <img style="display: block; margin: 0 auto;" class="d-block img-fluid" src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="" />
+              </div>
+              {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+            <div class="card-body">
+              <h2 class="card-title">{{ post.title }}</h2>
+	      <a display: inline-block font size="3">
+          {% if post.offering %}
+            Offered
+          {% else %}
+            Wanted
+          {% endif %}
+          by:&nbsp</a><a float:right href="#">{{ post.poster }}</a>&nbsp&nbsp<time>{{ post.time }}</time>&nbsp
+
+          {% ifequal request.user.pk post.poster_id %}
+		        <a class="w3-btn w3-black w3-disabled" href="{% url 'posts:delete_post' post_id=post.pk %}">Delete Post</a></br>
+
+
+          <form method="POST" action="{% url 'posts:settings' post_id=post.pk %}">
+            <h5>Open?</h5>
+            {% csrf_token %}
+	        <label class="switch">
+  		    <input name="status" type="checkbox"
+          {% if post.status %}
+          checked
+          {% endif %}>
+          <span class="slider round"></span>
+        </label>
+        <button class="w3-btn w3-black" style="margin:auto; width:auto;" type="submit">Save Changes</button>
+        </form>
+            {% endifequal %}
+              <h4>${{ post.price }}</h4> <hr>
+              <p class="card-text">{{ post.description }}
+            </div>
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              Comments
+            </div>
+            <div class="card-body">
+              {% for comment in post.comments_set.all %}
+              <p>{{ comment.text }}</p>
+              <small class="text-muted">Posted by <a href="commenter.html">{{ comment.user }}</a> on {{ comment.time }}</small>
+              {% ifequal request.user.pk comment.user_id %}
+              <br />
+              <a class="w3-btn w3-black w3-disabled" href="{% url 'posts:delete_comment' comment_id=comment.pk %}">Delete Comment</a>
+              {% endifequal %}
+              <hr>
+              {% endfor %}
+              {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'posts:comment' post_id=post.pk %}">
+                  {% csrf_token %}
+                  <input type="text" name="comment" required /><br /><br />
+                  <button type="submit" class="btn btn-success">Leave a Comment</button>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; UR-Sale 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+  </body>
+
+</html>
