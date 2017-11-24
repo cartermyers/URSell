@@ -9,25 +9,22 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="{% static "css/post2.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
 
 <body>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Post Your App</title>
-        <link rel="stylesheet" href="css/normalize.css">
-        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
+        <a href = "{% url 'index' %}"><i class="fa fa-home" style="z-index:20000;font-size:48px;position: fixed;right: 10%;bottom:90%;"></i></a>
+  <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
 
-    </head>
     <body>
 
       <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <h1>Post Your Ad </h1>
+        <h1 style = "color:black;">Post Your Ad </h1>
 
         <fieldset>
 	  <legend><span class="number">1</span>Your Ad Detail</legend>
@@ -68,7 +65,6 @@
           <legend><span class="number">3</span>Ad Detail Category</legend>
           <label for="detail">Select Your Book's Category:</label>
         <select id="detail" name="detail">
-            <optgroup label="Books" >
               {% for category in categories %}
               <option value="{{ category.pk }}">{{category.title}}</option>
               {% endfor %}
