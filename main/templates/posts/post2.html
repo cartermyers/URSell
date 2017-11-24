@@ -10,11 +10,43 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="{% static "css/post2.css" %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
 
 
 </head>
 
 <body>
+  <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+        {% if request.user.is_authenticated %}
+            <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+  				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+  				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+				<hr color="grey"/>
+
+				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+				<hr color="grey"/>
+				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+            	<script>
+								function sidebar_open() {
+								    document.getElementById("mySidebar").style.display = "block";
+								    document.getElementById("myOverlay").style.display = "block";
+								    document.getElementById("sidebaricon").style.display = "none";
+								}
+								function sidebar_close() {
+								    document.getElementById("mySidebar").style.display = "none";
+								    document.getElementById("myOverlay").style.display = "none";
+								    document.getElementById("sidebaricon").style.display = "block";
+								}
+							</script>
+              {% endif %}
   <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
         <a href = "{% url 'index' %}"><i class="fa fa-home" style="z-index:20000;font-size:48px;position: fixed;right: 10%;bottom:90%;"></i></a>
   <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
