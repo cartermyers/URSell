@@ -158,18 +158,19 @@
 
           {% ifequal request.user.pk post.poster_id %}
 		        <a class="w3-btn w3-black w3-disabled" href="{% url 'posts:delete_post' post_id=post.pk %}">Delete Post</a></br>
-            <h5>Open?</h5>
+
 
           <form method="POST" action="{% url 'posts:settings' post_id=post.pk %}">
+            <h5>Open?</h5>
             {% csrf_token %}
 	        <label class="switch">
   		    <input name="status" type="checkbox"
           {% if post.status %}
           checked
-          {% endif %} >
+          {% endif %}>
           <span class="slider round"></span>
         </label>
-          <button class="none" id="none" type="Submit">Save Changes</button>
+        <button class="w3-btn w3-black" style="margin:auto; width:auto;" type="submit">Save Changes</button>
         </form>
             {% endifequal %}
               <h4>${{ post.price }}</h4> <hr>
