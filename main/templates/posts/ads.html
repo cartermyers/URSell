@@ -183,9 +183,10 @@
 <!----------------------------here is the next page--------------------------------------->
 <ul style = "position: fixed; bottom: 0; right:50%; width:500px"class="pagination modal-4">
   {% if posts.has_previous %}
-      <li><a href="?page={{ posts.previous_page_number }}" class="prev"><i class="fa fa-chevron-left"></i>Previous</a></li>
+      <li><a href="?page={{ posts.previous_page_number }}" class="prev"><i style="color:white;" class="fa fa-chevron-left"></i>Previous</a></li>
   {% endif %}
 
+ {% if posts.has_previous or posts.has_next %}
   {% for i in page_range %}
     <li><a href="?page={{ i }}"
       {% ifequal i current_page %}
@@ -193,10 +194,11 @@
       {% endifequal %}
       >{{ i }}</a></li>
   {% endfor %}
+  {% endif %}
 
     {% if posts.has_next %}
       <li><a href="?page={{ posts.next_page_number }}" class="next"> Next
-      <i class="fa fa-chevron-right"></i>
+      <i style="color:white;" class="fa fa-chevron-right"></i>
       </a></li>
     {% endif %}
 </ul><br>
