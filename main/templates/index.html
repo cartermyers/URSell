@@ -29,20 +29,23 @@
 
     <body id="top" class="home">
       <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
-   			{% if user.is_authenticated %}
-        <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
-   			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
-   				<button class="login-close" onclick="sidebar_close()">&times;</button>
-     				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
-    				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
-    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
-    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
-    				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-    				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
-  				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
-   			</div>
-   			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
-        {% endif %}
+              {% if request.user.is_authenticated %}
+                  <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+      			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+      				<button class="login-close" onclick="sidebar_close()">&times;</button>
+        				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+        				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+        				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+      				<hr color="grey"/>
+
+      				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+      				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+      				<hr color="grey"/>
+      				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+      			</div>
+      			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+                  {% endif %}
 
         {% if messages %}
         {% for message in messages %}
@@ -156,27 +159,21 @@
 								</script>
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
-            <div class="row">
+          <div class="row">
 
                 <div class="tm-navbar-container">
-
                 <!-- navbar   -->
                 <nav class="navbar navbar-full navbar-fixed-top">
-
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
                     <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="#top">Home</a> </li>
-                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
-                            {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a href="{% url 'posts:newpost' %}" class="nav-link external">Post Ad</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
-                            {% if not request.user.is_authenticated %}
-                            <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
-                            <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
-                            {% endif %}
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'index' %}">Home</a> </li>
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
+        <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
+          <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
+          {% endif %}
                         </ul>
                     </div>
                 </nav>
