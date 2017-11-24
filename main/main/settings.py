@@ -34,6 +34,10 @@ INSTALLED_APPS = [
     # CREATED APPS:
     'account.apps.AccountConfig',
     'posts.apps.PostsConfig',
+    'user_messages.apps.UserMessagesConfig',
+
+    #thumbnails:
+    'easy_thumbnails',
 
     # DEFAULT APPS:
     'django.contrib.admin',
@@ -159,8 +163,8 @@ LOGIN_URL = 'index'  #since user's login at the index
 # Email info (to be used later)
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ursell.test@gmail.com' #name of email username
-EMAIL_HOST_PASSWORD = 'petsname'
+EMAIL_HOST_USER = 'donotreply.ursell@gmail.com' #name of email username
+EMAIL_HOST_PASSWORD = 'deadline'
 EMAIL_USE_TLS = True
 """
 EMAIL_HOST = 'smtp.sendgrid.net' #name of mail server

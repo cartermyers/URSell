@@ -3,3 +3,6 @@
 
 # and the db for the prod version
 db.sqlite3
+
+# ignore any uploaded files
+media
