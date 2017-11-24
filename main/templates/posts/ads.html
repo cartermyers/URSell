@@ -86,47 +86,11 @@
   {% endif %}
 
 			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
-<!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
-     							<div id="id02" class="modal">
-
-								  <form class="modal-content animate" action="/action_page.php">
-								    <div class="container">
-								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-								     <h1 style= "text-align:center;"><label><b>Verification</b></label></h1><hr />
-								      <label><b>Email verification<span class="error" style="color:red;margin-left:15px;">Invalid verification code</span></b></label>
-								      <input type="text" placeholder="Email verification code" name="Vcode" required>
-
-								      <div class="clearfix">
-								       <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-								        <button type="submit" class="signupbtn">Sign Up</button>
-								      </div>
-								    </div>
-								  </form>
-								</div>
-
-								<script>
-								function sidebar_open() {
-								    document.getElementById("mySidebar").style.display = "block";
-								    document.getElementById("myOverlay").style.display = "block";
-								    document.getElementById("sidebaricon").style.display = "none";
-								}
-								function sidebar_close() {
-								    document.getElementById("mySidebar").style.display = "none";
-								    document.getElementById("myOverlay").style.display = "none";
-								    document.getElementById("sidebaricon").style.display = "block";
-								}
-								// Get the modal
-								var modal = document.getElementById('id02');
-								// When the user clicks anywhere outside of the modal, close it
-								window.onclick = function(event) {
-									    if (event.target == modal) {
-											        modal.style.display = "none";
-													    }
-								}
-								</script>
 
 
-<!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
+      <!------------------------------------------------------------------------------- top bar ------------------------------------------------------------------------------>
+              <div class="container-fluid">
+
 
             <div class="row">
 
@@ -144,6 +108,7 @@
                     </div>
                 </nav>
               </div>
+            </div>
 <!----------------------------here is the search--------------------------------------->
 
             <form method="GET" action="{% url 'posts:ads' %}"
