@@ -3,35 +3,66 @@
 <html lang="en">
 <head>
   {% load static %}
+  {% load thumbnail%}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Category</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
     <link rel="shortcut icon" href="{% static 'img/Uregina.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bigcategory.css' %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                                      <!-- Bootstrap style -->
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   <!-- Templatemo style -->
     <link rel="stylesheet" href="{% static "css/login.css" %}">
+
+    <style>
+          .footer {
+                  position: absolute;
+                  right: 0;
+                  bottom: 50;
+                  left: 0;
+                  padding: 5rem;
+                  background-color: #ff9900;
+                  text-align: center;
+                  }
+   </style>
+
 </head>
 
     <body id="top" class="page-2">
-      {% if user.is_authenticated %}
-      <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
-      <div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
-        <button class="login-close" onclick="sidebar_close()">&times;</button>
-          <img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
-          <a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
-          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
-          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
-          <a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-          <a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
-        <a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+      <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+        {% if request.user.is_authenticated %}
+            <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+  				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+  				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+				<hr color="grey"/>
 
-      </div>
-      <div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
-      {% endif %}
+				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+				<hr color="grey"/>
+				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+      <script>
+              function sidebar_open() {
+                  document.getElementById("mySidebar").style.display = "block";
+                  document.getElementById("myOverlay").style.display = "block";
+                  document.getElementById("sidebaricon").style.display = "none";
+              }
+              function sidebar_close() {
+                  document.getElementById("mySidebar").style.display = "none";
+                  document.getElementById("myOverlay").style.display = "none";
+                  document.getElementById("sidebaricon").style.display = "block";
+              }
+            </script>
+            {% endif %}
  <!------------------------------------------------------------------------------- List of the titles ------------------------------------------------------------------------------>
         <div class="tm-navbar-container tm-navbar-container-dark">
             <nav class="navbar navbar-full navbar-fixed-top bg-inverse">
@@ -42,15 +73,13 @@
                     <ul class="nav navbar-nav">
                         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link external">Home</a></li>
                         <li class="nav-item"><a href="{% url 'posts:ads' %}" class="nav-link external">Most Recent</a></li>
-                        {% if request.user.is_authenticated %}
-                        <li class="nav-item"><a href="{% url 'posts:newpost' %}" class="nav-link external">Post Ad</a></li>
-                        {% endif %}
-                        <li class="nav-item"><a href="#" class="nav-link">Categories</a> </li>
+                        <li class="nav-item"><a href="{% url 'posts:categories' %}" class="nav-link">Categories</a> </li>
                     </ul>
                 </div>
             </nav>
         </div>
  <!------------------------------------------------------------------------------- Buy & Sell ------------------------------------------------------------------------------>
+
       <div class="container-fluid">
 
             <div class="row">
@@ -66,26 +95,22 @@
             </div>
 
             <div class="row">
+              {% for category in categories %}
+              <div class="view view-tenth">
+                {% thumbnail category.image 370x280 crop as thumb %}
+              <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="hey"/>
+                <div class="mask">
+                   <h2>{{ category.title }}</h2>
+                    <p>{{ category.description|truncatechars:150 }}</p>
+                   <a href="{% url 'posts:ads' %}{{ category.pk }}" class="info">Read More</a>
+                 </label>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+
                 <div class="tm-section" id="Buy">
-
-                  {% for category in categories %}
-                  <div class="col-md-4 margin-bottom-sm-3">
-                      <div class="tm-3-col-box">
-                          <img src="{{ category.image.url }}" alt="Image" class="img-fluid">
-
-                          <div class="tm-description-box">
-                              <p class="tm-description-text">
-                                       {{ category.title }}
-                              </p>
-
-                              <div class="tm-flex-center">
-                                  <a href="{% url 'posts:ads' %}{{ category.pk }}/" class="btn btn-default tm-normal-btn tm-blue-bordered-btn">Browse</a>
-                              </div>
-
-                          </div>
-                      </div>
-                  </div>
-                  {% endfor %}
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -98,6 +123,8 @@
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
         <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>     <!-- Magnific pop-up (http://dimsemenov.com/plugins/magnific-popup/) -->
+
 
         <!-- Templatemo scripts -->
         <script>
