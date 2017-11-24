@@ -348,7 +348,7 @@ div#all {
 
 /*--------------------------------------------------view two end-------------------------------------------------------
 /*--------------------------------organize search position----------------------------------*/
-   .search-wrapper 
+   .search-wrapper
 	   {
                 position: absolute;
                 -webkit-transform: translate(-50%, -50%);
@@ -537,7 +537,7 @@ div#all {
                 display:none;
                 color:#B7B7B7;
             }<form onsubmit="submitFn(this, event);">
-            
+
 		</form>
 
 
@@ -616,7 +616,7 @@ div#all {
 }
 
 /*--------------------------------------------------status button--------------------------------------------------*/
-.switch 
+.switch
 {
   position: relative;
   display: inline-block;
