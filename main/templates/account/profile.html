@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- load stylesheets -->
-
+		<link rel="stylesheet" href="{% static 'css/categorypost.userprofile.css' %}">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                		<!-- Font Awesome -->
@@ -159,11 +159,22 @@
                         <p></p>
 
 												{% for post in user_profile.posts_set.all %}
-												<div class="tm-gallery-img-container">
-														<a href="img/tm-450x300-01.jpg" class="tm-gallery-img-link">
-																<img src="{{ post.postimages_set.0.image.url }}" alt="Image" class="img-fluid tm-gallery-img"> <!-- 300x200 -->
-														</a>
-												</div>
+												<div class="view view-tenth">
+													{% thumbnail post.postimages_set.all.0.image 300x200 crop as thumb %}
+													<img src="{{ thumb.url }}" width="{{ thumb.width }}" alt="Image" height="{{ thumb.height }}" class="img-fluid tm-gallery-img"/>
+							 <div class="mask">
+							 <h2>{{ post.title }}</h2>
+							 				<p> {{ post.description|truncatechars:20 }}</p>
+							 				<a  href="{% url 'posts:post' post_id=post.pk %}" class="info">Read More</a>
+				 		 					<a class="infoo">
+												{% if post.status %}
+												open
+												{% else %}
+												closed
+												{% endif %}
+											</a>
+					 							</div>
+			 									</div>
 												{% endfor %}
                             </div>
                 </section>

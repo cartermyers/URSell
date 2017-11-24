@@ -89,6 +89,23 @@ def new_post(request):
     # render the page with any errors or just a plain form
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
 
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Posts, pk=post_id, poster_id=request.user.pk)
+
+    post.delete()
+
+    return HttpResponseRedirect(reverse('account:myprofile'))
+
+@login_required
+def post_settings(request, post_id):
+    post = get_object_or_404(Posts, pk=post_id, poster_id=request.user.pk)
+
+    post.status = True if request.POST.get("status", None) else False
+    post.save()
+
+    return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
+
 def ads(request, category):
 
     if category:
@@ -146,6 +163,13 @@ def comment(request, post_id):
         send_notification(mail)
 
     return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': post_id}))
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comments, pk=comment_id, user_id=request.user.pk)
+    comment.delete()
+
+    return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': comment.post_id}))
 
 
 def post_page(request, post_id):
