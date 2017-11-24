@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Category</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
     <link rel="shortcut icon" href="{% static 'img/Uregina.ico' %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="{% static 'font-awesome-4.5.0/css/font-awesome.min.css' %}">                <!-- Font Awesome -->
@@ -17,21 +18,36 @@
 </head>
 
     <body id="top" class="page-2">
-      {% if user.is_authenticated %}
-      <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
-      <div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
-        <button class="login-close" onclick="sidebar_close()">&times;</button>
-          <img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
-          <a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
-          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
-          <a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
-          <a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-          <a href="profile.html" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
-        <a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
+      <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+        {% if request.user.is_authenticated %}
+            <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+  				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+  				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+				<hr color="grey"/>
 
-      </div>
-      <div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
-      {% endif %}
+				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+				<hr color="grey"/>
+				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+      <script>
+              function sidebar_open() {
+                  document.getElementById("mySidebar").style.display = "block";
+                  document.getElementById("myOverlay").style.display = "block";
+                  document.getElementById("sidebaricon").style.display = "none";
+              }
+              function sidebar_close() {
+                  document.getElementById("mySidebar").style.display = "none";
+                  document.getElementById("myOverlay").style.display = "none";
+                  document.getElementById("sidebaricon").style.display = "block";
+              }
+            </script>
+            {% endif %}
  <!------------------------------------------------------------------------------- List of the titles ------------------------------------------------------------------------------>
         <div class="tm-navbar-container tm-navbar-container-dark">
             <nav class="navbar navbar-full navbar-fixed-top bg-inverse">
