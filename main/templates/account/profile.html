@@ -167,7 +167,11 @@
 							 				<p> {{ post.description|truncatechars:20 }}</p>
 							 				<a  href="{% url 'posts:post' post_id=post.pk %}" class="info">Read More</a>
 				 		 					<a class="infoo">
+												{% if post.status %}
 												open
+												{% else %}
+												closed
+												{% endif %}
 											</a>
 					 							</div>
 			 									</div>
