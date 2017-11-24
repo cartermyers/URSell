@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>UR-SALE</title>
+	  <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
     {% load dict_get %}
-
-    <title>UR-SALE</title>
-    <!-- load stylesheets -->
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
@@ -136,16 +135,16 @@
 								</div>
 
 								<script>
-function sidebar_open() {
-                                        document.getElementById("mySidebar").style.display = "block";
-                                                                            document.getElementById("myOverlay").style.display = "block";
-                                                                                                                document.getElementById("sidebaricon").style.display = "none";
-                                                                                                                                                }
-                                function sidebar_close() {
-                                                                        document.getElementById("mySidebar").style.display = "none";
-                                                                                                            document.getElementById("myOverlay").style.display = "none";
-                                                                                                                                                document.getElementById("sidebaricon").style.display = "block";
-                                                                                                                                                                                }
+                function sidebar_open() {
+ 								    document.getElementById("mySidebar").style.display = "block";
+ 								    document.getElementById("myOverlay").style.display = "block";
+ 								    document.getElementById("sidebaricon").style.display = "none";
+ 								}
+ 								function sidebar_close() {
+ 								    document.getElementById("mySidebar").style.display = "none";
+ 								    document.getElementById("myOverlay").style.display = "none";
+ 								    document.getElementById("sidebaricon").style.display = "block";
+ 								}
 								// Get the modal
 								var modal = document.getElementById('id02');
 								// When the user clicks anywhere outside of the modal, close it
@@ -178,9 +177,7 @@ function sidebar_open() {
                         </ul>
                     </div>
                 </nav>
-
               </div>
-
            </div>
 
            <div class="row">
@@ -201,10 +198,33 @@ function sidebar_open() {
 
             <div class="row gray-bg">
 
+                <div id="tm-section-3" class="tm-section">
+                    <div class="tm-container tm-container-wide">
+                        <div class="tm-news-item">
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-item-img-container">
+                                <img src="{% static "img/superhero.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container">
+                              <h2 class="tm-news-title dark-gray-text">CS372 UR-SALE team</h2>
+                                <p class="tm-news-text">Michael Gardiner, Braydon Hanson, Ben He, Martin Li, Carter Myers, Mitchell Thies.</p>
+                                <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Detail</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+               </div>
+
+           </div>
+
+            <div class="row gray-bg">
+
                 <!-- footer -->
                 <footer class="tm-footer">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-Sale</p>
+                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-SALE</p>
                     </div>
                 </footer>
 
