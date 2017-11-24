@@ -14,6 +14,7 @@ def unique_post_name(instance, filename):
 
 class Categories(models.Model):
     title = models.CharField(max_length=40)
+    description = models.CharField(max_length=255)
     image = models.ImageField(upload_to='posts/')
 
     def __str__(self):

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>UR-SALE</title>
+	  <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
     {% load dict_get %}
-
-    <title>UR-SALE</title>
-    <!-- load stylesheets -->
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   <!-- Google web font "Open Sans" -->
@@ -30,20 +29,23 @@
 
     <body id="top" class="home">
       <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
-   			{% if user.is_authenticated %}
-        <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
-   			<div class="w3-sidebar w3-bar-block w3-animate-left" style="background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:1005" id="mySidebar">
-   				<button class="login-close" onclick="sidebar_close()">&times;</button>
-     				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
-    				<a href="sale.html" style="background-color:transparent" class="w3-bar-item w3-button">Sale</a>
-    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 2</a>
-    				<a href="#" style="background-color:transparent" class="w3-bar-item w3-button">Link 3</a><hr color="grey"/>
-    				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
-    				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">Profile</a>
-  				<a href="{% url 'posts:test' %}" style="background-color:transparent" class="w3-bar-item w3-button">Test page</a>
-   			</div>
-   			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
-        {% endif %}
+              {% if request.user.is_authenticated %}
+                  <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+      			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+      				<button class="login-close" onclick="sidebar_close()">&times;</button>
+        				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+        				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+        				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+      				<hr color="grey"/>
+
+      				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+      				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+      				<hr color="grey"/>
+      				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+      			</div>
+      			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+                  {% endif %}
 
         {% if messages %}
         {% for message in messages %}
@@ -133,16 +135,16 @@
 								</div>
 
 								<script>
-function sidebar_open() {
-                                        document.getElementById("mySidebar").style.display = "block";
-                                                                            document.getElementById("myOverlay").style.display = "block";
-                                                                                                                document.getElementById("sidebaricon").style.display = "none";
-                                                                                                                                                }
-                                function sidebar_close() {
-                                                                        document.getElementById("mySidebar").style.display = "none";
-                                                                                                            document.getElementById("myOverlay").style.display = "none";
-                                                                                                                                                document.getElementById("sidebaricon").style.display = "block";
-                                                                                                                                                                                }
+                function sidebar_open() {
+ 								    document.getElementById("mySidebar").style.display = "block";
+ 								    document.getElementById("myOverlay").style.display = "block";
+ 								    document.getElementById("sidebaricon").style.display = "none";
+ 								}
+ 								function sidebar_close() {
+ 								    document.getElementById("mySidebar").style.display = "none";
+ 								    document.getElementById("myOverlay").style.display = "none";
+ 								    document.getElementById("sidebaricon").style.display = "block";
+ 								}
 								// Get the modal
 								var modal = document.getElementById('id02');
 								// When the user clicks anywhere outside of the modal, close it
@@ -157,36 +159,25 @@ function sidebar_open() {
 								</script>
 <!------------------------------------------------------------------------------- head of the website ------------------------------------------------------------------------------>
         <div class="container-fluid">
-            <div class="row">
+          <div class="row">
 
                 <div class="tm-navbar-container">
-
                 <!-- navbar   -->
                 <nav class="navbar navbar-full navbar-fixed-top">
-
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
-                        &#9776;
-                    </button>
-
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
                     <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="#top">Home</a> </li>
-                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tm-section-3">Team</a></li>
-                            {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a href="{% url 'posts:newpost' %}" class="nav-link external">Post Ad</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
-                            {% if not request.user.is_authenticated %}
-                            <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
-                            <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
-                            {% endif %}
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'index' %}">Home</a> </li>
+                          <li class="nav-item"><a class="nav-link external" href="{% url 'posts:ads' %}">Most Recent</a></li>
+        <li class="nav-item"><a class="nav-link external" href="{% url 'posts:categories' %}">Categories</a></li>
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item"><button class="tm-intro-link2" id = "sign-and-log" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'" style="width:auto;">Login</button></li>
+          <li class="nav-item"><button class="tm-intro-link2" data-toggle="collapse" data-target="#tmNavbar" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" style="width:auto;">Sign Up</button> </li>
+          {% endif %}
                         </ul>
                     </div>
                 </nav>
-
               </div>
-
            </div>
 
            <div class="row">
@@ -205,82 +196,6 @@ function sidebar_open() {
             </div>
             <!-- row -->
 
-            <div class="row">
-
-                <section id="tm-section-2" class="tm-section">
-                    <div class="tm-container text-xs-center">
-
-                        <h2 class="blue-text tm-title">Lorem ipsum dolor sit amet</h2>
-                        <p class="margin-b-5">Etiam at rhoncus nisl. Nunc rutrum ac ante euismod cursus.</p>
-                        <p>Suspendisse imperdiet feugiat massa nex iaculis.</p>
-
-                        <div class="tm-img-grid">
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-01.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-01.jpg" %}" alt="Image" class="img-fluid tm-gallery-img"> <!-- 300x200 -->
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-07.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-07.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-02.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-02.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-09.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-09.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-03.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-03.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-08.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-08.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-10.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-10.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-04.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-04.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-05.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-05.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-11.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-11.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-06.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-06.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                            <div class="tm-gallery-img-container">
-                                <a href="{% static "img/tm-450x300-12.jpg" %}" class="tm-gallery-img-link">
-                                    <img src="{% static "img/tm-450x300-12.jpg" %}" alt="Image" class="img-fluid tm-gallery-img">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div> <!-- row -->
-
             <div class="row gray-bg">
 
                 <div id="tm-section-3" class="tm-section">
@@ -288,25 +203,12 @@ function sidebar_open() {
                         <div class="tm-news-item">
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-01.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
+                                <img src="{% static "img/superhero.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">Lumino theme is a Bootstrap 4.0 mobile compatible layout for your website. Check "columns" page for one, two, three columns and tables.</p>
-                                <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Preview</a>
-                            </div>
-                        </div>
-
-                        <div class="tm-news-item">
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 flex-order-2 tm-news-item-img-container">
-                                <img src="{% static "img/tm-600x300-02.jpg" %}" alt="Image" class="img-fluid tm-news-item-img">
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-news-container flex-order-1">
-                                <h2 class="tm-news-title dark-gray-text">Nulla molestie euismod</h2>
-                                <p class="tm-news-text">You may download, modify and use this template as you wish. Lumino HTML5 template is a fully responsive mobile ready for any kind of website.</p>
+                              <h2 class="tm-news-title dark-gray-text">CS372 UR-SALE team</h2>
+                                <p class="tm-news-text">Michael Gardiner, Braydon Hanson, Ben He, Martin Li, Carter Myers, Mitchell Thies.</p>
                                 <a href="#" class="btn tm-light-blue-bordered-btn tm-news-link">Detail</a>
                             </div>
                         </div>
@@ -322,7 +224,7 @@ function sidebar_open() {
                 <!-- footer -->
                 <footer class="tm-footer">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2016 Company Name</p>
+                        <p class="text-xs-center tm-footer-text">Copyright &copy; 2017 UR-SALE</p>
                     </div>
                 </footer>
 
