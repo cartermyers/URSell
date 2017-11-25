@@ -45,10 +45,9 @@ def new_post(request):
         title = request.POST['adtitle']
 
         try:
-            price = request.POST['price']
-            if len(price) > 9:
-                errors['price'] = 'Please enter a valid price.'
             price = float(request.POST['price'])
+            if len(request.POST['price']) > 9 or price < 0:
+                errors['price'] = 'Please enter a valid price.'
         except ValueError:
             # send error message to post form
             errors['price'] = 'Please enter a valid price.'
