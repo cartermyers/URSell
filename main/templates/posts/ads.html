@@ -160,7 +160,7 @@
 
   {% for post in posts %}
   <div class="view view-tenth">
-        {% thumbnail post.postimages_set.all.0.image 300x200 crop as thumb %}
+        {% thumbnail post.postimages_set.all.0.image 300x200 upscale crop as thumb %}
         <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" alt="" />
         <div class="mask">
             <h2>{{ post.title }}</h2>
