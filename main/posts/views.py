@@ -83,7 +83,7 @@ def new_post(request):
             new_image = PostImages(post_id=new_post.pk)
             new_image.save()
 
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': new_post.pk}))
 
     # render the page with any errors or just a plain form
     return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
