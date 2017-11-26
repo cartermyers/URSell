@@ -157,7 +157,7 @@
 
          <!----------------------------row 1------------------------>
 
-
+<div style = "margin-top:5%;">
   {% for post in posts %}
   <div class="view view-tenth">
         {% thumbnail post.postimages_set.all.0.image 300x200 upscale crop as thumb %}
@@ -179,7 +179,7 @@
         </div>
     </div>
   {% endfor %}
-
+	</div>
 <!----------------------------here is the next page--------------------------------------->
 <ul style = "position: fixed; bottom: 0; right:50%; width:500px"class="pagination modal-4">
   {% if posts.has_previous %}
