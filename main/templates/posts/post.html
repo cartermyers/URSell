@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>UR-SALE</title>
+    <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	{% load static %}
+  	{% load dict_get %}
+      <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->	
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                		<!-- Font Awesome -->
+    <link rel="stylesheet" href={% static "css/bootstrap.min.css" %}">                                      		<!-- Bootstrap style -->
+    <link rel="stylesheet" href={% static "css/magnific-popup.css" %}">                                     		<!-- Magnific pop up style -->
+    <link rel="stylesheet" href={% static "css/templatemo-style.css" %}">                                   		<!-- Templatemo style -->
+    <link rel="stylesheet" href={% static "css/login.css" %}">                                     				<!-- login style -->
+    <link rel="stylesheet" href={% static "css/mystyle.css" %}">                                     				<!-- other style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{% static "css/post2.css" %}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
+
+
+</head>
+
+<body>
+  <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+        {% if request.user.is_authenticated %}
+            <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
+				<button class="login-close" onclick="sidebar_close()">&times;</button>
+  				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
+  				<a href="{% url 'account:myprofile' %}" style="background-color:transparent" class="w3-bar-item w3-button">User Profile</a>
+  				<a href="{% url 'messages:mailbox' %}" style="background-color:transparent" class="w3-bar-item w3-button">Messaging</a>
+				<hr color="grey"/>
+
+				<a href="{% url 'posts:newpost' %}" style="background-color:transparent" class="w3-bar-item w3-button">Post Ad</a>
+				<a href="{% url 'posts:ads' %}" style="background-color:transparent" class="w3-bar-item w3-button">Ads</a>
+
+				<hr color="grey"/>
+				<a href="{% url 'account:logout' %}" style="background-color:transparent" class="w3-bar-item w3-button">Logout</a>
+			</div>
+			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
+            	<script>
+								function sidebar_open() {
+								    document.getElementById("mySidebar").style.display = "block";
+								    document.getElementById("myOverlay").style.display = "block";
+								    document.getElementById("sidebaricon").style.display = "none";
+								}
+								function sidebar_close() {
+								    document.getElementById("mySidebar").style.display = "none";
+								    document.getElementById("myOverlay").style.display = "none";
+								    document.getElementById("sidebaricon").style.display = "block";
+								}
+							</script>
+              {% endif %}
+
+  <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
+        <a href = "{% url 'index' %}"><i class="fa fa-home" style="z-index:20000;font-size:48px;position: fixed;right: 10%;bottom:90%;"></i></a>
+  <!------------------------------------------------------------------------------- back to home button ------------------------------------------------------------------------------>
+  
+      <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h1 style = "color:black;">Post Your Ad </h1>
+
+        <fieldset>
+	  <legend><span class="number">1</span>Your Ad Detail</legend>
+          <div>
+	  <label for="name">Ad Title:</label>
+          <input class="input" type="text" id="name" name="adtitle" required>
+
+
+	   <label>Ad Type:</label>
+            <input type="radio" id="" value="offering" name="type" checked><label for="" class="light">I am offering</label><br>
+            <input type="radio" id="" value="wanting" name="type"><label for="" class="light">I want</label>
+
+
+          <label for="mail">Price $:</label>
+          {% if errors|get_item:'price' %}
+            <div style='color:red;'>{{ errors|get_item:'price' }}</div>
+          {% endif %}
+	         <input type="price" id="price" name="price" required></br>
+
+          <label for="password">Description:</label>
+          <textarea class="input" rows="6" cols="50" name="description" placeholder="Enter your  description here..." required></textarea>
+
+          </div>
+        <fieldset>
+          <legend><span class="number">2</span><font color="#ffb84d">Media</legend>
+	  <div>
+		<font color="#ffb84d">Please select multiple images at once:<br>
+      {% if errors|get_item:'images' %}
+        <div style='color:red;'>{{ errors|get_item:'images' }}</div>
+      {% endif %}
+      <br>
+                <input type="file" name="files" accept="image/*" multiple> <br><br>
+
+	  </div>
+        </fieldset>
+
+	<fieldset>
+          <legend><span class="number">3</span>Ad Detail Category</legend>
+          <label for="detail">Select The Ad's Category:</label>
+        <select id="detail" name="detail">
+              {% for category in categories %}
+              <option value="{{ category.pk }}">{{category.title}}</option>
+              {% endfor %}
+          </optgroup>
+        </fieldset>
+
+
+        <fieldset>
+
+         </select>
+
+         </fieldset>
+
+
+        <button class="submit" type="submit">Post Ad</button>
+      </form>
+
+    </body>
+</html>
