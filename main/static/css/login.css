@@ -17,7 +17,7 @@ button {
     cursor: pointer;
     width: 100%;
     font:bold;
-    font-size: 20px;
+    font-size: 20px; 
 }
 .switch {
   position: relative;
@@ -83,7 +83,8 @@ input:checked + .slider:before {
 	top:0%;
 	right:0%;
 	color:white;
-	font-size:30px
+	font-size:30px;
+	border:0px;
 }
 .sidebar
 {
@@ -93,13 +94,14 @@ input:checked + .slider:before {
     background-color: transparent;
     z-index:10000005;
     width:45px;
+    border:0px;
 }
 img.usericon
 {
     background-color: transparent;
     z-index:1005;
     width:45px;
-    margin:15px;
+    margin:15px; 
     border-radius: 50%;
 }
 button:hover {
@@ -198,12 +200,12 @@ table, th, td {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
+    from {-webkit-transform: scale(0)} 
     to {-webkit-transform: scale(1)}
 }
-
+    
 @keyframes animatezoom {
-    from {transform: scale(0)}
+    from {transform: scale(0)} 
     to {transform: scale(1)}
 }
 
