@@ -24,7 +24,8 @@
 
 </head>
 
-<body>
+
+<body id="top" class="home">
   <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
         {% if request.user.is_authenticated %}
             <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
