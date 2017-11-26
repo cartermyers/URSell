@@ -78,7 +78,7 @@
         <h1 style = "color:black;">Post Your Ad </h1>
 
         <fieldset>
-	  <legend><span class="number">1</span>Your Ad Detail</legend>
+	  <legend style = "color:black;"><span class="number">1</span>Your Ad Detail</legend>
           <div>
 	  <label for="name">Ad Title:</label>
           <input class="input" type="text" id="name" name="adtitle" required>
@@ -89,7 +89,7 @@
             <input type="radio" id="" value="wanting" name="type"><label for="" class="light">I want</label>
 
 
-          <label for="mail">Price $:</label>
+          <label style = "color:black;" for="mail">Price $:</label>
           {% if errors|get_item:'price' %}
             <div style='color:red;'>{{ errors|get_item:'price' }}</div>
           {% endif %}
@@ -99,7 +99,7 @@
           <textarea class="input" rows="6" cols="50" name="description" placeholder="Enter your  description here..." required></textarea>
 
           </div>
-        <fieldset>
+        <fieldset  style = "color:white;">
           <legend><span class="number">2</span><font color="#ffb84d">Media</legend>
 	  <div>
 		<font color="#ffb84d">Please select multiple images at once:<br>
@@ -112,7 +112,7 @@
 	  </div>
         </fieldset>
 
-     <fieldset>
+     <fieldset  style = "color:white;">
           <legend><span class="number">3</span>Ad Detail Category</legend>
           <label for="detail">Select The Ad's Category:</label>
         <select id="detail" name="detail">
