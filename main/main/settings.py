@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8cp!a#zj+mv&^1^7g$d#93u5^t)ql9u5-%r#(8(8c47e=%pv_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cartermyers.pythonanywhere.com']
 
 
 # Application definition
@@ -141,10 +141,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+"""
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     "/static/",
 ]
+"""
 
 # Media files (for us, images uploaded by users)
 

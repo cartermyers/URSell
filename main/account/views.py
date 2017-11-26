@@ -116,7 +116,7 @@ def logout_view(request):
 @login_required
 def send_email_validation(request):
     # send the request
-    current_domain = 'localhost:8000'
+    current_domain = 'cartermyers.pythonanywhere.com'
     message = render_to_string('account/email_verify.html', {
         'username': request.user.username,
         'domain': current_domain,
