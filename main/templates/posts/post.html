@@ -98,10 +98,10 @@
         <fieldset style = "color:white;">
           <legend><span class="number">2</span>Media</legend>
 	  <div>
-		Please select multiple images at once:<input type="file" name="files" multiple> <br><br> 
+		Please select multiple images at once:<br>
       		{% if errors|get_item:'images' %}
-        	<div style='color:red;'>{{ errors|get_item:'images' }}</div>
-      		{% endif %}<br><br>
+        	<div style='color:red;'>{{ errors|get_item:'images' }}</div><br>
+      		{% endif %}
                 <input type="file" name="files" accept="image/*" multiple> <br><br>
 	  </div>
         </fieldset>
