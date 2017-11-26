@@ -45,22 +45,18 @@
 
 			<div class="w3-overlay w3-animate-opacity" onclick="sidebar_close()" style="cursor:pointer" id="myOverlay"></div>
     <!------------------------------------------------------------------------------- Sign up model ------------------------------------------------------------------------------>
-     							<div id="id02" class="modal">
-
-								  <form class="modal-content animate" action="/action_page.php">
+								{% if messages %}
+								{% for message in messages %}
+									<div id="id02" class="modal">
+								  <form class="modal-content animate" action="">
 								    <div class="container">
 								     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-								     <h1 style= "text-align:center;"><label><b>Verification</b></label></h1><hr />
-								      <label><b>Email verification<span class="error" style="color:red;margin-left:15px;">Invalid verification code</span></b></label>
-								      <input type="text" placeholder="Email verification code" name="Vcode" required>
-
-								      <div class="clearfix">
-								       <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-								        <button type="submit" class="signupbtn">Submit change</button>
-								      </div>
+										 <label><span class="error" style="margin-left:15px;">{{ message }}</span></label>
 								    </div>
 								  </form>
 								</div>
+								{% endfor %}
+								{% endif %}
 
 								<script>
 								function sidebar_open() {
@@ -74,7 +70,7 @@
 								    document.getElementById("sidebaricon").style.display = "block";
 								}
 								// Get the modal
-								var modal = document.getElementById('id02');
+								var modal = document.getElementById('id02').style.display='block';
 								// When the user clicks anywhere outside of the modal, close it
 								window.onclick = function(event) {
 									    if (event.target == modal) {
@@ -161,7 +157,7 @@
 
 												{% for post in user_profile.posts_set.all %}
 												<div class="view view-tenth">
-													{% thumbnail post.postimages_set.all.0.image 300x200 crop as thumb %}
+													{% thumbnail post.postimages_set.all.0.image 300x200 upscale crop as thumb %}
 													<img src="{{ thumb.url }}" width="{{ thumb.width }}" alt="Image" height="{{ thumb.height }}" class="img-fluid tm-gallery-img"/>
 							 <div class="mask">
 							 <h2>{{ post.title }}</h2>

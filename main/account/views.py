@@ -129,6 +129,7 @@ def send_email_validation(request):
               'ursell.test@gmail.com', #from
               [request.user.email])  #to
 
+    messages.success(request, "Follow the link in your email to finish the verification.")
     return HttpResponseRedirect(reverse('account:profile', kwargs={'user_id': request.user.pk}))
 
 
