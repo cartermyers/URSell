@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>New Post</title>
+    <title>UR-SALE</title>
     <!-- icon --><link rel="shortcut icon" href="img/Uregina.ico"/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  	{% load static %}
+	{% load static %}
   	{% load dict_get %}
       <!-- load stylesheets -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->	
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400">   	<!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">                		<!-- Font Awesome -->
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">                                      		<!-- Bootstrap style -->
     <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">                                     		<!-- Magnific pop up style -->
     <link rel="stylesheet" href="{% static "css/templatemo-style.css" %}">                                   		<!-- Templatemo style -->
     <link rel="stylesheet" href="{% static "css/login.css" %}">                                     				<!-- login style -->
-    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                     				<!-- other style -->
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}">                                    				<!-- other style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="{% static "css/post2.css" %}">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">							<!-- W3schools font for side bar -->
-
-
+    <link rel="stylesheet" href="{% static "css/post2.css" %}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
+        <body id="top" class="home">
 
-<body id="top" class="home">
-  <!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
-        {% if request.user.is_authenticated %}
-            <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
+<!------------------------------------------------------------------------------- Side Bar ------------------------------------------------------------------------------>
+	  {% if request.user.is_authenticated %}
+		         <button id="sidebaricon" class="sidebar" onclick="sidebar_open()"><img class="sidebar" src="{{ request.user.profile_pic.url }}" alt="Avatar"></button>
 			<div class="w3-sidebar w3-bar-block w3-animate-left" style="top:0px;background-color:rgba(0,0,0,0.4); color:grey; display:none;z-index:100005" id="mySidebar">
 				<button class="login-close" onclick="sidebar_close()">&times;</button>
   				<img class="usericon" src="{{ request.user.profile_pic.url }}" alt="Avatar"><hr color="grey"/>
@@ -56,62 +53,61 @@
 								}
 							</script>
               {% endif %}
- <!------------------------------------------------------------------------------- List of the titles ------------------------------------------------------------------------------>
-        <div class="tm-navbar-container">
-            <nav class="navbar navbar-full navbar-fixed-top bg-inverse">
-                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
-                    &#9776;
-                </button>
-                <div class="collapse navbar-toggleable-sm" id="tmNavbar">
-                    <ul class="nav navbar-nav">
+    
+<!------------------------------------------------------------------------------- top bar ------------------------------------------------------------------------------>
+                <div class="tm-navbar-container">
+                <!-- navbar   -->
+                <nav class="navbar navbar-full navbar-fixed-top">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"> &#9776;</button>
+                    <div class="collapse navbar-toggleable-sm" id="tmNavbar">                     
+                        <ul class="nav navbar-nav">
                         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link external">Home</a></li>
                         <li class="nav-item"><a href="{% url 'posts:ads' %}" class="nav-link external">Most Recent</a></li>
-                        <li class="nav-item"><a href="{% url 'posts:categories' %}" class="nav-link">Categories</a> </li>
-                    </ul>
-                </div>
-            </nav>
-	</div>
-  <!------------------------------------------------------------------------------- New Post ------------------------------------------------------------------------------>
+                        <li class="nav-item"><a href="{% url 'posts:categories' %}" class="nav-link external">Categories</a> </li>
+                        </ul>
+                    </div>
+                </nav>
+              </div>  
+    
+ <!------------------------------------------------------------------------------- main ------------------------------------------------------------------------------>
       <form class="form" action="{% url 'posts:newpost' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-
+      {% csrf_token %}
         <h1 style = "color:black;">Post Your Ad </h1>
-
+        
         <fieldset style = "color:black;">
-	  <legend style = "color:black;"><span class="number">1</span>Your Ad Detail</legend>
+        <legend style = "color:black;"><span class="number">1</span>Your Ad Detail</legend>
 	  <label for="name">Ad Title:</label>
           <input class="input" type="text" id="name" name="adtitle" required>
 
-
+    
 	   <label>Ad Type:</label>
             <input type="radio" id="" value="offering" name="type" checked><label for="" class="light">I am offering</label><br>
             <input type="radio" id="" value="wanting" name="type"><label for="" class="light">I want</label>
-
-
+          
+          
           <label style = "color:black;" for="mail">Price $:</label>
-          {% if errors|get_item:'price' %}
+		 {% if errors|get_item:'price' %}
             <div style='color:red;'>{{ errors|get_item:'price' }}</div>
           {% endif %}
-	         <input type="price" id="price" name="price" required></br>
+	  <input class="input" type="radio" id="" value="" name="price" required><input type="price" id="price" name="price"></br>
 
           <label for="password">Description:</label>
-          <textarea class="input" rows="6" cols="50" name="description" placeholder="Enter your  description here..." required></textarea>
-
-  
-        <fieldset  style = "color:white;">
-          <legend><span class="number">2</span>Media</legend>
-		  <div>
-		Please select multiple images at once:<input type="file" name="files" multiple> <br><br> 
-      {% if errors|get_item:'images' %}
-        <div style='color:red;'>{{ errors|get_item:'images' }}</div>
-      {% endif %}
-      <br>
-                <input type="file" name="files" accept="image/*" multiple> <br><br>
-		</div>
+          <textarea class="input" rows="6" cols="50" placeholder="Enter your  description here..." required></textarea>
         </fieldset>
-
-     <fieldset  style = "color:white;">
-          <legend><span class="number">3</span>Ad Detail Category</legend>
+        
+        <fieldset style = "color:white;">
+          <legend><span class="number">2</span>Media</legend>
+	  <div>
+		Please select multiple images at once:<input type="file" name="files" multiple> <br><br> 
+      		{% if errors|get_item:'images' %}
+        	<div style='color:red;'>{{ errors|get_item:'images' }}</div>
+      		{% endif %}<br><br>
+                <input type="file" name="files" accept="image/*" multiple> <br><br>
+	  </div>
+        </fieldset>
+	
+	<fieldset style = "color:white;">
+        <legend><span class="number">3</span>Ad Detail Category</legend>
           <label for="detail">Select The Ad's Category:</label>
         <select id="detail" name="detail">
               {% for category in categories %}
@@ -119,11 +115,11 @@
               {% endfor %}
           </optgroup>
          </select>
-      </fieldset>
-
+        </fieldset>
+	
         <button class="submit" type="submit">Post Ad</button>
       </form>
- <!-- load JS files -->
+        <!-- load JS files -->
         
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
