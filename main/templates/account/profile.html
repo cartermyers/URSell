@@ -161,7 +161,7 @@
 
 												{% for post in user_profile.posts_set.all %}
 												<div class="view view-tenth">
-													{% thumbnail post.postimages_set.all.0.image 300x200 crop as thumb %}
+													{% thumbnail post.postimages_set.all.0.image 300x200 upscale crop as thumb %}
 													<img src="{{ thumb.url }}" width="{{ thumb.width }}" alt="Image" height="{{ thumb.height }}" class="img-fluid tm-gallery-img"/>
 							 <div class="mask">
 							 <h2>{{ post.title }}</h2>
