@@ -76,12 +76,8 @@
                  			{% csrf_token %}
   							  <div class="imgcontainer">
   							    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
- 							     <img src="{% static "img/unknownuser.jpg" %}" alt="Avatar" class="avatar">
+ 							     <img src="{% static "img/user-sidebar.jpg" %}" alt="Avatar" class="avatar">
  							   </div>
-
-                  {% if login_errors %}
-                    <span class="error" align="center" style="color:red;"><h2>Invalid login!</h2></span>
-                  {% endif %}
 
  							   <div class="container">
  							     <label><b>Username</b></label>
