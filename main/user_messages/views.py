@@ -38,8 +38,8 @@ def mailbox(request):
     trash = sent.filter(trash=True).union(received.filter(trash=True))
 
     #now remove all trash objects from sent and received
-    sent = set(sent).difference(set(trash))
-    received = set(received).difference(set(trash))
+    sent = sent.exclude(trash=True)
+    received = received.exclude(trash=True)
 
     #now order by time
     sent = sent.order_by('-time')
