@@ -23,7 +23,7 @@ class Mail(models.Model):
 
     def delete(self, *args, **kwargs):
         if self.trash:
-            super(Mail, self).delete(*args, **kwargs)
+            self.delete(*args, **kwargs)
         else:
             self.trash = True
             self.save(*args, **kwargs)
