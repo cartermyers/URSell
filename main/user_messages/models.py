@@ -26,7 +26,7 @@ class Mail(models.Model):
             super(Mail, self).delete(*args, **kwargs)
         else:
             self.trash = True
-            # super(Mail, self).save(*args, **kwargs)
+            self.save(*args, **kwargs)
 
     class Meta:
         abstract = True
