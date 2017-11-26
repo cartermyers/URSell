@@ -181,10 +181,13 @@
   {% endfor %}
 	</div>
 <!----------------------------here is the next page--------------------------------------->
-<ul style = "position: fixed; bottom: 0; right:50%; width:500px"class="pagination modal-4">
+
   {% if posts.has_previous %}
+	<ul style = "position: fixed; bottom: 0; right:50%; width:500px"class="pagination modal-4">
       <li><a href="?page={{ posts.previous_page_number }}" class="prev"><i style="color:white;" class="fa fa-chevron-left"></i>Previous</a></li>
-  {% endif %}
+  {% else %}
+	<ul style = "position: fixed;   bottom: 0; left:57%; width:500px"class="pagination modal-4">
+	{% endif %}
 
  {% if posts.has_previous or posts.has_next %}
   {% for i in page_range %}
