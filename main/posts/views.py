@@ -86,7 +86,7 @@ def new_post(request):
         return HttpResponseRedirect(reverse('posts:post', kwargs={'post_id': new_post.pk}))
 
     # render the page with any errors or just a plain form
-    return render(request, 'posts/post2.html', {'errors': errors, 'categories': categories})
+    return render(request, 'posts/post.html', {'errors': errors, 'categories': categories})
 
 @login_required
 def delete_post(request, post_id):
