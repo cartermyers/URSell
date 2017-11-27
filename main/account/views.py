@@ -124,7 +124,7 @@ def send_email_validation(request):
         'token': account_activation_token.make_token(request.user),
     })
 
-    send_mail('URSell Email Validation',    #subject
+    send_mail('URSale Email Validation',    #subject
               message,
               'donotreply.ursale@gmail.com', #from
               [request.user.email])  #to
