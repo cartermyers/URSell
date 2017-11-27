@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8cp!a#zj+mv&^1^7g$d#93u5^t)ql9u5-%r#(8(8c47e=%pv_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = False
 
 ALLOWED_HOSTS = ['cartermyers.pythonanywhere.com']
 
@@ -163,13 +163,6 @@ LOGIN_URL = 'index'  #since user's login at the index
 # Email info (to be used later)
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'donotreply.ursell@gmail.com' #name of email username
-EMAIL_HOST_PASSWORD = 'deadline'
+EMAIL_HOST_USER = 'donotreply.ursale@gmail.com' #name of email username
+EMAIL_HOST_PASSWORD = 'petsname'
 EMAIL_USE_TLS = True
-"""
-EMAIL_HOST = 'smtp.sendgrid.net' #name of mail server
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ursell' #name of email username
-EMAIL_HOST_PASSWORD = 'nicetry'
-EMAIL_USE_TLS = True
-"""
