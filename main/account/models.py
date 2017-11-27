@@ -96,7 +96,7 @@ class User(AbstractUser):
 
     def send_email_notification(self, subject, message):
         if self.validated_email and self.email_notifications:
-            send_mail('URSell: ' + subject,    #subject
+            send_mail('URSale: ' + subject,    #subject
                       message,
                       'donotreply.ursale@gmail.com', #from
                       [self.email])  #to
