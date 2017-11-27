@@ -126,7 +126,7 @@ def send_email_validation(request):
 
     send_mail('URSell Email Validation',    #subject
               message,
-              'ursell.test@gmail.com', #from
+              'donotreply.ursale@gmail.com', #from
               [request.user.email])  #to
 
     messages.success(request, "Follow the link in your email to finish the verification.")
