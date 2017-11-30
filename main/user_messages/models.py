@@ -13,7 +13,7 @@ class Mail(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name='+')
     reciever = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name='+')
 
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(auto_now_add=True)
     subject = models.CharField(max_length=255)
     content = models.TextField()
     trash = models.BooleanField(default=False)
